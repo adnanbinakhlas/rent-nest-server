@@ -11,6 +11,7 @@
     "prepare": "husky",
     "prisma:dev": "prisma migrate dev",
     "prisma:prod": "prisma migrate prod",
+    "prisma:reset": "prisma migrate reset",
     "prisma:generate": "prisma generate",
     "prisma:studio": "prisma studio",
     "prisma:format": "prisma format",

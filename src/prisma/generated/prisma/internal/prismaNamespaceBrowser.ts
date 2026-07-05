@@ -51,12 +51,12 @@ export const AnyNull = runtime.AnyNull
 
 
 export const ModelName = {
-  User: 'User',
   Category: 'Category',
+  Payment: 'Payment',
   Property: 'Property',
   RentalRequest: 'RentalRequest',
-  Payment: 'Payment',
-  Review: 'Review'
+  Review: 'Review',
+  User: 'User'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -75,22 +75,6 @@ export const TransactionIsolationLevel = runtime.makeStrictEnum({
 export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
 
 
-export const UserScalarFieldEnum = {
-  id: 'id',
-  name: 'name',
-  email: 'email',
-  password: 'password',
-  phone: 'phone',
-  profileImg: 'profileImg',
-  role: 'role',
-  status: 'status',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-} as const
-
-export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
-
-
 export const CategoryScalarFieldEnum = {
   id: 'id',
   name: 'name',
@@ -102,6 +86,30 @@ export const CategoryScalarFieldEnum = {
 export type CategoryScalarFieldEnum = (typeof CategoryScalarFieldEnum)[keyof typeof CategoryScalarFieldEnum]
 
 
+export const PaymentScalarFieldEnum = {
+  id: 'id',
+  rentalRequestId: 'rentalRequestId',
+  tenantId: 'tenantId',
+  landlordId: 'landlordId',
+  amount: 'amount',
+  currency: 'currency',
+  stripePaymentIntentId: 'stripePaymentIntentId',
+  stripeChargeId: 'stripeChargeId',
+  stripeCustomerId: 'stripeCustomerId',
+  paymentMethod: 'paymentMethod',
+  receiptUrl: 'receiptUrl',
+  status: 'status',
+  paidAt: 'paidAt',
+  refundedAt: 'refundedAt',
+  refundedAmount: 'refundedAmount',
+  failureReason: 'failureReason',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type PaymentScalarFieldEnum = (typeof PaymentScalarFieldEnum)[keyof typeof PaymentScalarFieldEnum]
+
+
 export const PropertyScalarFieldEnum = {
   id: 'id',
   landlordId: 'landlordId',
@@ -110,14 +118,21 @@ export const PropertyScalarFieldEnum = {
   description: 'description',
   address: 'address',
   city: 'city',
-  rent: 'rent',
+  area: 'area',
+  latitude: 'latitude',
+  longtitude: 'longtitude',
+  monthlyRent: 'monthlyRent',
   securityDeposit: 'securityDeposit',
   bedrooms: 'bedrooms',
   bathrooms: 'bathrooms',
+  floor: 'floor',
+  furnished: 'furnished',
   size: 'size',
+  sizeUnit: 'sizeUnit',
   images: 'images',
   amenities: 'amenities',
   availableFrom: 'availableFrom',
+  available: 'available',
   status: 'status',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -132,35 +147,18 @@ export const RentalRequestScalarFieldEnum = {
   tenantId: 'tenantId',
   landlordId: 'landlordId',
   moveInDate: 'moveInDate',
-  duration: 'duration',
+  rentalDuration: 'rentalDuration',
   message: 'message',
   monthlyRent: 'monthlyRent',
   status: 'status',
+  approvedAt: 'approvedAt',
+  rejectedAt: 'rejectedAt',
+  rejectionReason: 'rejectionReason',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
 
 export type RentalRequestScalarFieldEnum = (typeof RentalRequestScalarFieldEnum)[keyof typeof RentalRequestScalarFieldEnum]
-
-
-export const PaymentScalarFieldEnum = {
-  id: 'id',
-  rentalRequestId: 'rentalRequestId',
-  tenantId: 'tenantId',
-  amount: 'amount',
-  currency: 'currency',
-  stripePaymentIntentId: 'stripePaymentIntentId',
-  stripeChargeId: 'stripeChargeId',
-  stripeCustomerId: 'stripeCustomerId',
-  paymentMethod: 'paymentMethod',
-  receiptUrl: 'receiptUrl',
-  status: 'status',
-  paidAt: 'paidAt',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-} as const
-
-export type PaymentScalarFieldEnum = (typeof PaymentScalarFieldEnum)[keyof typeof PaymentScalarFieldEnum]
 
 
 export const ReviewScalarFieldEnum = {
@@ -175,6 +173,24 @@ export const ReviewScalarFieldEnum = {
 } as const
 
 export type ReviewScalarFieldEnum = (typeof ReviewScalarFieldEnum)[keyof typeof ReviewScalarFieldEnum]
+
+
+export const UserScalarFieldEnum = {
+  id: 'id',
+  fullname: 'fullname',
+  email: 'email',
+  password: 'password',
+  phone: 'phone',
+  avatar: 'avatar',
+  role: 'role',
+  status: 'status',
+  isVerified: 'isVerified',
+  isDeleted: 'isDeleted',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
 
 
 export const SortOrder = {

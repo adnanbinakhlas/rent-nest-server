@@ -1,0 +1,51 @@
+model Payment {
+  id String @id @default(uuid())
+
+  rentalRequestId String @unique @map("rental_request_id")
+
+  tenantId String @map("tenant_id")
+
+  landlordId String @map("landlord_id")
+
+  amount Decimal @db.Decimal(10, 2)
+
+  currency String @default("usd")
+
+  stripePaymentIntentId String @unique @map("stripe_payment_intent_id")
+
+  stripeChargeId String? @map("stripe_charge_id")
+
+  stripeCustomerId String? @map("stripe_customer_id")
+
+  paymentMethod String? @map("payment_method")
+
+  receiptUrl String? @map("receipt_url")
+
+  status PaymentStatus @default(PENDING)
+
+  paidAt DateTime? @map("paid_at")
+
+  refundedAt DateTime? @map("refunded_at")
+
+  refundedAmount Decimal @map("refunded_amount") @db.Decimal(10, 2)
+
+  failureReason String? @map("failure_reason")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  rentalRequest RentalRequest @relation(fields: [rentalRequestId], references: [id], onDelete: Cascade)
+
+  tenant User @relation("TenantPayments", fields: [tenantId], references: [id], onDelete: Cascade)
+
+  landlord User @relation("LandlordPayments", fields: [landlordId], references: [id], onDelete: Cascade)
+
+  @@map("payments")
+}
+
+enum PaymentStatus {
+  PENDING
+  SUCCEEDED
+  FAILED
+  REFUNDED
+}

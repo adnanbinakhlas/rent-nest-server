@@ -1,0 +1,44 @@
+model RentalRequest {
+  id String @id @default(uuid())
+
+  propertyId String @map("property_id")
+  tenantId   String @map("tenant_id")
+  landlordId String @map("landlord_id")
+
+  moveInDate DateTime @map("move_in_date")
+
+  rentalDuration Int @map("rental_duration")
+
+  message String?
+
+  monthlyRent Decimal @map("monthly_rent") @db.Decimal(10, 2)
+
+  status RentalRequestStatus @default(PENDING)
+
+  approvedAt      DateTime? @map("approved_at")
+  rejectedAt      DateTime? @map("rejected_at")
+  rejectionReason String?   @map("rejection_reason")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  property Property @relation(fields: [propertyId], references: [id], onDelete: Cascade)
+
+  tenant User @relation("TenantRequests", fields: [tenantId], references: [id], onDelete: Cascade)
+
+  landlord User @relation("LandlordRequests", fields: [landlordId], references: [id], onDelete: Cascade)
+
+  payment Payment?
+
+  review Review?
+
+  @@map("rental_requests")
+}
+
+enum RentalRequestStatus {
+  PENDING
+  APPROVED
+  REJECTED
+  ACTIVE
+  COMPLETED
+}

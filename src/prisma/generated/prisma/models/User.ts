@@ -26,39 +26,45 @@ export type AggregateUser = {
 
 export type UserMinAggregateOutputType = {
   id: string | null
-  name: string | null
+  fullname: string | null
   email: string | null
   password: string | null
   phone: string | null
-  profileImg: string | null
+  avatar: string | null
   role: $Enums.UserRole | null
   status: $Enums.UserStatus | null
+  isVerified: boolean | null
+  isDeleted: boolean | null
   createdAt: Date | null
   updatedAt: Date | null
 }
 
 export type UserMaxAggregateOutputType = {
   id: string | null
-  name: string | null
+  fullname: string | null
   email: string | null
   password: string | null
   phone: string | null
-  profileImg: string | null
+  avatar: string | null
   role: $Enums.UserRole | null
   status: $Enums.UserStatus | null
+  isVerified: boolean | null
+  isDeleted: boolean | null
   createdAt: Date | null
   updatedAt: Date | null
 }
 
 export type UserCountAggregateOutputType = {
   id: number
-  name: number
+  fullname: number
   email: number
   password: number
   phone: number
-  profileImg: number
+  avatar: number
   role: number
   status: number
+  isVerified: number
+  isDeleted: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -67,39 +73,45 @@ export type UserCountAggregateOutputType = {
 
 export type UserMinAggregateInputType = {
   id?: true
-  name?: true
+  fullname?: true
   email?: true
   password?: true
   phone?: true
-  profileImg?: true
+  avatar?: true
   role?: true
   status?: true
+  isVerified?: true
+  isDeleted?: true
   createdAt?: true
   updatedAt?: true
 }
 
 export type UserMaxAggregateInputType = {
   id?: true
-  name?: true
+  fullname?: true
   email?: true
   password?: true
   phone?: true
-  profileImg?: true
+  avatar?: true
   role?: true
   status?: true
+  isVerified?: true
+  isDeleted?: true
   createdAt?: true
   updatedAt?: true
 }
 
 export type UserCountAggregateInputType = {
   id?: true
-  name?: true
+  fullname?: true
   email?: true
   password?: true
   phone?: true
-  profileImg?: true
+  avatar?: true
   role?: true
   status?: true
+  isVerified?: true
+  isDeleted?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -179,13 +191,15 @@ export type UserGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
 
 export type UserGroupByOutputType = {
   id: string
-  name: string
+  fullname: string
   email: string
   password: string
   phone: string | null
-  profileImg: string | null
+  avatar: string | null
   role: $Enums.UserRole
   status: $Enums.UserStatus
+  isVerified: boolean
+  isDeleted: boolean
   createdAt: Date
   updatedAt: Date
   _count: UserCountAggregateOutputType | null
@@ -213,37 +227,43 @@ export type UserWhereInput = {
   OR?: Prisma.UserWhereInput[]
   NOT?: Prisma.UserWhereInput | Prisma.UserWhereInput[]
   id?: Prisma.StringFilter<"User"> | string
-  name?: Prisma.StringFilter<"User"> | string
+  fullname?: Prisma.StringFilter<"User"> | string
   email?: Prisma.StringFilter<"User"> | string
   password?: Prisma.StringFilter<"User"> | string
   phone?: Prisma.StringNullableFilter<"User"> | string | null
-  profileImg?: Prisma.StringNullableFilter<"User"> | string | null
+  avatar?: Prisma.StringNullableFilter<"User"> | string | null
   role?: Prisma.EnumUserRoleFilter<"User"> | $Enums.UserRole
   status?: Prisma.EnumUserStatusFilter<"User"> | $Enums.UserStatus
+  isVerified?: Prisma.BoolFilter<"User"> | boolean
+  isDeleted?: Prisma.BoolFilter<"User"> | boolean
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
   properties?: Prisma.PropertyListRelationFilter
   tenantRequests?: Prisma.RentalRequestListRelationFilter
   landlordRequests?: Prisma.RentalRequestListRelationFilter
-  payments?: Prisma.PaymentListRelationFilter
+  tenantPayments?: Prisma.PaymentListRelationFilter
+  landlordPayments?: Prisma.PaymentListRelationFilter
   reviews?: Prisma.ReviewListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
   id?: Prisma.SortOrder
-  name?: Prisma.SortOrder
+  fullname?: Prisma.SortOrder
   email?: Prisma.SortOrder
   password?: Prisma.SortOrder
   phone?: Prisma.SortOrderInput | Prisma.SortOrder
-  profileImg?: Prisma.SortOrderInput | Prisma.SortOrder
+  avatar?: Prisma.SortOrderInput | Prisma.SortOrder
   role?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  isVerified?: Prisma.SortOrder
+  isDeleted?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   properties?: Prisma.PropertyOrderByRelationAggregateInput
   tenantRequests?: Prisma.RentalRequestOrderByRelationAggregateInput
   landlordRequests?: Prisma.RentalRequestOrderByRelationAggregateInput
-  payments?: Prisma.PaymentOrderByRelationAggregateInput
+  tenantPayments?: Prisma.PaymentOrderByRelationAggregateInput
+  landlordPayments?: Prisma.PaymentOrderByRelationAggregateInput
   reviews?: Prisma.ReviewOrderByRelationAggregateInput
 }
 
@@ -253,30 +273,35 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.UserWhereInput | Prisma.UserWhereInput[]
   OR?: Prisma.UserWhereInput[]
   NOT?: Prisma.UserWhereInput | Prisma.UserWhereInput[]
-  name?: Prisma.StringFilter<"User"> | string
+  fullname?: Prisma.StringFilter<"User"> | string
   password?: Prisma.StringFilter<"User"> | string
   phone?: Prisma.StringNullableFilter<"User"> | string | null
-  profileImg?: Prisma.StringNullableFilter<"User"> | string | null
+  avatar?: Prisma.StringNullableFilter<"User"> | string | null
   role?: Prisma.EnumUserRoleFilter<"User"> | $Enums.UserRole
   status?: Prisma.EnumUserStatusFilter<"User"> | $Enums.UserStatus
+  isVerified?: Prisma.BoolFilter<"User"> | boolean
+  isDeleted?: Prisma.BoolFilter<"User"> | boolean
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
   properties?: Prisma.PropertyListRelationFilter
   tenantRequests?: Prisma.RentalRequestListRelationFilter
   landlordRequests?: Prisma.RentalRequestListRelationFilter
-  payments?: Prisma.PaymentListRelationFilter
+  tenantPayments?: Prisma.PaymentListRelationFilter
+  landlordPayments?: Prisma.PaymentListRelationFilter
   reviews?: Prisma.ReviewListRelationFilter
 }, "id" | "email">
 
 export type UserOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
-  name?: Prisma.SortOrder
+  fullname?: Prisma.SortOrder
   email?: Prisma.SortOrder
   password?: Prisma.SortOrder
   phone?: Prisma.SortOrderInput | Prisma.SortOrder
-  profileImg?: Prisma.SortOrderInput | Prisma.SortOrder
+  avatar?: Prisma.SortOrderInput | Prisma.SortOrder
   role?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  isVerified?: Prisma.SortOrder
+  isDeleted?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.UserCountOrderByAggregateInput
@@ -289,165 +314,146 @@ export type UserScalarWhereWithAggregatesInput = {
   OR?: Prisma.UserScalarWhereWithAggregatesInput[]
   NOT?: Prisma.UserScalarWhereWithAggregatesInput | Prisma.UserScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"User"> | string
-  name?: Prisma.StringWithAggregatesFilter<"User"> | string
+  fullname?: Prisma.StringWithAggregatesFilter<"User"> | string
   email?: Prisma.StringWithAggregatesFilter<"User"> | string
   password?: Prisma.StringWithAggregatesFilter<"User"> | string
   phone?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
-  profileImg?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  avatar?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   role?: Prisma.EnumUserRoleWithAggregatesFilter<"User"> | $Enums.UserRole
   status?: Prisma.EnumUserStatusWithAggregatesFilter<"User"> | $Enums.UserStatus
+  isVerified?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
+  isDeleted?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
 }
 
 export type UserCreateInput = {
   id?: string
-  name: string
+  fullname: string
   email: string
   password: string
   phone?: string | null
-  profileImg?: string | null
+  avatar?: string | null
   role: $Enums.UserRole
   status?: $Enums.UserStatus
+  isVerified?: boolean
+  isDeleted?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   properties?: Prisma.PropertyCreateNestedManyWithoutLandlordInput
   tenantRequests?: Prisma.RentalRequestCreateNestedManyWithoutTenantInput
   landlordRequests?: Prisma.RentalRequestCreateNestedManyWithoutLandlordInput
-  payments?: Prisma.PaymentCreateNestedManyWithoutTenantInput
+  tenantPayments?: Prisma.PaymentCreateNestedManyWithoutTenantInput
+  landlordPayments?: Prisma.PaymentCreateNestedManyWithoutLandlordInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutTenantInput
 }
 
 export type UserUncheckedCreateInput = {
   id?: string
-  name: string
+  fullname: string
   email: string
   password: string
   phone?: string | null
-  profileImg?: string | null
+  avatar?: string | null
   role: $Enums.UserRole
   status?: $Enums.UserStatus
+  isVerified?: boolean
+  isDeleted?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   properties?: Prisma.PropertyUncheckedCreateNestedManyWithoutLandlordInput
   tenantRequests?: Prisma.RentalRequestUncheckedCreateNestedManyWithoutTenantInput
   landlordRequests?: Prisma.RentalRequestUncheckedCreateNestedManyWithoutLandlordInput
-  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutTenantInput
+  tenantPayments?: Prisma.PaymentUncheckedCreateNestedManyWithoutTenantInput
+  landlordPayments?: Prisma.PaymentUncheckedCreateNestedManyWithoutLandlordInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type UserUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
+  fullname?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  profileImg?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   properties?: Prisma.PropertyUpdateManyWithoutLandlordNestedInput
   tenantRequests?: Prisma.RentalRequestUpdateManyWithoutTenantNestedInput
   landlordRequests?: Prisma.RentalRequestUpdateManyWithoutLandlordNestedInput
-  payments?: Prisma.PaymentUpdateManyWithoutTenantNestedInput
+  tenantPayments?: Prisma.PaymentUpdateManyWithoutTenantNestedInput
+  landlordPayments?: Prisma.PaymentUpdateManyWithoutLandlordNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutTenantNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
+  fullname?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  profileImg?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   properties?: Prisma.PropertyUncheckedUpdateManyWithoutLandlordNestedInput
   tenantRequests?: Prisma.RentalRequestUncheckedUpdateManyWithoutTenantNestedInput
   landlordRequests?: Prisma.RentalRequestUncheckedUpdateManyWithoutLandlordNestedInput
-  payments?: Prisma.PaymentUncheckedUpdateManyWithoutTenantNestedInput
+  tenantPayments?: Prisma.PaymentUncheckedUpdateManyWithoutTenantNestedInput
+  landlordPayments?: Prisma.PaymentUncheckedUpdateManyWithoutLandlordNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type UserCreateManyInput = {
   id?: string
-  name: string
+  fullname: string
   email: string
   password: string
   phone?: string | null
-  profileImg?: string | null
+  avatar?: string | null
   role: $Enums.UserRole
   status?: $Enums.UserStatus
+  isVerified?: boolean
+  isDeleted?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
 }
 
 export type UserUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
+  fullname?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  profileImg?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type UserUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
+  fullname?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  profileImg?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-}
-
-export type UserCountOrderByAggregateInput = {
-  id?: Prisma.SortOrder
-  name?: Prisma.SortOrder
-  email?: Prisma.SortOrder
-  password?: Prisma.SortOrder
-  phone?: Prisma.SortOrder
-  profileImg?: Prisma.SortOrder
-  role?: Prisma.SortOrder
-  status?: Prisma.SortOrder
-  createdAt?: Prisma.SortOrder
-  updatedAt?: Prisma.SortOrder
-}
-
-export type UserMaxOrderByAggregateInput = {
-  id?: Prisma.SortOrder
-  name?: Prisma.SortOrder
-  email?: Prisma.SortOrder
-  password?: Prisma.SortOrder
-  phone?: Prisma.SortOrder
-  profileImg?: Prisma.SortOrder
-  role?: Prisma.SortOrder
-  status?: Prisma.SortOrder
-  createdAt?: Prisma.SortOrder
-  updatedAt?: Prisma.SortOrder
-}
-
-export type UserMinOrderByAggregateInput = {
-  id?: Prisma.SortOrder
-  name?: Prisma.SortOrder
-  email?: Prisma.SortOrder
-  password?: Prisma.SortOrder
-  phone?: Prisma.SortOrder
-  profileImg?: Prisma.SortOrder
-  role?: Prisma.SortOrder
-  status?: Prisma.SortOrder
-  createdAt?: Prisma.SortOrder
-  updatedAt?: Prisma.SortOrder
 }
 
 export type UserScalarRelationFilter = {
@@ -455,24 +461,77 @@ export type UserScalarRelationFilter = {
   isNot?: Prisma.UserWhereInput
 }
 
-export type StringFieldUpdateOperationsInput = {
-  set?: string
+export type UserCountOrderByAggregateInput = {
+  id?: Prisma.SortOrder
+  fullname?: Prisma.SortOrder
+  email?: Prisma.SortOrder
+  password?: Prisma.SortOrder
+  phone?: Prisma.SortOrder
+  avatar?: Prisma.SortOrder
+  role?: Prisma.SortOrder
+  status?: Prisma.SortOrder
+  isVerified?: Prisma.SortOrder
+  isDeleted?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
-export type NullableStringFieldUpdateOperationsInput = {
-  set?: string | null
+export type UserMaxOrderByAggregateInput = {
+  id?: Prisma.SortOrder
+  fullname?: Prisma.SortOrder
+  email?: Prisma.SortOrder
+  password?: Prisma.SortOrder
+  phone?: Prisma.SortOrder
+  avatar?: Prisma.SortOrder
+  role?: Prisma.SortOrder
+  status?: Prisma.SortOrder
+  isVerified?: Prisma.SortOrder
+  isDeleted?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
-export type EnumUserRoleFieldUpdateOperationsInput = {
-  set?: $Enums.UserRole
+export type UserMinOrderByAggregateInput = {
+  id?: Prisma.SortOrder
+  fullname?: Prisma.SortOrder
+  email?: Prisma.SortOrder
+  password?: Prisma.SortOrder
+  phone?: Prisma.SortOrder
+  avatar?: Prisma.SortOrder
+  role?: Prisma.SortOrder
+  status?: Prisma.SortOrder
+  isVerified?: Prisma.SortOrder
+  isDeleted?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
-export type EnumUserStatusFieldUpdateOperationsInput = {
-  set?: $Enums.UserStatus
+export type UserCreateNestedOneWithoutTenantPaymentsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutTenantPaymentsInput, Prisma.UserUncheckedCreateWithoutTenantPaymentsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutTenantPaymentsInput
+  connect?: Prisma.UserWhereUniqueInput
 }
 
-export type DateTimeFieldUpdateOperationsInput = {
-  set?: Date | string
+export type UserCreateNestedOneWithoutLandlordPaymentsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutLandlordPaymentsInput, Prisma.UserUncheckedCreateWithoutLandlordPaymentsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutLandlordPaymentsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutTenantPaymentsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutTenantPaymentsInput, Prisma.UserUncheckedCreateWithoutTenantPaymentsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutTenantPaymentsInput
+  upsert?: Prisma.UserUpsertWithoutTenantPaymentsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutTenantPaymentsInput, Prisma.UserUpdateWithoutTenantPaymentsInput>, Prisma.UserUncheckedUpdateWithoutTenantPaymentsInput>
+}
+
+export type UserUpdateOneRequiredWithoutLandlordPaymentsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutLandlordPaymentsInput, Prisma.UserUncheckedCreateWithoutLandlordPaymentsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutLandlordPaymentsInput
+  upsert?: Prisma.UserUpsertWithoutLandlordPaymentsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutLandlordPaymentsInput, Prisma.UserUpdateWithoutLandlordPaymentsInput>, Prisma.UserUncheckedUpdateWithoutLandlordPaymentsInput>
 }
 
 export type UserCreateNestedOneWithoutPropertiesInput = {
@@ -517,20 +576,6 @@ export type UserUpdateOneRequiredWithoutLandlordRequestsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutLandlordRequestsInput, Prisma.UserUpdateWithoutLandlordRequestsInput>, Prisma.UserUncheckedUpdateWithoutLandlordRequestsInput>
 }
 
-export type UserCreateNestedOneWithoutPaymentsInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutPaymentsInput, Prisma.UserUncheckedCreateWithoutPaymentsInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutPaymentsInput
-  connect?: Prisma.UserWhereUniqueInput
-}
-
-export type UserUpdateOneRequiredWithoutPaymentsNestedInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutPaymentsInput, Prisma.UserUncheckedCreateWithoutPaymentsInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutPaymentsInput
-  upsert?: Prisma.UserUpsertWithoutPaymentsInput
-  connect?: Prisma.UserWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutPaymentsInput, Prisma.UserUpdateWithoutPaymentsInput>, Prisma.UserUncheckedUpdateWithoutPaymentsInput>
-}
-
 export type UserCreateNestedOneWithoutReviewsInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutReviewsInput, Prisma.UserUncheckedCreateWithoutReviewsInput>
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutReviewsInput
@@ -545,37 +590,243 @@ export type UserUpdateOneRequiredWithoutReviewsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutReviewsInput, Prisma.UserUpdateWithoutReviewsInput>, Prisma.UserUncheckedUpdateWithoutReviewsInput>
 }
 
-export type UserCreateWithoutPropertiesInput = {
+export type EnumUserRoleFieldUpdateOperationsInput = {
+  set?: $Enums.UserRole
+}
+
+export type EnumUserStatusFieldUpdateOperationsInput = {
+  set?: $Enums.UserStatus
+}
+
+export type UserCreateWithoutTenantPaymentsInput = {
   id?: string
-  name: string
+  fullname: string
   email: string
   password: string
   phone?: string | null
-  profileImg?: string | null
+  avatar?: string | null
   role: $Enums.UserRole
   status?: $Enums.UserStatus
+  isVerified?: boolean
+  isDeleted?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  properties?: Prisma.PropertyCreateNestedManyWithoutLandlordInput
+  tenantRequests?: Prisma.RentalRequestCreateNestedManyWithoutTenantInput
+  landlordRequests?: Prisma.RentalRequestCreateNestedManyWithoutLandlordInput
+  landlordPayments?: Prisma.PaymentCreateNestedManyWithoutLandlordInput
+  reviews?: Prisma.ReviewCreateNestedManyWithoutTenantInput
+}
+
+export type UserUncheckedCreateWithoutTenantPaymentsInput = {
+  id?: string
+  fullname: string
+  email: string
+  password: string
+  phone?: string | null
+  avatar?: string | null
+  role: $Enums.UserRole
+  status?: $Enums.UserStatus
+  isVerified?: boolean
+  isDeleted?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  properties?: Prisma.PropertyUncheckedCreateNestedManyWithoutLandlordInput
+  tenantRequests?: Prisma.RentalRequestUncheckedCreateNestedManyWithoutTenantInput
+  landlordRequests?: Prisma.RentalRequestUncheckedCreateNestedManyWithoutLandlordInput
+  landlordPayments?: Prisma.PaymentUncheckedCreateNestedManyWithoutLandlordInput
+  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutTenantInput
+}
+
+export type UserCreateOrConnectWithoutTenantPaymentsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutTenantPaymentsInput, Prisma.UserUncheckedCreateWithoutTenantPaymentsInput>
+}
+
+export type UserCreateWithoutLandlordPaymentsInput = {
+  id?: string
+  fullname: string
+  email: string
+  password: string
+  phone?: string | null
+  avatar?: string | null
+  role: $Enums.UserRole
+  status?: $Enums.UserStatus
+  isVerified?: boolean
+  isDeleted?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  properties?: Prisma.PropertyCreateNestedManyWithoutLandlordInput
+  tenantRequests?: Prisma.RentalRequestCreateNestedManyWithoutTenantInput
+  landlordRequests?: Prisma.RentalRequestCreateNestedManyWithoutLandlordInput
+  tenantPayments?: Prisma.PaymentCreateNestedManyWithoutTenantInput
+  reviews?: Prisma.ReviewCreateNestedManyWithoutTenantInput
+}
+
+export type UserUncheckedCreateWithoutLandlordPaymentsInput = {
+  id?: string
+  fullname: string
+  email: string
+  password: string
+  phone?: string | null
+  avatar?: string | null
+  role: $Enums.UserRole
+  status?: $Enums.UserStatus
+  isVerified?: boolean
+  isDeleted?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  properties?: Prisma.PropertyUncheckedCreateNestedManyWithoutLandlordInput
+  tenantRequests?: Prisma.RentalRequestUncheckedCreateNestedManyWithoutTenantInput
+  landlordRequests?: Prisma.RentalRequestUncheckedCreateNestedManyWithoutLandlordInput
+  tenantPayments?: Prisma.PaymentUncheckedCreateNestedManyWithoutTenantInput
+  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutTenantInput
+}
+
+export type UserCreateOrConnectWithoutLandlordPaymentsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutLandlordPaymentsInput, Prisma.UserUncheckedCreateWithoutLandlordPaymentsInput>
+}
+
+export type UserUpsertWithoutTenantPaymentsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutTenantPaymentsInput, Prisma.UserUncheckedUpdateWithoutTenantPaymentsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutTenantPaymentsInput, Prisma.UserUncheckedCreateWithoutTenantPaymentsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutTenantPaymentsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutTenantPaymentsInput, Prisma.UserUncheckedUpdateWithoutTenantPaymentsInput>
+}
+
+export type UserUpdateWithoutTenantPaymentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  fullname?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  properties?: Prisma.PropertyUpdateManyWithoutLandlordNestedInput
+  tenantRequests?: Prisma.RentalRequestUpdateManyWithoutTenantNestedInput
+  landlordRequests?: Prisma.RentalRequestUpdateManyWithoutLandlordNestedInput
+  landlordPayments?: Prisma.PaymentUpdateManyWithoutLandlordNestedInput
+  reviews?: Prisma.ReviewUpdateManyWithoutTenantNestedInput
+}
+
+export type UserUncheckedUpdateWithoutTenantPaymentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  fullname?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  properties?: Prisma.PropertyUncheckedUpdateManyWithoutLandlordNestedInput
+  tenantRequests?: Prisma.RentalRequestUncheckedUpdateManyWithoutTenantNestedInput
+  landlordRequests?: Prisma.RentalRequestUncheckedUpdateManyWithoutLandlordNestedInput
+  landlordPayments?: Prisma.PaymentUncheckedUpdateManyWithoutLandlordNestedInput
+  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutTenantNestedInput
+}
+
+export type UserUpsertWithoutLandlordPaymentsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutLandlordPaymentsInput, Prisma.UserUncheckedUpdateWithoutLandlordPaymentsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutLandlordPaymentsInput, Prisma.UserUncheckedCreateWithoutLandlordPaymentsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutLandlordPaymentsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutLandlordPaymentsInput, Prisma.UserUncheckedUpdateWithoutLandlordPaymentsInput>
+}
+
+export type UserUpdateWithoutLandlordPaymentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  fullname?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  properties?: Prisma.PropertyUpdateManyWithoutLandlordNestedInput
+  tenantRequests?: Prisma.RentalRequestUpdateManyWithoutTenantNestedInput
+  landlordRequests?: Prisma.RentalRequestUpdateManyWithoutLandlordNestedInput
+  tenantPayments?: Prisma.PaymentUpdateManyWithoutTenantNestedInput
+  reviews?: Prisma.ReviewUpdateManyWithoutTenantNestedInput
+}
+
+export type UserUncheckedUpdateWithoutLandlordPaymentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  fullname?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  properties?: Prisma.PropertyUncheckedUpdateManyWithoutLandlordNestedInput
+  tenantRequests?: Prisma.RentalRequestUncheckedUpdateManyWithoutTenantNestedInput
+  landlordRequests?: Prisma.RentalRequestUncheckedUpdateManyWithoutLandlordNestedInput
+  tenantPayments?: Prisma.PaymentUncheckedUpdateManyWithoutTenantNestedInput
+  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutTenantNestedInput
+}
+
+export type UserCreateWithoutPropertiesInput = {
+  id?: string
+  fullname: string
+  email: string
+  password: string
+  phone?: string | null
+  avatar?: string | null
+  role: $Enums.UserRole
+  status?: $Enums.UserStatus
+  isVerified?: boolean
+  isDeleted?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   tenantRequests?: Prisma.RentalRequestCreateNestedManyWithoutTenantInput
   landlordRequests?: Prisma.RentalRequestCreateNestedManyWithoutLandlordInput
-  payments?: Prisma.PaymentCreateNestedManyWithoutTenantInput
+  tenantPayments?: Prisma.PaymentCreateNestedManyWithoutTenantInput
+  landlordPayments?: Prisma.PaymentCreateNestedManyWithoutLandlordInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutTenantInput
 }
 
 export type UserUncheckedCreateWithoutPropertiesInput = {
   id?: string
-  name: string
+  fullname: string
   email: string
   password: string
   phone?: string | null
-  profileImg?: string | null
+  avatar?: string | null
   role: $Enums.UserRole
   status?: $Enums.UserStatus
+  isVerified?: boolean
+  isDeleted?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   tenantRequests?: Prisma.RentalRequestUncheckedCreateNestedManyWithoutTenantInput
   landlordRequests?: Prisma.RentalRequestUncheckedCreateNestedManyWithoutLandlordInput
-  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutTenantInput
+  tenantPayments?: Prisma.PaymentUncheckedCreateNestedManyWithoutTenantInput
+  landlordPayments?: Prisma.PaymentUncheckedCreateNestedManyWithoutLandlordInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutTenantInput
 }
 
@@ -597,69 +848,81 @@ export type UserUpdateToOneWithWhereWithoutPropertiesInput = {
 
 export type UserUpdateWithoutPropertiesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
+  fullname?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  profileImg?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenantRequests?: Prisma.RentalRequestUpdateManyWithoutTenantNestedInput
   landlordRequests?: Prisma.RentalRequestUpdateManyWithoutLandlordNestedInput
-  payments?: Prisma.PaymentUpdateManyWithoutTenantNestedInput
+  tenantPayments?: Prisma.PaymentUpdateManyWithoutTenantNestedInput
+  landlordPayments?: Prisma.PaymentUpdateManyWithoutLandlordNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutTenantNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPropertiesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
+  fullname?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  profileImg?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenantRequests?: Prisma.RentalRequestUncheckedUpdateManyWithoutTenantNestedInput
   landlordRequests?: Prisma.RentalRequestUncheckedUpdateManyWithoutLandlordNestedInput
-  payments?: Prisma.PaymentUncheckedUpdateManyWithoutTenantNestedInput
+  tenantPayments?: Prisma.PaymentUncheckedUpdateManyWithoutTenantNestedInput
+  landlordPayments?: Prisma.PaymentUncheckedUpdateManyWithoutLandlordNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type UserCreateWithoutTenantRequestsInput = {
   id?: string
-  name: string
+  fullname: string
   email: string
   password: string
   phone?: string | null
-  profileImg?: string | null
+  avatar?: string | null
   role: $Enums.UserRole
   status?: $Enums.UserStatus
+  isVerified?: boolean
+  isDeleted?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   properties?: Prisma.PropertyCreateNestedManyWithoutLandlordInput
   landlordRequests?: Prisma.RentalRequestCreateNestedManyWithoutLandlordInput
-  payments?: Prisma.PaymentCreateNestedManyWithoutTenantInput
+  tenantPayments?: Prisma.PaymentCreateNestedManyWithoutTenantInput
+  landlordPayments?: Prisma.PaymentCreateNestedManyWithoutLandlordInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutTenantInput
 }
 
 export type UserUncheckedCreateWithoutTenantRequestsInput = {
   id?: string
-  name: string
+  fullname: string
   email: string
   password: string
   phone?: string | null
-  profileImg?: string | null
+  avatar?: string | null
   role: $Enums.UserRole
   status?: $Enums.UserStatus
+  isVerified?: boolean
+  isDeleted?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   properties?: Prisma.PropertyUncheckedCreateNestedManyWithoutLandlordInput
   landlordRequests?: Prisma.RentalRequestUncheckedCreateNestedManyWithoutLandlordInput
-  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutTenantInput
+  tenantPayments?: Prisma.PaymentUncheckedCreateNestedManyWithoutTenantInput
+  landlordPayments?: Prisma.PaymentUncheckedCreateNestedManyWithoutLandlordInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutTenantInput
 }
 
@@ -670,35 +933,41 @@ export type UserCreateOrConnectWithoutTenantRequestsInput = {
 
 export type UserCreateWithoutLandlordRequestsInput = {
   id?: string
-  name: string
+  fullname: string
   email: string
   password: string
   phone?: string | null
-  profileImg?: string | null
+  avatar?: string | null
   role: $Enums.UserRole
   status?: $Enums.UserStatus
+  isVerified?: boolean
+  isDeleted?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   properties?: Prisma.PropertyCreateNestedManyWithoutLandlordInput
   tenantRequests?: Prisma.RentalRequestCreateNestedManyWithoutTenantInput
-  payments?: Prisma.PaymentCreateNestedManyWithoutTenantInput
+  tenantPayments?: Prisma.PaymentCreateNestedManyWithoutTenantInput
+  landlordPayments?: Prisma.PaymentCreateNestedManyWithoutLandlordInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutTenantInput
 }
 
 export type UserUncheckedCreateWithoutLandlordRequestsInput = {
   id?: string
-  name: string
+  fullname: string
   email: string
   password: string
   phone?: string | null
-  profileImg?: string | null
+  avatar?: string | null
   role: $Enums.UserRole
   status?: $Enums.UserStatus
+  isVerified?: boolean
+  isDeleted?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   properties?: Prisma.PropertyUncheckedCreateNestedManyWithoutLandlordInput
   tenantRequests?: Prisma.RentalRequestUncheckedCreateNestedManyWithoutTenantInput
-  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutTenantInput
+  tenantPayments?: Prisma.PaymentUncheckedCreateNestedManyWithoutTenantInput
+  landlordPayments?: Prisma.PaymentUncheckedCreateNestedManyWithoutLandlordInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutTenantInput
 }
 
@@ -720,35 +989,41 @@ export type UserUpdateToOneWithWhereWithoutTenantRequestsInput = {
 
 export type UserUpdateWithoutTenantRequestsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
+  fullname?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  profileImg?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   properties?: Prisma.PropertyUpdateManyWithoutLandlordNestedInput
   landlordRequests?: Prisma.RentalRequestUpdateManyWithoutLandlordNestedInput
-  payments?: Prisma.PaymentUpdateManyWithoutTenantNestedInput
+  tenantPayments?: Prisma.PaymentUpdateManyWithoutTenantNestedInput
+  landlordPayments?: Prisma.PaymentUpdateManyWithoutLandlordNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutTenantNestedInput
 }
 
 export type UserUncheckedUpdateWithoutTenantRequestsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
+  fullname?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  profileImg?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   properties?: Prisma.PropertyUncheckedUpdateManyWithoutLandlordNestedInput
   landlordRequests?: Prisma.RentalRequestUncheckedUpdateManyWithoutLandlordNestedInput
-  payments?: Prisma.PaymentUncheckedUpdateManyWithoutTenantNestedInput
+  tenantPayments?: Prisma.PaymentUncheckedUpdateManyWithoutTenantNestedInput
+  landlordPayments?: Prisma.PaymentUncheckedUpdateManyWithoutLandlordNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutTenantNestedInput
 }
 
@@ -765,154 +1040,82 @@ export type UserUpdateToOneWithWhereWithoutLandlordRequestsInput = {
 
 export type UserUpdateWithoutLandlordRequestsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
+  fullname?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  profileImg?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   properties?: Prisma.PropertyUpdateManyWithoutLandlordNestedInput
   tenantRequests?: Prisma.RentalRequestUpdateManyWithoutTenantNestedInput
-  payments?: Prisma.PaymentUpdateManyWithoutTenantNestedInput
+  tenantPayments?: Prisma.PaymentUpdateManyWithoutTenantNestedInput
+  landlordPayments?: Prisma.PaymentUpdateManyWithoutLandlordNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutTenantNestedInput
 }
 
 export type UserUncheckedUpdateWithoutLandlordRequestsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
+  fullname?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  profileImg?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   properties?: Prisma.PropertyUncheckedUpdateManyWithoutLandlordNestedInput
   tenantRequests?: Prisma.RentalRequestUncheckedUpdateManyWithoutTenantNestedInput
-  payments?: Prisma.PaymentUncheckedUpdateManyWithoutTenantNestedInput
-  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutTenantNestedInput
-}
-
-export type UserCreateWithoutPaymentsInput = {
-  id?: string
-  name: string
-  email: string
-  password: string
-  phone?: string | null
-  profileImg?: string | null
-  role: $Enums.UserRole
-  status?: $Enums.UserStatus
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  properties?: Prisma.PropertyCreateNestedManyWithoutLandlordInput
-  tenantRequests?: Prisma.RentalRequestCreateNestedManyWithoutTenantInput
-  landlordRequests?: Prisma.RentalRequestCreateNestedManyWithoutLandlordInput
-  reviews?: Prisma.ReviewCreateNestedManyWithoutTenantInput
-}
-
-export type UserUncheckedCreateWithoutPaymentsInput = {
-  id?: string
-  name: string
-  email: string
-  password: string
-  phone?: string | null
-  profileImg?: string | null
-  role: $Enums.UserRole
-  status?: $Enums.UserStatus
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  properties?: Prisma.PropertyUncheckedCreateNestedManyWithoutLandlordInput
-  tenantRequests?: Prisma.RentalRequestUncheckedCreateNestedManyWithoutTenantInput
-  landlordRequests?: Prisma.RentalRequestUncheckedCreateNestedManyWithoutLandlordInput
-  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutTenantInput
-}
-
-export type UserCreateOrConnectWithoutPaymentsInput = {
-  where: Prisma.UserWhereUniqueInput
-  create: Prisma.XOR<Prisma.UserCreateWithoutPaymentsInput, Prisma.UserUncheckedCreateWithoutPaymentsInput>
-}
-
-export type UserUpsertWithoutPaymentsInput = {
-  update: Prisma.XOR<Prisma.UserUpdateWithoutPaymentsInput, Prisma.UserUncheckedUpdateWithoutPaymentsInput>
-  create: Prisma.XOR<Prisma.UserCreateWithoutPaymentsInput, Prisma.UserUncheckedCreateWithoutPaymentsInput>
-  where?: Prisma.UserWhereInput
-}
-
-export type UserUpdateToOneWithWhereWithoutPaymentsInput = {
-  where?: Prisma.UserWhereInput
-  data: Prisma.XOR<Prisma.UserUpdateWithoutPaymentsInput, Prisma.UserUncheckedUpdateWithoutPaymentsInput>
-}
-
-export type UserUpdateWithoutPaymentsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  email?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
-  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  profileImg?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
-  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  properties?: Prisma.PropertyUpdateManyWithoutLandlordNestedInput
-  tenantRequests?: Prisma.RentalRequestUpdateManyWithoutTenantNestedInput
-  landlordRequests?: Prisma.RentalRequestUpdateManyWithoutLandlordNestedInput
-  reviews?: Prisma.ReviewUpdateManyWithoutTenantNestedInput
-}
-
-export type UserUncheckedUpdateWithoutPaymentsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  email?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
-  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  profileImg?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
-  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  properties?: Prisma.PropertyUncheckedUpdateManyWithoutLandlordNestedInput
-  tenantRequests?: Prisma.RentalRequestUncheckedUpdateManyWithoutTenantNestedInput
-  landlordRequests?: Prisma.RentalRequestUncheckedUpdateManyWithoutLandlordNestedInput
+  tenantPayments?: Prisma.PaymentUncheckedUpdateManyWithoutTenantNestedInput
+  landlordPayments?: Prisma.PaymentUncheckedUpdateManyWithoutLandlordNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 export type UserCreateWithoutReviewsInput = {
   id?: string
-  name: string
+  fullname: string
   email: string
   password: string
   phone?: string | null
-  profileImg?: string | null
+  avatar?: string | null
   role: $Enums.UserRole
   status?: $Enums.UserStatus
+  isVerified?: boolean
+  isDeleted?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   properties?: Prisma.PropertyCreateNestedManyWithoutLandlordInput
   tenantRequests?: Prisma.RentalRequestCreateNestedManyWithoutTenantInput
   landlordRequests?: Prisma.RentalRequestCreateNestedManyWithoutLandlordInput
-  payments?: Prisma.PaymentCreateNestedManyWithoutTenantInput
+  tenantPayments?: Prisma.PaymentCreateNestedManyWithoutTenantInput
+  landlordPayments?: Prisma.PaymentCreateNestedManyWithoutLandlordInput
 }
 
 export type UserUncheckedCreateWithoutReviewsInput = {
   id?: string
-  name: string
+  fullname: string
   email: string
   password: string
   phone?: string | null
-  profileImg?: string | null
+  avatar?: string | null
   role: $Enums.UserRole
   status?: $Enums.UserStatus
+  isVerified?: boolean
+  isDeleted?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   properties?: Prisma.PropertyUncheckedCreateNestedManyWithoutLandlordInput
   tenantRequests?: Prisma.RentalRequestUncheckedCreateNestedManyWithoutTenantInput
   landlordRequests?: Prisma.RentalRequestUncheckedCreateNestedManyWithoutLandlordInput
-  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutTenantInput
+  tenantPayments?: Prisma.PaymentUncheckedCreateNestedManyWithoutTenantInput
+  landlordPayments?: Prisma.PaymentUncheckedCreateNestedManyWithoutLandlordInput
 }
 
 export type UserCreateOrConnectWithoutReviewsInput = {
@@ -933,36 +1136,42 @@ export type UserUpdateToOneWithWhereWithoutReviewsInput = {
 
 export type UserUpdateWithoutReviewsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
+  fullname?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  profileImg?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   properties?: Prisma.PropertyUpdateManyWithoutLandlordNestedInput
   tenantRequests?: Prisma.RentalRequestUpdateManyWithoutTenantNestedInput
   landlordRequests?: Prisma.RentalRequestUpdateManyWithoutLandlordNestedInput
-  payments?: Prisma.PaymentUpdateManyWithoutTenantNestedInput
+  tenantPayments?: Prisma.PaymentUpdateManyWithoutTenantNestedInput
+  landlordPayments?: Prisma.PaymentUpdateManyWithoutLandlordNestedInput
 }
 
 export type UserUncheckedUpdateWithoutReviewsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
+  fullname?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  profileImg?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   properties?: Prisma.PropertyUncheckedUpdateManyWithoutLandlordNestedInput
   tenantRequests?: Prisma.RentalRequestUncheckedUpdateManyWithoutTenantNestedInput
   landlordRequests?: Prisma.RentalRequestUncheckedUpdateManyWithoutLandlordNestedInput
-  payments?: Prisma.PaymentUncheckedUpdateManyWithoutTenantNestedInput
+  tenantPayments?: Prisma.PaymentUncheckedUpdateManyWithoutTenantNestedInput
+  landlordPayments?: Prisma.PaymentUncheckedUpdateManyWithoutLandlordNestedInput
 }
 
 
@@ -974,7 +1183,8 @@ export type UserCountOutputType = {
   properties: number
   tenantRequests: number
   landlordRequests: number
-  payments: number
+  tenantPayments: number
+  landlordPayments: number
   reviews: number
 }
 
@@ -982,7 +1192,8 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   properties?: boolean | UserCountOutputTypeCountPropertiesArgs
   tenantRequests?: boolean | UserCountOutputTypeCountTenantRequestsArgs
   landlordRequests?: boolean | UserCountOutputTypeCountLandlordRequestsArgs
-  payments?: boolean | UserCountOutputTypeCountPaymentsArgs
+  tenantPayments?: boolean | UserCountOutputTypeCountTenantPaymentsArgs
+  landlordPayments?: boolean | UserCountOutputTypeCountLandlordPaymentsArgs
   reviews?: boolean | UserCountOutputTypeCountReviewsArgs
 }
 
@@ -1020,7 +1231,14 @@ export type UserCountOutputTypeCountLandlordRequestsArgs<ExtArgs extends runtime
 /**
  * UserCountOutputType without action
  */
-export type UserCountOutputTypeCountPaymentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type UserCountOutputTypeCountTenantPaymentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.PaymentWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountLandlordPaymentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.PaymentWhereInput
 }
 
@@ -1034,68 +1252,78 @@ export type UserCountOutputTypeCountReviewsArgs<ExtArgs extends runtime.Types.Ex
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  name?: boolean
+  fullname?: boolean
   email?: boolean
   password?: boolean
   phone?: boolean
-  profileImg?: boolean
+  avatar?: boolean
   role?: boolean
   status?: boolean
+  isVerified?: boolean
+  isDeleted?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   properties?: boolean | Prisma.User$propertiesArgs<ExtArgs>
   tenantRequests?: boolean | Prisma.User$tenantRequestsArgs<ExtArgs>
   landlordRequests?: boolean | Prisma.User$landlordRequestsArgs<ExtArgs>
-  payments?: boolean | Prisma.User$paymentsArgs<ExtArgs>
+  tenantPayments?: boolean | Prisma.User$tenantPaymentsArgs<ExtArgs>
+  landlordPayments?: boolean | Prisma.User$landlordPaymentsArgs<ExtArgs>
   reviews?: boolean | Prisma.User$reviewsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
 export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  name?: boolean
+  fullname?: boolean
   email?: boolean
   password?: boolean
   phone?: boolean
-  profileImg?: boolean
+  avatar?: boolean
   role?: boolean
   status?: boolean
+  isVerified?: boolean
+  isDeleted?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }, ExtArgs["result"]["user"]>
 
 export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  name?: boolean
+  fullname?: boolean
   email?: boolean
   password?: boolean
   phone?: boolean
-  profileImg?: boolean
+  avatar?: boolean
   role?: boolean
   status?: boolean
+  isVerified?: boolean
+  isDeleted?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }, ExtArgs["result"]["user"]>
 
 export type UserSelectScalar = {
   id?: boolean
-  name?: boolean
+  fullname?: boolean
   email?: boolean
   password?: boolean
   phone?: boolean
-  profileImg?: boolean
+  avatar?: boolean
   role?: boolean
   status?: boolean
+  isVerified?: boolean
+  isDeleted?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "password" | "phone" | "profileImg" | "role" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "fullname" | "email" | "password" | "phone" | "avatar" | "role" | "status" | "isVerified" | "isDeleted" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   properties?: boolean | Prisma.User$propertiesArgs<ExtArgs>
   tenantRequests?: boolean | Prisma.User$tenantRequestsArgs<ExtArgs>
   landlordRequests?: boolean | Prisma.User$landlordRequestsArgs<ExtArgs>
-  payments?: boolean | Prisma.User$paymentsArgs<ExtArgs>
+  tenantPayments?: boolean | Prisma.User$tenantPaymentsArgs<ExtArgs>
+  landlordPayments?: boolean | Prisma.User$landlordPaymentsArgs<ExtArgs>
   reviews?: boolean | Prisma.User$reviewsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
@@ -1108,18 +1336,21 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     properties: Prisma.$PropertyPayload<ExtArgs>[]
     tenantRequests: Prisma.$RentalRequestPayload<ExtArgs>[]
     landlordRequests: Prisma.$RentalRequestPayload<ExtArgs>[]
-    payments: Prisma.$PaymentPayload<ExtArgs>[]
+    tenantPayments: Prisma.$PaymentPayload<ExtArgs>[]
+    landlordPayments: Prisma.$PaymentPayload<ExtArgs>[]
     reviews: Prisma.$ReviewPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
-    name: string
+    fullname: string
     email: string
     password: string
     phone: string | null
-    profileImg: string | null
+    avatar: string | null
     role: $Enums.UserRole
     status: $Enums.UserStatus
+    isVerified: boolean
+    isDeleted: boolean
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["user"]>
@@ -1519,7 +1750,8 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   properties<T extends Prisma.User$propertiesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$propertiesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PropertyPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   tenantRequests<T extends Prisma.User$tenantRequestsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$tenantRequestsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RentalRequestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   landlordRequests<T extends Prisma.User$landlordRequestsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$landlordRequestsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RentalRequestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  payments<T extends Prisma.User$paymentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$paymentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PaymentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  tenantPayments<T extends Prisma.User$tenantPaymentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$tenantPaymentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PaymentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  landlordPayments<T extends Prisma.User$landlordPaymentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$landlordPaymentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PaymentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   reviews<T extends Prisma.User$reviewsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$reviewsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -1551,13 +1783,15 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
  */
 export interface UserFieldRefs {
   readonly id: Prisma.FieldRef<"User", 'String'>
-  readonly name: Prisma.FieldRef<"User", 'String'>
+  readonly fullname: Prisma.FieldRef<"User", 'String'>
   readonly email: Prisma.FieldRef<"User", 'String'>
   readonly password: Prisma.FieldRef<"User", 'String'>
   readonly phone: Prisma.FieldRef<"User", 'String'>
-  readonly profileImg: Prisma.FieldRef<"User", 'String'>
+  readonly avatar: Prisma.FieldRef<"User", 'String'>
   readonly role: Prisma.FieldRef<"User", 'UserRole'>
   readonly status: Prisma.FieldRef<"User", 'UserStatus'>
+  readonly isVerified: Prisma.FieldRef<"User", 'Boolean'>
+  readonly isDeleted: Prisma.FieldRef<"User", 'Boolean'>
   readonly createdAt: Prisma.FieldRef<"User", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"User", 'DateTime'>
 }
@@ -2025,9 +2259,33 @@ export type User$landlordRequestsArgs<ExtArgs extends runtime.Types.Extensions.I
 }
 
 /**
- * User.payments
+ * User.tenantPayments
  */
-export type User$paymentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type User$tenantPaymentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Payment
+   */
+  select?: Prisma.PaymentSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Payment
+   */
+  omit?: Prisma.PaymentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PaymentInclude<ExtArgs> | null
+  where?: Prisma.PaymentWhereInput
+  orderBy?: Prisma.PaymentOrderByWithRelationInput | Prisma.PaymentOrderByWithRelationInput[]
+  cursor?: Prisma.PaymentWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.PaymentScalarFieldEnum | Prisma.PaymentScalarFieldEnum[]
+}
+
+/**
+ * User.landlordPayments
+ */
+export type User$landlordPaymentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
    * Select specific fields to fetch from the Payment
    */

@@ -1,0 +1,40 @@
+model User {
+  id       String  @id @default(uuid())
+  fullname String
+  email    String  @unique
+  password String
+  phone    String?
+  avatar   String?
+
+  role   UserRole
+  status UserStatus @default(ACTIVE)
+
+  isVerified Boolean @default(true) @map("is_verified")
+  isDeleted  Boolean @default(false) @map("is_deleted")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  properties       Property[]
+  tenantRequests   RentalRequest[] @relation("TenantRequests")
+  landlordRequests RentalRequest[] @relation("LandlordRequests")
+
+  tenantPayments   Payment[] @relation("TenantPayments")
+  landlordPayments Payment[] @relation("LandlordPayments")
+
+  reviews Review[]
+
+  @@map("users")
+}
+
+enum UserRole {
+  ADMIN
+  LANDLORD
+  TENANT
+}
+
+enum UserStatus {
+  ACTIVE
+  BANNED
+}

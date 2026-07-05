@@ -1,0 +1,57 @@
+model Property {
+  id String @id @default(uuid())
+
+  landlordId String @map("landlord_id")
+  categoryId String @map("category_id")
+
+  title       String
+  description String
+
+  address    String
+  city       String
+  area       String
+  latitude   Decimal @db.Decimal(8, 6)
+  longtitude Decimal @db.Decimal(8, 6)
+
+  monthlyRent     Decimal @map("monthly_rent") @db.Decimal(10, 2)
+  securityDeposit Decimal @map("security_deposit") @db.Decimal(10, 2)
+
+  bedrooms  Int
+  bathrooms Int
+  floor     Int
+  furnished Boolean
+
+  size     Int
+  sizeUnit Unit @map("size_unit")
+
+  images    String[]
+  amenities String[]
+
+  availableFrom DateTime @map("available_from")
+  available     Boolean
+
+  status PropertyStatus @default(AVAILABLE)
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  landlord User @relation(fields: [landlordId], references: [id], onDelete: Cascade)
+
+  category Category @relation(fields: [categoryId], references: [id])
+
+  rentalRequests RentalRequest[]
+
+  reviews Review[]
+
+  @@map("properties")
+}
+
+enum PropertyStatus {
+  AVAILABLE
+  RENTED
+}
+
+enum Unit {
+  SQFT
+  SQM
+}

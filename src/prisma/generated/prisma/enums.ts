@@ -9,6 +9,43 @@
 * 🟢 You can import this file directly.
 */
 
+export const PaymentStatus = {
+  PENDING: 'PENDING',
+  SUCCEEDED: 'SUCCEEDED',
+  FAILED: 'FAILED',
+  REFUNDED: 'REFUNDED'
+} as const
+
+export type PaymentStatus = (typeof PaymentStatus)[keyof typeof PaymentStatus]
+
+
+export const PropertyStatus = {
+  AVAILABLE: 'AVAILABLE',
+  RENTED: 'RENTED'
+} as const
+
+export type PropertyStatus = (typeof PropertyStatus)[keyof typeof PropertyStatus]
+
+
+export const Unit = {
+  SQFT: 'SQFT',
+  SQM: 'SQM'
+} as const
+
+export type Unit = (typeof Unit)[keyof typeof Unit]
+
+
+export const RentalRequestStatus = {
+  PENDING: 'PENDING',
+  APPROVED: 'APPROVED',
+  REJECTED: 'REJECTED',
+  ACTIVE: 'ACTIVE',
+  COMPLETED: 'COMPLETED'
+} as const
+
+export type RentalRequestStatus = (typeof RentalRequestStatus)[keyof typeof RentalRequestStatus]
+
+
 export const UserRole = {
   ADMIN: 'ADMIN',
   LANDLORD: 'LANDLORD',
@@ -24,32 +61,3 @@ export const UserStatus = {
 } as const
 
 export type UserStatus = (typeof UserStatus)[keyof typeof UserStatus]
-
-
-export const PropertyStatus = {
-  AVAILABLE: 'AVAILABLE',
-  RENTED: 'RENTED'
-} as const
-
-export type PropertyStatus = (typeof PropertyStatus)[keyof typeof PropertyStatus]
-
-
-export const RentalRequestStatus = {
-  PENDING: 'PENDING',
-  APPROVED: 'APPROVED',
-  REJECTED: 'REJECTED',
-  ACTIVE: 'ACTIVE',
-  COMPLETED: 'COMPLETED'
-} as const
-
-export type RentalRequestStatus = (typeof RentalRequestStatus)[keyof typeof RentalRequestStatus]
-
-
-export const PaymentStatus = {
-  PENDING: 'PENDING',
-  SUCCEEDED: 'SUCCEEDED',
-  FAILED: 'FAILED',
-  REFUNDED: 'REFUNDED'
-} as const
-
-export type PaymentStatus = (typeof PaymentStatus)[keyof typeof PaymentStatus]

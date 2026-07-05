@@ -436,48 +436,6 @@ export type ReviewSumOrderByAggregateInput = {
   rating?: Prisma.SortOrder
 }
 
-export type ReviewCreateNestedManyWithoutTenantInput = {
-  create?: Prisma.XOR<Prisma.ReviewCreateWithoutTenantInput, Prisma.ReviewUncheckedCreateWithoutTenantInput> | Prisma.ReviewCreateWithoutTenantInput[] | Prisma.ReviewUncheckedCreateWithoutTenantInput[]
-  connectOrCreate?: Prisma.ReviewCreateOrConnectWithoutTenantInput | Prisma.ReviewCreateOrConnectWithoutTenantInput[]
-  createMany?: Prisma.ReviewCreateManyTenantInputEnvelope
-  connect?: Prisma.ReviewWhereUniqueInput | Prisma.ReviewWhereUniqueInput[]
-}
-
-export type ReviewUncheckedCreateNestedManyWithoutTenantInput = {
-  create?: Prisma.XOR<Prisma.ReviewCreateWithoutTenantInput, Prisma.ReviewUncheckedCreateWithoutTenantInput> | Prisma.ReviewCreateWithoutTenantInput[] | Prisma.ReviewUncheckedCreateWithoutTenantInput[]
-  connectOrCreate?: Prisma.ReviewCreateOrConnectWithoutTenantInput | Prisma.ReviewCreateOrConnectWithoutTenantInput[]
-  createMany?: Prisma.ReviewCreateManyTenantInputEnvelope
-  connect?: Prisma.ReviewWhereUniqueInput | Prisma.ReviewWhereUniqueInput[]
-}
-
-export type ReviewUpdateManyWithoutTenantNestedInput = {
-  create?: Prisma.XOR<Prisma.ReviewCreateWithoutTenantInput, Prisma.ReviewUncheckedCreateWithoutTenantInput> | Prisma.ReviewCreateWithoutTenantInput[] | Prisma.ReviewUncheckedCreateWithoutTenantInput[]
-  connectOrCreate?: Prisma.ReviewCreateOrConnectWithoutTenantInput | Prisma.ReviewCreateOrConnectWithoutTenantInput[]
-  upsert?: Prisma.ReviewUpsertWithWhereUniqueWithoutTenantInput | Prisma.ReviewUpsertWithWhereUniqueWithoutTenantInput[]
-  createMany?: Prisma.ReviewCreateManyTenantInputEnvelope
-  set?: Prisma.ReviewWhereUniqueInput | Prisma.ReviewWhereUniqueInput[]
-  disconnect?: Prisma.ReviewWhereUniqueInput | Prisma.ReviewWhereUniqueInput[]
-  delete?: Prisma.ReviewWhereUniqueInput | Prisma.ReviewWhereUniqueInput[]
-  connect?: Prisma.ReviewWhereUniqueInput | Prisma.ReviewWhereUniqueInput[]
-  update?: Prisma.ReviewUpdateWithWhereUniqueWithoutTenantInput | Prisma.ReviewUpdateWithWhereUniqueWithoutTenantInput[]
-  updateMany?: Prisma.ReviewUpdateManyWithWhereWithoutTenantInput | Prisma.ReviewUpdateManyWithWhereWithoutTenantInput[]
-  deleteMany?: Prisma.ReviewScalarWhereInput | Prisma.ReviewScalarWhereInput[]
-}
-
-export type ReviewUncheckedUpdateManyWithoutTenantNestedInput = {
-  create?: Prisma.XOR<Prisma.ReviewCreateWithoutTenantInput, Prisma.ReviewUncheckedCreateWithoutTenantInput> | Prisma.ReviewCreateWithoutTenantInput[] | Prisma.ReviewUncheckedCreateWithoutTenantInput[]
-  connectOrCreate?: Prisma.ReviewCreateOrConnectWithoutTenantInput | Prisma.ReviewCreateOrConnectWithoutTenantInput[]
-  upsert?: Prisma.ReviewUpsertWithWhereUniqueWithoutTenantInput | Prisma.ReviewUpsertWithWhereUniqueWithoutTenantInput[]
-  createMany?: Prisma.ReviewCreateManyTenantInputEnvelope
-  set?: Prisma.ReviewWhereUniqueInput | Prisma.ReviewWhereUniqueInput[]
-  disconnect?: Prisma.ReviewWhereUniqueInput | Prisma.ReviewWhereUniqueInput[]
-  delete?: Prisma.ReviewWhereUniqueInput | Prisma.ReviewWhereUniqueInput[]
-  connect?: Prisma.ReviewWhereUniqueInput | Prisma.ReviewWhereUniqueInput[]
-  update?: Prisma.ReviewUpdateWithWhereUniqueWithoutTenantInput | Prisma.ReviewUpdateWithWhereUniqueWithoutTenantInput[]
-  updateMany?: Prisma.ReviewUpdateManyWithWhereWithoutTenantInput | Prisma.ReviewUpdateManyWithWhereWithoutTenantInput[]
-  deleteMany?: Prisma.ReviewScalarWhereInput | Prisma.ReviewScalarWhereInput[]
-}
-
 export type ReviewCreateNestedManyWithoutPropertyInput = {
   create?: Prisma.XOR<Prisma.ReviewCreateWithoutPropertyInput, Prisma.ReviewUncheckedCreateWithoutPropertyInput> | Prisma.ReviewCreateWithoutPropertyInput[] | Prisma.ReviewUncheckedCreateWithoutPropertyInput[]
   connectOrCreate?: Prisma.ReviewCreateOrConnectWithoutPropertyInput | Prisma.ReviewCreateOrConnectWithoutPropertyInput[]
@@ -552,64 +510,46 @@ export type ReviewUncheckedUpdateOneWithoutRentalRequestNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.ReviewUpdateToOneWithWhereWithoutRentalRequestInput, Prisma.ReviewUpdateWithoutRentalRequestInput>, Prisma.ReviewUncheckedUpdateWithoutRentalRequestInput>
 }
 
-export type ReviewCreateWithoutTenantInput = {
-  id?: string
-  rating: number
-  comment: string
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  property: Prisma.PropertyCreateNestedOneWithoutReviewsInput
-  rentalRequest: Prisma.RentalRequestCreateNestedOneWithoutReviewInput
+export type ReviewCreateNestedManyWithoutTenantInput = {
+  create?: Prisma.XOR<Prisma.ReviewCreateWithoutTenantInput, Prisma.ReviewUncheckedCreateWithoutTenantInput> | Prisma.ReviewCreateWithoutTenantInput[] | Prisma.ReviewUncheckedCreateWithoutTenantInput[]
+  connectOrCreate?: Prisma.ReviewCreateOrConnectWithoutTenantInput | Prisma.ReviewCreateOrConnectWithoutTenantInput[]
+  createMany?: Prisma.ReviewCreateManyTenantInputEnvelope
+  connect?: Prisma.ReviewWhereUniqueInput | Prisma.ReviewWhereUniqueInput[]
 }
 
-export type ReviewUncheckedCreateWithoutTenantInput = {
-  id?: string
-  propertyId: string
-  rentalRequestId: string
-  rating: number
-  comment: string
-  createdAt?: Date | string
-  updatedAt?: Date | string
+export type ReviewUncheckedCreateNestedManyWithoutTenantInput = {
+  create?: Prisma.XOR<Prisma.ReviewCreateWithoutTenantInput, Prisma.ReviewUncheckedCreateWithoutTenantInput> | Prisma.ReviewCreateWithoutTenantInput[] | Prisma.ReviewUncheckedCreateWithoutTenantInput[]
+  connectOrCreate?: Prisma.ReviewCreateOrConnectWithoutTenantInput | Prisma.ReviewCreateOrConnectWithoutTenantInput[]
+  createMany?: Prisma.ReviewCreateManyTenantInputEnvelope
+  connect?: Prisma.ReviewWhereUniqueInput | Prisma.ReviewWhereUniqueInput[]
 }
 
-export type ReviewCreateOrConnectWithoutTenantInput = {
-  where: Prisma.ReviewWhereUniqueInput
-  create: Prisma.XOR<Prisma.ReviewCreateWithoutTenantInput, Prisma.ReviewUncheckedCreateWithoutTenantInput>
+export type ReviewUpdateManyWithoutTenantNestedInput = {
+  create?: Prisma.XOR<Prisma.ReviewCreateWithoutTenantInput, Prisma.ReviewUncheckedCreateWithoutTenantInput> | Prisma.ReviewCreateWithoutTenantInput[] | Prisma.ReviewUncheckedCreateWithoutTenantInput[]
+  connectOrCreate?: Prisma.ReviewCreateOrConnectWithoutTenantInput | Prisma.ReviewCreateOrConnectWithoutTenantInput[]
+  upsert?: Prisma.ReviewUpsertWithWhereUniqueWithoutTenantInput | Prisma.ReviewUpsertWithWhereUniqueWithoutTenantInput[]
+  createMany?: Prisma.ReviewCreateManyTenantInputEnvelope
+  set?: Prisma.ReviewWhereUniqueInput | Prisma.ReviewWhereUniqueInput[]
+  disconnect?: Prisma.ReviewWhereUniqueInput | Prisma.ReviewWhereUniqueInput[]
+  delete?: Prisma.ReviewWhereUniqueInput | Prisma.ReviewWhereUniqueInput[]
+  connect?: Prisma.ReviewWhereUniqueInput | Prisma.ReviewWhereUniqueInput[]
+  update?: Prisma.ReviewUpdateWithWhereUniqueWithoutTenantInput | Prisma.ReviewUpdateWithWhereUniqueWithoutTenantInput[]
+  updateMany?: Prisma.ReviewUpdateManyWithWhereWithoutTenantInput | Prisma.ReviewUpdateManyWithWhereWithoutTenantInput[]
+  deleteMany?: Prisma.ReviewScalarWhereInput | Prisma.ReviewScalarWhereInput[]
 }
 
-export type ReviewCreateManyTenantInputEnvelope = {
-  data: Prisma.ReviewCreateManyTenantInput | Prisma.ReviewCreateManyTenantInput[]
-  skipDuplicates?: boolean
-}
-
-export type ReviewUpsertWithWhereUniqueWithoutTenantInput = {
-  where: Prisma.ReviewWhereUniqueInput
-  update: Prisma.XOR<Prisma.ReviewUpdateWithoutTenantInput, Prisma.ReviewUncheckedUpdateWithoutTenantInput>
-  create: Prisma.XOR<Prisma.ReviewCreateWithoutTenantInput, Prisma.ReviewUncheckedCreateWithoutTenantInput>
-}
-
-export type ReviewUpdateWithWhereUniqueWithoutTenantInput = {
-  where: Prisma.ReviewWhereUniqueInput
-  data: Prisma.XOR<Prisma.ReviewUpdateWithoutTenantInput, Prisma.ReviewUncheckedUpdateWithoutTenantInput>
-}
-
-export type ReviewUpdateManyWithWhereWithoutTenantInput = {
-  where: Prisma.ReviewScalarWhereInput
-  data: Prisma.XOR<Prisma.ReviewUpdateManyMutationInput, Prisma.ReviewUncheckedUpdateManyWithoutTenantInput>
-}
-
-export type ReviewScalarWhereInput = {
-  AND?: Prisma.ReviewScalarWhereInput | Prisma.ReviewScalarWhereInput[]
-  OR?: Prisma.ReviewScalarWhereInput[]
-  NOT?: Prisma.ReviewScalarWhereInput | Prisma.ReviewScalarWhereInput[]
-  id?: Prisma.StringFilter<"Review"> | string
-  propertyId?: Prisma.StringFilter<"Review"> | string
-  tenantId?: Prisma.StringFilter<"Review"> | string
-  rentalRequestId?: Prisma.StringFilter<"Review"> | string
-  rating?: Prisma.IntFilter<"Review"> | number
-  comment?: Prisma.StringFilter<"Review"> | string
-  createdAt?: Prisma.DateTimeFilter<"Review"> | Date | string
-  updatedAt?: Prisma.DateTimeFilter<"Review"> | Date | string
+export type ReviewUncheckedUpdateManyWithoutTenantNestedInput = {
+  create?: Prisma.XOR<Prisma.ReviewCreateWithoutTenantInput, Prisma.ReviewUncheckedCreateWithoutTenantInput> | Prisma.ReviewCreateWithoutTenantInput[] | Prisma.ReviewUncheckedCreateWithoutTenantInput[]
+  connectOrCreate?: Prisma.ReviewCreateOrConnectWithoutTenantInput | Prisma.ReviewCreateOrConnectWithoutTenantInput[]
+  upsert?: Prisma.ReviewUpsertWithWhereUniqueWithoutTenantInput | Prisma.ReviewUpsertWithWhereUniqueWithoutTenantInput[]
+  createMany?: Prisma.ReviewCreateManyTenantInputEnvelope
+  set?: Prisma.ReviewWhereUniqueInput | Prisma.ReviewWhereUniqueInput[]
+  disconnect?: Prisma.ReviewWhereUniqueInput | Prisma.ReviewWhereUniqueInput[]
+  delete?: Prisma.ReviewWhereUniqueInput | Prisma.ReviewWhereUniqueInput[]
+  connect?: Prisma.ReviewWhereUniqueInput | Prisma.ReviewWhereUniqueInput[]
+  update?: Prisma.ReviewUpdateWithWhereUniqueWithoutTenantInput | Prisma.ReviewUpdateWithWhereUniqueWithoutTenantInput[]
+  updateMany?: Prisma.ReviewUpdateManyWithWhereWithoutTenantInput | Prisma.ReviewUpdateManyWithWhereWithoutTenantInput[]
+  deleteMany?: Prisma.ReviewScalarWhereInput | Prisma.ReviewScalarWhereInput[]
 }
 
 export type ReviewCreateWithoutPropertyInput = {
@@ -656,6 +596,20 @@ export type ReviewUpdateWithWhereUniqueWithoutPropertyInput = {
 export type ReviewUpdateManyWithWhereWithoutPropertyInput = {
   where: Prisma.ReviewScalarWhereInput
   data: Prisma.XOR<Prisma.ReviewUpdateManyMutationInput, Prisma.ReviewUncheckedUpdateManyWithoutPropertyInput>
+}
+
+export type ReviewScalarWhereInput = {
+  AND?: Prisma.ReviewScalarWhereInput | Prisma.ReviewScalarWhereInput[]
+  OR?: Prisma.ReviewScalarWhereInput[]
+  NOT?: Prisma.ReviewScalarWhereInput | Prisma.ReviewScalarWhereInput[]
+  id?: Prisma.StringFilter<"Review"> | string
+  propertyId?: Prisma.StringFilter<"Review"> | string
+  tenantId?: Prisma.StringFilter<"Review"> | string
+  rentalRequestId?: Prisma.StringFilter<"Review"> | string
+  rating?: Prisma.IntFilter<"Review"> | number
+  comment?: Prisma.StringFilter<"Review"> | string
+  createdAt?: Prisma.DateTimeFilter<"Review"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"Review"> | Date | string
 }
 
 export type ReviewCreateWithoutRentalRequestInput = {
@@ -714,7 +668,17 @@ export type ReviewUncheckedUpdateWithoutRentalRequestInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
-export type ReviewCreateManyTenantInput = {
+export type ReviewCreateWithoutTenantInput = {
+  id?: string
+  rating: number
+  comment: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  property: Prisma.PropertyCreateNestedOneWithoutReviewsInput
+  rentalRequest: Prisma.RentalRequestCreateNestedOneWithoutReviewInput
+}
+
+export type ReviewUncheckedCreateWithoutTenantInput = {
   id?: string
   propertyId: string
   rentalRequestId: string
@@ -724,34 +688,30 @@ export type ReviewCreateManyTenantInput = {
   updatedAt?: Date | string
 }
 
-export type ReviewUpdateWithoutTenantInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  rating?: Prisma.IntFieldUpdateOperationsInput | number
-  comment?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  property?: Prisma.PropertyUpdateOneRequiredWithoutReviewsNestedInput
-  rentalRequest?: Prisma.RentalRequestUpdateOneRequiredWithoutReviewNestedInput
+export type ReviewCreateOrConnectWithoutTenantInput = {
+  where: Prisma.ReviewWhereUniqueInput
+  create: Prisma.XOR<Prisma.ReviewCreateWithoutTenantInput, Prisma.ReviewUncheckedCreateWithoutTenantInput>
 }
 
-export type ReviewUncheckedUpdateWithoutTenantInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  propertyId?: Prisma.StringFieldUpdateOperationsInput | string
-  rentalRequestId?: Prisma.StringFieldUpdateOperationsInput | string
-  rating?: Prisma.IntFieldUpdateOperationsInput | number
-  comment?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+export type ReviewCreateManyTenantInputEnvelope = {
+  data: Prisma.ReviewCreateManyTenantInput | Prisma.ReviewCreateManyTenantInput[]
+  skipDuplicates?: boolean
 }
 
-export type ReviewUncheckedUpdateManyWithoutTenantInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  propertyId?: Prisma.StringFieldUpdateOperationsInput | string
-  rentalRequestId?: Prisma.StringFieldUpdateOperationsInput | string
-  rating?: Prisma.IntFieldUpdateOperationsInput | number
-  comment?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+export type ReviewUpsertWithWhereUniqueWithoutTenantInput = {
+  where: Prisma.ReviewWhereUniqueInput
+  update: Prisma.XOR<Prisma.ReviewUpdateWithoutTenantInput, Prisma.ReviewUncheckedUpdateWithoutTenantInput>
+  create: Prisma.XOR<Prisma.ReviewCreateWithoutTenantInput, Prisma.ReviewUncheckedCreateWithoutTenantInput>
+}
+
+export type ReviewUpdateWithWhereUniqueWithoutTenantInput = {
+  where: Prisma.ReviewWhereUniqueInput
+  data: Prisma.XOR<Prisma.ReviewUpdateWithoutTenantInput, Prisma.ReviewUncheckedUpdateWithoutTenantInput>
+}
+
+export type ReviewUpdateManyWithWhereWithoutTenantInput = {
+  where: Prisma.ReviewScalarWhereInput
+  data: Prisma.XOR<Prisma.ReviewUpdateManyMutationInput, Prisma.ReviewUncheckedUpdateManyWithoutTenantInput>
 }
 
 export type ReviewCreateManyPropertyInput = {
@@ -787,6 +747,46 @@ export type ReviewUncheckedUpdateWithoutPropertyInput = {
 export type ReviewUncheckedUpdateManyWithoutPropertyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  rentalRequestId?: Prisma.StringFieldUpdateOperationsInput | string
+  rating?: Prisma.IntFieldUpdateOperationsInput | number
+  comment?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type ReviewCreateManyTenantInput = {
+  id?: string
+  propertyId: string
+  rentalRequestId: string
+  rating: number
+  comment: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type ReviewUpdateWithoutTenantInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  rating?: Prisma.IntFieldUpdateOperationsInput | number
+  comment?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  property?: Prisma.PropertyUpdateOneRequiredWithoutReviewsNestedInput
+  rentalRequest?: Prisma.RentalRequestUpdateOneRequiredWithoutReviewNestedInput
+}
+
+export type ReviewUncheckedUpdateWithoutTenantInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  propertyId?: Prisma.StringFieldUpdateOperationsInput | string
+  rentalRequestId?: Prisma.StringFieldUpdateOperationsInput | string
+  rating?: Prisma.IntFieldUpdateOperationsInput | number
+  comment?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type ReviewUncheckedUpdateManyWithoutTenantInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  propertyId?: Prisma.StringFieldUpdateOperationsInput | string
   rentalRequestId?: Prisma.StringFieldUpdateOperationsInput | string
   rating?: Prisma.IntFieldUpdateOperationsInput | number
   comment?: Prisma.StringFieldUpdateOperationsInput | string
