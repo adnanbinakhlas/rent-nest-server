@@ -8,7 +8,13 @@
     "build": "tsc",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "prepare": "husky"
+    "prepare": "husky",
+    "prisma:dev": "prisma migrate dev",
+    "prisma:prod": "prisma migrate prod",
+    "prisma:generate": "prisma generate",
+    "prisma:studio": "prisma studio",
+    "prisma:format": "prisma format",
+    "prisma:validate": "prisma validate"
   },
   "keywords": [],
   "author": "",

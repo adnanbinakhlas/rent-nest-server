@@ -1,0 +1,16 @@
+services:
+  db:
+    image: postgres:18-alpine
+    container_name: rent-nest-backend
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: rentnest
+    volumes:
+      - rentnest_data:/var/lib/postgresql/18/docker
+
+volumes:
+  rentnest_data:
