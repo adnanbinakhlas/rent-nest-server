@@ -27,7 +27,7 @@ model Payment {
 
   refundedAt DateTime? @map("refunded_at")
 
-  refundedAmount Decimal @map("refunded_amount") @db.Decimal(10, 2)
+  refundedAmount Decimal? @map("refunded_amount") @db.Decimal(10, 2)
 
   failureReason String? @map("failure_reason")
 
