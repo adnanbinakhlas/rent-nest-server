@@ -3,6 +3,7 @@ import { asyncHandler } from "../../../utils/asyncHandler";
 import { sendResponse } from "../../../utils/sendResponse";
 import status from "http-status";
 import { UserService } from "./user.service";
+import { UserModel } from "../../../../prisma/generated/prisma/models";
 
 const register = asyncHandler(
   async (req: Request, res: Response): Promise<void> => {
@@ -19,4 +20,17 @@ const register = asyncHandler(
   },
 );
 
-export const UserController = { register };
+const profileMe = asyncHandler(
+  async (req: Request, res: Response): Promise<void> => {
+    const user = req.user as UserModel;
+
+    sendResponse(res, {
+      statusCode: status.OK,
+      success: true,
+      message: "User profile retrieved successfully.",
+      data: user,
+    });
+  },
+);
+
+export const UserController = { register, profileMe };

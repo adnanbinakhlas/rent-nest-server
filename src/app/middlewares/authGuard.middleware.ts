@@ -7,6 +7,7 @@ import { AppError } from "../helpers/AppError";
 import prisma from "../libs/prisma";
 import { asyncHandler } from "../utils/asyncHandler";
 import { jwtUtils } from "../utils/jose";
+import { UserModel } from "../../prisma/generated/prisma/models";
 
 const authGuard = (...roles: UserRole[]) =>
   asyncHandler(
@@ -47,7 +48,9 @@ const authGuard = (...roles: UserRole[]) =>
         );
       }
 
-      req.user = user;
+      const { password: _password, isDeleted: _isDeleted, ...safeUser } = user;
+
+      req.user = safeUser as UserModel;
 
       next();
     },

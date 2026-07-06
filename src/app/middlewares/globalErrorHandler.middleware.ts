@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import status from "http-status";
 import { ZodError } from "zod";
+import { AppError } from "../helpers/AppError";
 
 const globalErrorHandler = async (
   err: unknown,
@@ -16,6 +17,13 @@ const globalErrorHandler = async (
 
   if (err instanceof Error) {
     statusCode = status.INTERNAL_SERVER_ERROR;
+    message = err.message;
+    error = err;
+    stack = err.stack;
+  }
+
+  if (err instanceof AppError) {
+    statusCode = err.statusCode;
     message = err.message;
     error = err;
     stack = err.stack;
