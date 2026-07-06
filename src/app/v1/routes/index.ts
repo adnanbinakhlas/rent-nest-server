@@ -1,17 +1,21 @@
 import { Router } from "express";
-import { userRoutes } from "../modules/user/user.route";
+import { UserRoutes } from "../modules/user/user.route";
+import { AuthRoutes } from "../modules/auth/auth.route";
 
-const v1Router: Router = Router();
+const v1Routes: Router = Router();
 
 interface IRoutes {
   path: string;
   router: Router;
 }
 
-const routes: IRoutes[] = [{ path: "/users", router: userRoutes }];
+const routes: IRoutes[] = [
+  { path: "/users", router: UserRoutes },
+  { path: "/auth", router: AuthRoutes },
+];
 
 routes.forEach((route) => {
-  v1Router.use(route.path, route.router);
+  v1Routes.use(route.path, route.router);
 });
 
-export default v1Router;
+export default v1Routes;

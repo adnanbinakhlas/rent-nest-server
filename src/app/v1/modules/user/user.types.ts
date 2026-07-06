@@ -1,6 +1,6 @@
 import z from "zod";
 import { UserValidation } from "./user.validation";
 
-export type RegisterInput = z.infer<
+export type TRegisterInput = z.infer<
   typeof UserValidation.registerValidationSchema
 >;

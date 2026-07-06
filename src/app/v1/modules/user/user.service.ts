@@ -4,11 +4,11 @@ import {
 } from "../../../../prisma/generated/prisma/models";
 import env from "../../../configs/env";
 import prisma from "../../../libs/prisma";
-import { RegisterInput } from "./user.types";
+import { TRegisterInput } from "./user.types";
 import bcrypt from "bcrypt";
 
 const registerUserIntoDb = async (
-  payload: RegisterInput,
+  payload: TRegisterInput,
 ): Promise<Omit<UserModel, "password" | "isDeleted">> => {
   const passwordHash = await bcrypt.hash(
     payload.password,
