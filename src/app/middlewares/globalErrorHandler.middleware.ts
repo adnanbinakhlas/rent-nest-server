@@ -47,6 +47,13 @@ const globalErrorHandler = async (
     error = result.error;
   }
 
+  if (err instanceof Prisma.PrismaClientValidationError) {
+    statusCode = status.BAD_REQUEST;
+    message = err.message;
+    error = err.cause;
+    stack = err.stack;
+  }
+
   if (process.env.NODE_ENV === "development") {
     stack =
       err instanceof Error

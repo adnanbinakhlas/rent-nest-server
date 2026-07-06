@@ -1,14 +1,61 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-const insertPropertyIntoDb = async (payload: unknown): Promise<void> => {};
+import status from "http-status";
+import { PropertyModel } from "../../../../prisma/generated/prisma/models";
+import { AppError } from "../../../helpers/AppError";
+import prisma from "../../../libs/prisma";
+import { TCreatePropertyInput } from "./property.types";
+
+const insertPropertyIntoDb = async (
+  payload: TCreatePropertyInput,
+  userId: string,
+): Promise<PropertyModel> => {
+  const { images, amenities, ...data } = payload;
+
+  const property = await prisma.property.create({
+    data: {
+      ...data,
+      landlordId: userId,
+      availableFrom: new Date(data.availableFrom).toISOString(),
+      images: { create: images },
+      propertyAmenity: {
+        create: amenities.map((amenityId) => ({ amenityId })),
+      },
+    },
+
+    include: {
+      images: { select: { imageUrl: true, isPrimary: true } },
+      propertyAmenity: { select: { amenity: { select: { name: true } } } },
+    },
+  });
+
+  return property;
+};
 
 const updatePropertyFromDb = async (
   payload: unknown,
   id: string,
 ): Promise<void> => {};
 
-const getAllPropertiesFromDb = async (): Promise<void> => {};
+const getAllPropertiesFromDb = async (): Promise<PropertyModel[]> => {
+  const properties = await prisma.property.findMany({
+    include: { images: true, propertyAmenity: { include: { amenity: true } } },
+  });
 
-const getPropertyById = async (id: string): Promise<void> => {};
+  return properties;
+};
+
+const getPropertyById = async (id: string): Promise<PropertyModel> => {
+  const property = await prisma.property.findUnique({
+    where: { id },
+    include: { images: true, propertyAmenity: { include: { amenity: true } } },
+  });
+
+  if (!property) {
+    throw new AppError("Request property not found.", status.NOT_FOUND);
+  }
+
+  return property;
+};
 
 export const PropertyService = {
   insertPropertyIntoDb,

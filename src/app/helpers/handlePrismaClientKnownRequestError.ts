@@ -9,6 +9,14 @@ interface IP2002 {
   };
 }
 
+interface IP2003 {
+  cause?: {
+    constraint?: {
+      index?: string;
+    };
+  };
+}
+
 interface IReturnType {
   statusCode: number;
   message: string;
@@ -38,6 +46,14 @@ export const handlePrismaClientKnownRequestError = (
     statusCode = status.NOT_FOUND;
     message = "Operation failed. Related record not found.";
     error = err.meta;
+  }
+
+  if (err.code === "P2003") {
+    statusCode = status.BAD_REQUEST;
+    message = "Foreign key constraint violation";
+    const index = (err.meta?.driverAdapterError as IP2003)?.cause?.constraint
+      ?.index;
+    error = { index };
   }
 
   return { statusCode, message, error };
