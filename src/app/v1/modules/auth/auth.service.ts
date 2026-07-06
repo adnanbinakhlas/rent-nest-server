@@ -4,7 +4,7 @@ import prisma from "../../../libs/prisma";
 import { TLoginInput } from "./auth.types";
 import bcrypt from "bcrypt";
 import { UserModel } from "../../../../prisma/generated/prisma/models";
-import { jwt } from "../../../utils/jose";
+import { jwtUtils } from "../../../utils/jose";
 import env from "../../../configs/env";
 
 const login = async (
@@ -40,13 +40,13 @@ const login = async (
     id: userData.id,
   };
 
-  const accessToken = await jwt.generateToken(
+  const accessToken = await jwtUtils.generateToken(
     userPayload,
     env.JWT_ACCESS_SECRET,
     env.JWT_ACCESS_EXPIRES_IN,
   );
 
-  const refreshToken = await jwt.generateToken(
+  const refreshToken = await jwtUtils.generateToken(
     userPayload,
     env.JWT_REFRESH_SECRET,
     env.JWT_REFRESH_EXPIRES_IN,
@@ -55,6 +55,18 @@ const login = async (
   return { accessToken, refreshToken, user: userData };
 };
 
+const renewToken = async (token: string): Promise<string> => {
+  const decode = await jwtUtils.verifyToken(token, env.JWT_REFRESH_SECRET);
+  const newAccessToken = await jwtUtils.generateToken(
+    { id: decode.id },
+    env.JWT_ACCESS_SECRET,
+    env.JWT_ACCESS_EXPIRES_IN,
+  );
+
+  return newAccessToken;
+};
+
 export const AuthService = {
   login,
+  renewToken,
 };

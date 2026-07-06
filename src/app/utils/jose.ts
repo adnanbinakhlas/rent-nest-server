@@ -48,7 +48,7 @@ const verifyToken = async (
   }
 };
 
-export const jwt = {
+export const jwtUtils = {
   generateToken,
   verifyToken,
 };
