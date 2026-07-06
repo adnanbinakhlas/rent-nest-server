@@ -49,7 +49,8 @@ const globalErrorHandler = async (
 
   if (err instanceof Prisma.PrismaClientValidationError) {
     statusCode = status.BAD_REQUEST;
-    message = err.message;
+    message =
+      "Invalid request data. Please check required fields and data types.";
     error = err.cause;
     stack = err.stack;
   }
