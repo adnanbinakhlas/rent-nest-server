@@ -384,8 +384,10 @@ type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRe
 
 
 export const ModelName = {
+  Amenity: 'Amenity',
   Category: 'Category',
   Payment: 'Payment',
+  PropertyAmenity: 'PropertyAmenity',
   Property: 'Property',
   RentalRequest: 'RentalRequest',
   Review: 'Review',
@@ -405,10 +407,84 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "category" | "payment" | "property" | "rentalRequest" | "review" | "user"
+    modelProps: "amenity" | "category" | "payment" | "propertyAmenity" | "property" | "rentalRequest" | "review" | "user"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
+    Amenity: {
+      payload: Prisma.$AmenityPayload<ExtArgs>
+      fields: Prisma.AmenityFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.AmenityFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AmenityPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.AmenityFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AmenityPayload>
+        }
+        findFirst: {
+          args: Prisma.AmenityFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AmenityPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.AmenityFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AmenityPayload>
+        }
+        findMany: {
+          args: Prisma.AmenityFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AmenityPayload>[]
+        }
+        create: {
+          args: Prisma.AmenityCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AmenityPayload>
+        }
+        createMany: {
+          args: Prisma.AmenityCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.AmenityCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AmenityPayload>[]
+        }
+        delete: {
+          args: Prisma.AmenityDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AmenityPayload>
+        }
+        update: {
+          args: Prisma.AmenityUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AmenityPayload>
+        }
+        deleteMany: {
+          args: Prisma.AmenityDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.AmenityUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.AmenityUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AmenityPayload>[]
+        }
+        upsert: {
+          args: Prisma.AmenityUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AmenityPayload>
+        }
+        aggregate: {
+          args: Prisma.AmenityAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateAmenity>
+        }
+        groupBy: {
+          args: Prisma.AmenityGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AmenityGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.AmenityCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AmenityCountAggregateOutputType> | number
+        }
+      }
+    }
     Category: {
       payload: Prisma.$CategoryPayload<ExtArgs>
       fields: Prisma.CategoryFieldRefs
@@ -554,6 +630,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.PaymentCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.PaymentCountAggregateOutputType> | number
+        }
+      }
+    }
+    PropertyAmenity: {
+      payload: Prisma.$PropertyAmenityPayload<ExtArgs>
+      fields: Prisma.PropertyAmenityFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.PropertyAmenityFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PropertyAmenityPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.PropertyAmenityFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PropertyAmenityPayload>
+        }
+        findFirst: {
+          args: Prisma.PropertyAmenityFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PropertyAmenityPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.PropertyAmenityFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PropertyAmenityPayload>
+        }
+        findMany: {
+          args: Prisma.PropertyAmenityFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PropertyAmenityPayload>[]
+        }
+        create: {
+          args: Prisma.PropertyAmenityCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PropertyAmenityPayload>
+        }
+        createMany: {
+          args: Prisma.PropertyAmenityCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.PropertyAmenityCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PropertyAmenityPayload>[]
+        }
+        delete: {
+          args: Prisma.PropertyAmenityDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PropertyAmenityPayload>
+        }
+        update: {
+          args: Prisma.PropertyAmenityUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PropertyAmenityPayload>
+        }
+        deleteMany: {
+          args: Prisma.PropertyAmenityDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.PropertyAmenityUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.PropertyAmenityUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PropertyAmenityPayload>[]
+        }
+        upsert: {
+          args: Prisma.PropertyAmenityUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PropertyAmenityPayload>
+        }
+        aggregate: {
+          args: Prisma.PropertyAmenityAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregatePropertyAmenity>
+        }
+        groupBy: {
+          args: Prisma.PropertyAmenityGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.PropertyAmenityGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.PropertyAmenityCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.PropertyAmenityCountAggregateOutputType> | number
         }
       }
     }
@@ -892,6 +1042,14 @@ export const TransactionIsolationLevel = runtime.makeStrictEnum({
 export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
 
 
+export const AmenityScalarFieldEnum = {
+  id: 'id',
+  name: 'name'
+} as const
+
+export type AmenityScalarFieldEnum = (typeof AmenityScalarFieldEnum)[keyof typeof AmenityScalarFieldEnum]
+
+
 export const CategoryScalarFieldEnum = {
   id: 'id',
   name: 'name',
@@ -927,6 +1085,15 @@ export const PaymentScalarFieldEnum = {
 export type PaymentScalarFieldEnum = (typeof PaymentScalarFieldEnum)[keyof typeof PaymentScalarFieldEnum]
 
 
+export const PropertyAmenityScalarFieldEnum = {
+  propertyId: 'propertyId',
+  amenityId: 'amenityId',
+  createdAt: 'createdAt'
+} as const
+
+export type PropertyAmenityScalarFieldEnum = (typeof PropertyAmenityScalarFieldEnum)[keyof typeof PropertyAmenityScalarFieldEnum]
+
+
 export const PropertyScalarFieldEnum = {
   id: 'id',
   landlordId: 'landlordId',
@@ -937,7 +1104,7 @@ export const PropertyScalarFieldEnum = {
   city: 'city',
   area: 'area',
   latitude: 'latitude',
-  longtitude: 'longtitude',
+  longitude: 'longitude',
   monthlyRent: 'monthlyRent',
   securityDeposit: 'securityDeposit',
   bedrooms: 'bedrooms',
@@ -947,7 +1114,6 @@ export const PropertyScalarFieldEnum = {
   size: 'size',
   sizeUnit: 'sizeUnit',
   images: 'images',
-  amenities: 'amenities',
   availableFrom: 'availableFrom',
   available: 'available',
   status: 'status',
@@ -1310,8 +1476,10 @@ export type PrismaClientOptions = ({
   queryPlanCacheMaxSize?: number
 }
 export type GlobalOmitConfig = {
+  amenity?: Prisma.AmenityOmit
   category?: Prisma.CategoryOmit
   payment?: Prisma.PaymentOmit
+  propertyAmenity?: Prisma.PropertyAmenityOmit
   property?: Prisma.PropertyOmit
   rentalRequest?: Prisma.RentalRequestOmit
   review?: Prisma.ReviewOmit

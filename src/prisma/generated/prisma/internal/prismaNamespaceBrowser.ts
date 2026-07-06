@@ -51,8 +51,10 @@ export const AnyNull = runtime.AnyNull
 
 
 export const ModelName = {
+  Amenity: 'Amenity',
   Category: 'Category',
   Payment: 'Payment',
+  PropertyAmenity: 'PropertyAmenity',
   Property: 'Property',
   RentalRequest: 'RentalRequest',
   Review: 'Review',
@@ -73,6 +75,14 @@ export const TransactionIsolationLevel = runtime.makeStrictEnum({
 } as const)
 
 export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
+
+
+export const AmenityScalarFieldEnum = {
+  id: 'id',
+  name: 'name'
+} as const
+
+export type AmenityScalarFieldEnum = (typeof AmenityScalarFieldEnum)[keyof typeof AmenityScalarFieldEnum]
 
 
 export const CategoryScalarFieldEnum = {
@@ -110,6 +120,15 @@ export const PaymentScalarFieldEnum = {
 export type PaymentScalarFieldEnum = (typeof PaymentScalarFieldEnum)[keyof typeof PaymentScalarFieldEnum]
 
 
+export const PropertyAmenityScalarFieldEnum = {
+  propertyId: 'propertyId',
+  amenityId: 'amenityId',
+  createdAt: 'createdAt'
+} as const
+
+export type PropertyAmenityScalarFieldEnum = (typeof PropertyAmenityScalarFieldEnum)[keyof typeof PropertyAmenityScalarFieldEnum]
+
+
 export const PropertyScalarFieldEnum = {
   id: 'id',
   landlordId: 'landlordId',
@@ -120,7 +139,7 @@ export const PropertyScalarFieldEnum = {
   city: 'city',
   area: 'area',
   latitude: 'latitude',
-  longtitude: 'longtitude',
+  longitude: 'longitude',
   monthlyRent: 'monthlyRent',
   securityDeposit: 'securityDeposit',
   bedrooms: 'bedrooms',
@@ -130,7 +149,6 @@ export const PropertyScalarFieldEnum = {
   size: 'size',
   sizeUnit: 'sizeUnit',
   images: 'images',
-  amenities: 'amenities',
   availableFrom: 'availableFrom',
   available: 'available',
   status: 'status',

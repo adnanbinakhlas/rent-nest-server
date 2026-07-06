@@ -7,11 +7,11 @@ model Property {
   title       String
   description String
 
-  address    String
-  city       String
-  area       String
-  latitude   Decimal @db.Decimal(8, 6)
-  longtitude Decimal @db.Decimal(8, 6)
+  address   String
+  city      String
+  area      String
+  latitude  Decimal @db.Decimal(8, 6)
+  longitude Decimal @db.Decimal(8, 6)
 
   monthlyRent     Decimal @map("monthly_rent") @db.Decimal(10, 2)
   securityDeposit Decimal @map("security_deposit") @db.Decimal(10, 2)
@@ -24,8 +24,7 @@ model Property {
   size     Int
   sizeUnit Unit @map("size_unit")
 
-  images    String[]
-  amenities String[]
+  images String[]
 
   availableFrom DateTime @map("available_from")
   available     Boolean
@@ -41,7 +40,8 @@ model Property {
 
   rentalRequests RentalRequest[]
 
-  reviews Review[]
+  reviews         Review[]
+  propertyAmenity PropertyAmenity[]
 
   @@map("properties")
 }

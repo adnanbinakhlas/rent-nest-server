@@ -1,0 +1,11 @@
+model PropertyAmenity {
+  propertyId String
+  amenityId  String
+
+  amenity  Amenity  @relation(fields: [amenityId], references: [id])
+  property Property @relation(fields: [propertyId], references: [id])
+
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@id([propertyId, amenityId])
+}
