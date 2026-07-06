@@ -30,6 +30,7 @@ export type PropertyImageMinAggregateOutputType = {
   imageUrl: string | null
   isPrimary: boolean | null
   createdAt: Date | null
+  updatedAt: Date | null
 }
 
 export type PropertyImageMaxAggregateOutputType = {
@@ -38,6 +39,7 @@ export type PropertyImageMaxAggregateOutputType = {
   imageUrl: string | null
   isPrimary: boolean | null
   createdAt: Date | null
+  updatedAt: Date | null
 }
 
 export type PropertyImageCountAggregateOutputType = {
@@ -46,6 +48,7 @@ export type PropertyImageCountAggregateOutputType = {
   imageUrl: number
   isPrimary: number
   createdAt: number
+  updatedAt: number
   _all: number
 }
 
@@ -56,6 +59,7 @@ export type PropertyImageMinAggregateInputType = {
   imageUrl?: true
   isPrimary?: true
   createdAt?: true
+  updatedAt?: true
 }
 
 export type PropertyImageMaxAggregateInputType = {
@@ -64,6 +68,7 @@ export type PropertyImageMaxAggregateInputType = {
   imageUrl?: true
   isPrimary?: true
   createdAt?: true
+  updatedAt?: true
 }
 
 export type PropertyImageCountAggregateInputType = {
@@ -72,6 +77,7 @@ export type PropertyImageCountAggregateInputType = {
   imageUrl?: true
   isPrimary?: true
   createdAt?: true
+  updatedAt?: true
   _all?: true
 }
 
@@ -153,6 +159,7 @@ export type PropertyImageGroupByOutputType = {
   imageUrl: string
   isPrimary: boolean
   createdAt: Date
+  updatedAt: Date
   _count: PropertyImageCountAggregateOutputType | null
   _min: PropertyImageMinAggregateOutputType | null
   _max: PropertyImageMaxAggregateOutputType | null
@@ -182,6 +189,7 @@ export type PropertyImageWhereInput = {
   imageUrl?: Prisma.StringFilter<"PropertyImage"> | string
   isPrimary?: Prisma.BoolFilter<"PropertyImage"> | boolean
   createdAt?: Prisma.DateTimeFilter<"PropertyImage"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"PropertyImage"> | Date | string
   property?: Prisma.XOR<Prisma.PropertyScalarRelationFilter, Prisma.PropertyWhereInput>
 }
 
@@ -191,6 +199,7 @@ export type PropertyImageOrderByWithRelationInput = {
   imageUrl?: Prisma.SortOrder
   isPrimary?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   property?: Prisma.PropertyOrderByWithRelationInput
 }
 
@@ -203,6 +212,7 @@ export type PropertyImageWhereUniqueInput = Prisma.AtLeast<{
   imageUrl?: Prisma.StringFilter<"PropertyImage"> | string
   isPrimary?: Prisma.BoolFilter<"PropertyImage"> | boolean
   createdAt?: Prisma.DateTimeFilter<"PropertyImage"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"PropertyImage"> | Date | string
   property?: Prisma.XOR<Prisma.PropertyScalarRelationFilter, Prisma.PropertyWhereInput>
 }, "id">
 
@@ -212,6 +222,7 @@ export type PropertyImageOrderByWithAggregationInput = {
   imageUrl?: Prisma.SortOrder
   isPrimary?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   _count?: Prisma.PropertyImageCountOrderByAggregateInput
   _max?: Prisma.PropertyImageMaxOrderByAggregateInput
   _min?: Prisma.PropertyImageMinOrderByAggregateInput
@@ -226,6 +237,7 @@ export type PropertyImageScalarWhereWithAggregatesInput = {
   imageUrl?: Prisma.StringWithAggregatesFilter<"PropertyImage"> | string
   isPrimary?: Prisma.BoolWithAggregatesFilter<"PropertyImage"> | boolean
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"PropertyImage"> | Date | string
+  updatedAt?: Prisma.DateTimeWithAggregatesFilter<"PropertyImage"> | Date | string
 }
 
 export type PropertyImageCreateInput = {
@@ -233,6 +245,7 @@ export type PropertyImageCreateInput = {
   imageUrl: string
   isPrimary?: boolean
   createdAt?: Date | string
+  updatedAt?: Date | string
   property: Prisma.PropertyCreateNestedOneWithoutImagesInput
 }
 
@@ -242,6 +255,7 @@ export type PropertyImageUncheckedCreateInput = {
   imageUrl: string
   isPrimary?: boolean
   createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type PropertyImageUpdateInput = {
@@ -249,6 +263,7 @@ export type PropertyImageUpdateInput = {
   imageUrl?: Prisma.StringFieldUpdateOperationsInput | string
   isPrimary?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   property?: Prisma.PropertyUpdateOneRequiredWithoutImagesNestedInput
 }
 
@@ -258,6 +273,7 @@ export type PropertyImageUncheckedUpdateInput = {
   imageUrl?: Prisma.StringFieldUpdateOperationsInput | string
   isPrimary?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type PropertyImageCreateManyInput = {
@@ -266,6 +282,7 @@ export type PropertyImageCreateManyInput = {
   imageUrl: string
   isPrimary?: boolean
   createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type PropertyImageUpdateManyMutationInput = {
@@ -273,6 +290,7 @@ export type PropertyImageUpdateManyMutationInput = {
   imageUrl?: Prisma.StringFieldUpdateOperationsInput | string
   isPrimary?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type PropertyImageUncheckedUpdateManyInput = {
@@ -281,6 +299,7 @@ export type PropertyImageUncheckedUpdateManyInput = {
   imageUrl?: Prisma.StringFieldUpdateOperationsInput | string
   isPrimary?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type PropertyImageCountOrderByAggregateInput = {
@@ -289,6 +308,7 @@ export type PropertyImageCountOrderByAggregateInput = {
   imageUrl?: Prisma.SortOrder
   isPrimary?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type PropertyImageMaxOrderByAggregateInput = {
@@ -297,6 +317,7 @@ export type PropertyImageMaxOrderByAggregateInput = {
   imageUrl?: Prisma.SortOrder
   isPrimary?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type PropertyImageMinOrderByAggregateInput = {
@@ -305,6 +326,7 @@ export type PropertyImageMinOrderByAggregateInput = {
   imageUrl?: Prisma.SortOrder
   isPrimary?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type PropertyImageListRelationFilter = {
@@ -368,6 +390,7 @@ export type PropertyImageCreateWithoutPropertyInput = {
   imageUrl: string
   isPrimary?: boolean
   createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type PropertyImageUncheckedCreateWithoutPropertyInput = {
@@ -375,6 +398,7 @@ export type PropertyImageUncheckedCreateWithoutPropertyInput = {
   imageUrl: string
   isPrimary?: boolean
   createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type PropertyImageCreateOrConnectWithoutPropertyInput = {
@@ -412,6 +436,7 @@ export type PropertyImageScalarWhereInput = {
   imageUrl?: Prisma.StringFilter<"PropertyImage"> | string
   isPrimary?: Prisma.BoolFilter<"PropertyImage"> | boolean
   createdAt?: Prisma.DateTimeFilter<"PropertyImage"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"PropertyImage"> | Date | string
 }
 
 export type PropertyImageCreateManyPropertyInput = {
@@ -419,6 +444,7 @@ export type PropertyImageCreateManyPropertyInput = {
   imageUrl: string
   isPrimary?: boolean
   createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type PropertyImageUpdateWithoutPropertyInput = {
@@ -426,6 +452,7 @@ export type PropertyImageUpdateWithoutPropertyInput = {
   imageUrl?: Prisma.StringFieldUpdateOperationsInput | string
   isPrimary?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type PropertyImageUncheckedUpdateWithoutPropertyInput = {
@@ -433,6 +460,7 @@ export type PropertyImageUncheckedUpdateWithoutPropertyInput = {
   imageUrl?: Prisma.StringFieldUpdateOperationsInput | string
   isPrimary?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type PropertyImageUncheckedUpdateManyWithoutPropertyInput = {
@@ -440,6 +468,7 @@ export type PropertyImageUncheckedUpdateManyWithoutPropertyInput = {
   imageUrl?: Prisma.StringFieldUpdateOperationsInput | string
   isPrimary?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 
@@ -450,6 +479,7 @@ export type PropertyImageSelect<ExtArgs extends runtime.Types.Extensions.Interna
   imageUrl?: boolean
   isPrimary?: boolean
   createdAt?: boolean
+  updatedAt?: boolean
   property?: boolean | Prisma.PropertyDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["propertyImage"]>
 
@@ -459,6 +489,7 @@ export type PropertyImageSelectCreateManyAndReturn<ExtArgs extends runtime.Types
   imageUrl?: boolean
   isPrimary?: boolean
   createdAt?: boolean
+  updatedAt?: boolean
   property?: boolean | Prisma.PropertyDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["propertyImage"]>
 
@@ -468,6 +499,7 @@ export type PropertyImageSelectUpdateManyAndReturn<ExtArgs extends runtime.Types
   imageUrl?: boolean
   isPrimary?: boolean
   createdAt?: boolean
+  updatedAt?: boolean
   property?: boolean | Prisma.PropertyDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["propertyImage"]>
 
@@ -477,9 +509,10 @@ export type PropertyImageSelectScalar = {
   imageUrl?: boolean
   isPrimary?: boolean
   createdAt?: boolean
+  updatedAt?: boolean
 }
 
-export type PropertyImageOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "propertyId" | "imageUrl" | "isPrimary" | "createdAt", ExtArgs["result"]["propertyImage"]>
+export type PropertyImageOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "propertyId" | "imageUrl" | "isPrimary" | "createdAt" | "updatedAt", ExtArgs["result"]["propertyImage"]>
 export type PropertyImageInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   property?: boolean | Prisma.PropertyDefaultArgs<ExtArgs>
 }
@@ -501,6 +534,7 @@ export type $PropertyImagePayload<ExtArgs extends runtime.Types.Extensions.Inter
     imageUrl: string
     isPrimary: boolean
     createdAt: Date
+    updatedAt: Date
   }, ExtArgs["result"]["propertyImage"]>
   composites: {}
 }
@@ -930,6 +964,7 @@ export interface PropertyImageFieldRefs {
   readonly imageUrl: Prisma.FieldRef<"PropertyImage", 'String'>
   readonly isPrimary: Prisma.FieldRef<"PropertyImage", 'Boolean'>
   readonly createdAt: Prisma.FieldRef<"PropertyImage", 'DateTime'>
+  readonly updatedAt: Prisma.FieldRef<"PropertyImage", 'DateTime'>
 }
     
 

@@ -7,6 +7,7 @@ model PropertyImage {
   isPrimary Boolean @default(false) @map("is_primary")
 
   createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
 
   @@map("property_images")
 }

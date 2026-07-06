@@ -321,10 +321,6 @@ export type NullableStringFieldUpdateOperationsInput = {
   set?: string | null
 }
 
-export type DateTimeFieldUpdateOperationsInput = {
-  set?: Date | string
-}
-
 export type CategoryCreateNestedOneWithoutPropertiesInput = {
   create?: Prisma.XOR<Prisma.CategoryCreateWithoutPropertiesInput, Prisma.CategoryUncheckedCreateWithoutPropertiesInput>
   connectOrCreate?: Prisma.CategoryCreateOrConnectWithoutPropertiesInput
