@@ -15,7 +15,8 @@
     "prisma:generate": "prisma generate",
     "prisma:studio": "prisma studio",
     "prisma:format": "prisma format",
-    "prisma:validate": "prisma validate"
+    "prisma:validate": "prisma validate",
+    "seed:admin": "tsx src/prisma/seed/admin.ts"
   },
   "keywords": [],
   "author": "",
