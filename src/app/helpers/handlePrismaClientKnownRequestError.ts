@@ -20,7 +20,7 @@ export const handlePrismaClientKnownRequestError = (
 ): IReturnType => {
   let statusCode: number = status.BAD_REQUEST;
   let message: string = "Prisma client known request error";
-  let error: unknown;
+  let error: unknown = err;
 
   if (err.code === "P2002") {
     statusCode = status.BAD_REQUEST;
@@ -33,5 +33,12 @@ export const handlePrismaClientKnownRequestError = (
       fields,
     };
   }
+
+  if (err.code === "P2025") {
+    statusCode = status.NOT_FOUND;
+    message = "Operation failed. Related record not found.";
+    error = err.meta;
+  }
+
   return { statusCode, message, error };
 };
