@@ -3,7 +3,7 @@ model User {
   fullname String
   email    String  @unique
   password String
-  phone    String?
+  phone    String
   avatar   String?
 
   role   UserRole

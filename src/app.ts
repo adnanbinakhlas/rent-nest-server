@@ -1,7 +1,8 @@
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import express, { Application, Request, Response } from "express";
-import globalErrorHandler from "./app/middlewares/globalErrorHandler";
+import globalErrorHandler from "./app/middlewares/globalErrorHandler.middleware";
+import v1Router from "./app/v1/routes";
 
 const app: Application = express();
 
@@ -27,7 +28,7 @@ app.get("/", (_req: Request, res: Response) => {
 });
 
 // API Routes
-// app.use('/api/v1', router);
+app.use("/api/v1", v1Router);
 
 // 404 Handler
 app.use((req: Request, res: Response) => {
