@@ -3,6 +3,7 @@ import cors from "cors";
 import express, { Application, Request, Response } from "express";
 import globalErrorHandler from "./app/middlewares/globalErrorHandler.middleware";
 import v1Routes from "./app/v1/routes";
+import morgan from "morgan";
 
 const app: Application = express();
 
@@ -10,6 +11,7 @@ const app: Application = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
+app.use(morgan("dev"));
 
 // CORS
 app.use(
