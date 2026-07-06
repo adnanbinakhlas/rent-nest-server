@@ -55,6 +55,7 @@ export const ModelName = {
   Category: 'Category',
   Payment: 'Payment',
   PropertyAmenity: 'PropertyAmenity',
+  PropertyImage: 'PropertyImage',
   Property: 'Property',
   RentalRequest: 'RentalRequest',
   Review: 'Review',
@@ -129,6 +130,17 @@ export const PropertyAmenityScalarFieldEnum = {
 export type PropertyAmenityScalarFieldEnum = (typeof PropertyAmenityScalarFieldEnum)[keyof typeof PropertyAmenityScalarFieldEnum]
 
 
+export const PropertyImageScalarFieldEnum = {
+  id: 'id',
+  propertyId: 'propertyId',
+  imageUrl: 'imageUrl',
+  isPrimary: 'isPrimary',
+  createdAt: 'createdAt'
+} as const
+
+export type PropertyImageScalarFieldEnum = (typeof PropertyImageScalarFieldEnum)[keyof typeof PropertyImageScalarFieldEnum]
+
+
 export const PropertyScalarFieldEnum = {
   id: 'id',
   landlordId: 'landlordId',
@@ -148,7 +160,6 @@ export const PropertyScalarFieldEnum = {
   furnished: 'furnished',
   size: 'size',
   sizeUnit: 'sizeUnit',
-  images: 'images',
   availableFrom: 'availableFrom',
   available: 'available',
   status: 'status',

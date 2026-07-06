@@ -1,6 +1,6 @@
 model PropertyAmenity {
-  propertyId String
-  amenityId  String
+  propertyId String @map("property_id")
+  amenityId  String @map("amenity_id")
 
   amenity  Amenity  @relation(fields: [amenityId], references: [id])
   property Property @relation(fields: [propertyId], references: [id])
@@ -8,4 +8,5 @@ model PropertyAmenity {
   createdAt DateTime @default(now()) @map("created_at")
 
   @@id([propertyId, amenityId])
+  @@map("properties_amenities")
 }

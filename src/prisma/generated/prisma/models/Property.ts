@@ -119,7 +119,6 @@ export type PropertyCountAggregateOutputType = {
   furnished: number
   size: number
   sizeUnit: number
-  images: number
   availableFrom: number
   available: number
   status: number
@@ -222,7 +221,6 @@ export type PropertyCountAggregateInputType = {
   furnished?: true
   size?: true
   sizeUnit?: true
-  images?: true
   availableFrom?: true
   available?: true
   status?: true
@@ -336,7 +334,6 @@ export type PropertyGroupByOutputType = {
   furnished: boolean
   size: number
   sizeUnit: $Enums.Unit
-  images: string[]
   availableFrom: Date
   available: boolean
   status: $Enums.PropertyStatus
@@ -386,7 +383,6 @@ export type PropertyWhereInput = {
   furnished?: Prisma.BoolFilter<"Property"> | boolean
   size?: Prisma.IntFilter<"Property"> | number
   sizeUnit?: Prisma.EnumUnitFilter<"Property"> | $Enums.Unit
-  images?: Prisma.StringNullableListFilter<"Property">
   availableFrom?: Prisma.DateTimeFilter<"Property"> | Date | string
   available?: Prisma.BoolFilter<"Property"> | boolean
   status?: Prisma.EnumPropertyStatusFilter<"Property"> | $Enums.PropertyStatus
@@ -397,6 +393,7 @@ export type PropertyWhereInput = {
   rentalRequests?: Prisma.RentalRequestListRelationFilter
   reviews?: Prisma.ReviewListRelationFilter
   propertyAmenity?: Prisma.PropertyAmenityListRelationFilter
+  images?: Prisma.PropertyImageListRelationFilter
 }
 
 export type PropertyOrderByWithRelationInput = {
@@ -418,7 +415,6 @@ export type PropertyOrderByWithRelationInput = {
   furnished?: Prisma.SortOrder
   size?: Prisma.SortOrder
   sizeUnit?: Prisma.SortOrder
-  images?: Prisma.SortOrder
   availableFrom?: Prisma.SortOrder
   available?: Prisma.SortOrder
   status?: Prisma.SortOrder
@@ -429,6 +425,7 @@ export type PropertyOrderByWithRelationInput = {
   rentalRequests?: Prisma.RentalRequestOrderByRelationAggregateInput
   reviews?: Prisma.ReviewOrderByRelationAggregateInput
   propertyAmenity?: Prisma.PropertyAmenityOrderByRelationAggregateInput
+  images?: Prisma.PropertyImageOrderByRelationAggregateInput
 }
 
 export type PropertyWhereUniqueInput = Prisma.AtLeast<{
@@ -453,7 +450,6 @@ export type PropertyWhereUniqueInput = Prisma.AtLeast<{
   furnished?: Prisma.BoolFilter<"Property"> | boolean
   size?: Prisma.IntFilter<"Property"> | number
   sizeUnit?: Prisma.EnumUnitFilter<"Property"> | $Enums.Unit
-  images?: Prisma.StringNullableListFilter<"Property">
   availableFrom?: Prisma.DateTimeFilter<"Property"> | Date | string
   available?: Prisma.BoolFilter<"Property"> | boolean
   status?: Prisma.EnumPropertyStatusFilter<"Property"> | $Enums.PropertyStatus
@@ -464,6 +460,7 @@ export type PropertyWhereUniqueInput = Prisma.AtLeast<{
   rentalRequests?: Prisma.RentalRequestListRelationFilter
   reviews?: Prisma.ReviewListRelationFilter
   propertyAmenity?: Prisma.PropertyAmenityListRelationFilter
+  images?: Prisma.PropertyImageListRelationFilter
 }, "id">
 
 export type PropertyOrderByWithAggregationInput = {
@@ -485,7 +482,6 @@ export type PropertyOrderByWithAggregationInput = {
   furnished?: Prisma.SortOrder
   size?: Prisma.SortOrder
   sizeUnit?: Prisma.SortOrder
-  images?: Prisma.SortOrder
   availableFrom?: Prisma.SortOrder
   available?: Prisma.SortOrder
   status?: Prisma.SortOrder
@@ -520,7 +516,6 @@ export type PropertyScalarWhereWithAggregatesInput = {
   furnished?: Prisma.BoolWithAggregatesFilter<"Property"> | boolean
   size?: Prisma.IntWithAggregatesFilter<"Property"> | number
   sizeUnit?: Prisma.EnumUnitWithAggregatesFilter<"Property"> | $Enums.Unit
-  images?: Prisma.StringNullableListFilter<"Property">
   availableFrom?: Prisma.DateTimeWithAggregatesFilter<"Property"> | Date | string
   available?: Prisma.BoolWithAggregatesFilter<"Property"> | boolean
   status?: Prisma.EnumPropertyStatusWithAggregatesFilter<"Property"> | $Enums.PropertyStatus
@@ -545,7 +540,6 @@ export type PropertyCreateInput = {
   furnished: boolean
   size: number
   sizeUnit: $Enums.Unit
-  images?: Prisma.PropertyCreateimagesInput | string[]
   availableFrom: Date | string
   available: boolean
   status?: $Enums.PropertyStatus
@@ -556,6 +550,7 @@ export type PropertyCreateInput = {
   rentalRequests?: Prisma.RentalRequestCreateNestedManyWithoutPropertyInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutPropertyInput
   propertyAmenity?: Prisma.PropertyAmenityCreateNestedManyWithoutPropertyInput
+  images?: Prisma.PropertyImageCreateNestedManyWithoutPropertyInput
 }
 
 export type PropertyUncheckedCreateInput = {
@@ -577,7 +572,6 @@ export type PropertyUncheckedCreateInput = {
   furnished: boolean
   size: number
   sizeUnit: $Enums.Unit
-  images?: Prisma.PropertyCreateimagesInput | string[]
   availableFrom: Date | string
   available: boolean
   status?: $Enums.PropertyStatus
@@ -586,6 +580,7 @@ export type PropertyUncheckedCreateInput = {
   rentalRequests?: Prisma.RentalRequestUncheckedCreateNestedManyWithoutPropertyInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutPropertyInput
   propertyAmenity?: Prisma.PropertyAmenityUncheckedCreateNestedManyWithoutPropertyInput
+  images?: Prisma.PropertyImageUncheckedCreateNestedManyWithoutPropertyInput
 }
 
 export type PropertyUpdateInput = {
@@ -605,7 +600,6 @@ export type PropertyUpdateInput = {
   furnished?: Prisma.BoolFieldUpdateOperationsInput | boolean
   size?: Prisma.IntFieldUpdateOperationsInput | number
   sizeUnit?: Prisma.EnumUnitFieldUpdateOperationsInput | $Enums.Unit
-  images?: Prisma.PropertyUpdateimagesInput | string[]
   availableFrom?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   available?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.EnumPropertyStatusFieldUpdateOperationsInput | $Enums.PropertyStatus
@@ -616,6 +610,7 @@ export type PropertyUpdateInput = {
   rentalRequests?: Prisma.RentalRequestUpdateManyWithoutPropertyNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutPropertyNestedInput
   propertyAmenity?: Prisma.PropertyAmenityUpdateManyWithoutPropertyNestedInput
+  images?: Prisma.PropertyImageUpdateManyWithoutPropertyNestedInput
 }
 
 export type PropertyUncheckedUpdateInput = {
@@ -637,7 +632,6 @@ export type PropertyUncheckedUpdateInput = {
   furnished?: Prisma.BoolFieldUpdateOperationsInput | boolean
   size?: Prisma.IntFieldUpdateOperationsInput | number
   sizeUnit?: Prisma.EnumUnitFieldUpdateOperationsInput | $Enums.Unit
-  images?: Prisma.PropertyUpdateimagesInput | string[]
   availableFrom?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   available?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.EnumPropertyStatusFieldUpdateOperationsInput | $Enums.PropertyStatus
@@ -646,6 +640,7 @@ export type PropertyUncheckedUpdateInput = {
   rentalRequests?: Prisma.RentalRequestUncheckedUpdateManyWithoutPropertyNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutPropertyNestedInput
   propertyAmenity?: Prisma.PropertyAmenityUncheckedUpdateManyWithoutPropertyNestedInput
+  images?: Prisma.PropertyImageUncheckedUpdateManyWithoutPropertyNestedInput
 }
 
 export type PropertyCreateManyInput = {
@@ -667,7 +662,6 @@ export type PropertyCreateManyInput = {
   furnished: boolean
   size: number
   sizeUnit: $Enums.Unit
-  images?: Prisma.PropertyCreateimagesInput | string[]
   availableFrom: Date | string
   available: boolean
   status?: $Enums.PropertyStatus
@@ -692,7 +686,6 @@ export type PropertyUpdateManyMutationInput = {
   furnished?: Prisma.BoolFieldUpdateOperationsInput | boolean
   size?: Prisma.IntFieldUpdateOperationsInput | number
   sizeUnit?: Prisma.EnumUnitFieldUpdateOperationsInput | $Enums.Unit
-  images?: Prisma.PropertyUpdateimagesInput | string[]
   availableFrom?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   available?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.EnumPropertyStatusFieldUpdateOperationsInput | $Enums.PropertyStatus
@@ -719,7 +712,6 @@ export type PropertyUncheckedUpdateManyInput = {
   furnished?: Prisma.BoolFieldUpdateOperationsInput | boolean
   size?: Prisma.IntFieldUpdateOperationsInput | number
   sizeUnit?: Prisma.EnumUnitFieldUpdateOperationsInput | $Enums.Unit
-  images?: Prisma.PropertyUpdateimagesInput | string[]
   availableFrom?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   available?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.EnumPropertyStatusFieldUpdateOperationsInput | $Enums.PropertyStatus
@@ -742,14 +734,6 @@ export type PropertyScalarRelationFilter = {
   isNot?: Prisma.PropertyWhereInput
 }
 
-export type StringNullableListFilter<$PrismaModel = never> = {
-  equals?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel> | null
-  has?: string | Prisma.StringFieldRefInput<$PrismaModel> | null
-  hasEvery?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>
-  hasSome?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>
-  isEmpty?: boolean
-}
-
 export type PropertyCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   landlordId?: Prisma.SortOrder
@@ -769,7 +753,6 @@ export type PropertyCountOrderByAggregateInput = {
   furnished?: Prisma.SortOrder
   size?: Prisma.SortOrder
   sizeUnit?: Prisma.SortOrder
-  images?: Prisma.SortOrder
   availableFrom?: Prisma.SortOrder
   available?: Prisma.SortOrder
   status?: Prisma.SortOrder
@@ -907,8 +890,18 @@ export type PropertyUpdateOneRequiredWithoutPropertyAmenityNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.PropertyUpdateToOneWithWhereWithoutPropertyAmenityInput, Prisma.PropertyUpdateWithoutPropertyAmenityInput>, Prisma.PropertyUncheckedUpdateWithoutPropertyAmenityInput>
 }
 
-export type PropertyCreateimagesInput = {
-  set: string[]
+export type PropertyCreateNestedOneWithoutImagesInput = {
+  create?: Prisma.XOR<Prisma.PropertyCreateWithoutImagesInput, Prisma.PropertyUncheckedCreateWithoutImagesInput>
+  connectOrCreate?: Prisma.PropertyCreateOrConnectWithoutImagesInput
+  connect?: Prisma.PropertyWhereUniqueInput
+}
+
+export type PropertyUpdateOneRequiredWithoutImagesNestedInput = {
+  create?: Prisma.XOR<Prisma.PropertyCreateWithoutImagesInput, Prisma.PropertyUncheckedCreateWithoutImagesInput>
+  connectOrCreate?: Prisma.PropertyCreateOrConnectWithoutImagesInput
+  upsert?: Prisma.PropertyUpsertWithoutImagesInput
+  connect?: Prisma.PropertyWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.PropertyUpdateToOneWithWhereWithoutImagesInput, Prisma.PropertyUpdateWithoutImagesInput>, Prisma.PropertyUncheckedUpdateWithoutImagesInput>
 }
 
 export type IntFieldUpdateOperationsInput = {
@@ -919,17 +912,8 @@ export type IntFieldUpdateOperationsInput = {
   divide?: number
 }
 
-export type BoolFieldUpdateOperationsInput = {
-  set?: boolean
-}
-
 export type EnumUnitFieldUpdateOperationsInput = {
   set?: $Enums.Unit
-}
-
-export type PropertyUpdateimagesInput = {
-  set?: string[]
-  push?: string | string[]
 }
 
 export type EnumPropertyStatusFieldUpdateOperationsInput = {
@@ -1023,7 +1007,6 @@ export type PropertyCreateWithoutCategoryInput = {
   furnished: boolean
   size: number
   sizeUnit: $Enums.Unit
-  images?: Prisma.PropertyCreateimagesInput | string[]
   availableFrom: Date | string
   available: boolean
   status?: $Enums.PropertyStatus
@@ -1033,6 +1016,7 @@ export type PropertyCreateWithoutCategoryInput = {
   rentalRequests?: Prisma.RentalRequestCreateNestedManyWithoutPropertyInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutPropertyInput
   propertyAmenity?: Prisma.PropertyAmenityCreateNestedManyWithoutPropertyInput
+  images?: Prisma.PropertyImageCreateNestedManyWithoutPropertyInput
 }
 
 export type PropertyUncheckedCreateWithoutCategoryInput = {
@@ -1053,7 +1037,6 @@ export type PropertyUncheckedCreateWithoutCategoryInput = {
   furnished: boolean
   size: number
   sizeUnit: $Enums.Unit
-  images?: Prisma.PropertyCreateimagesInput | string[]
   availableFrom: Date | string
   available: boolean
   status?: $Enums.PropertyStatus
@@ -1062,6 +1045,7 @@ export type PropertyUncheckedCreateWithoutCategoryInput = {
   rentalRequests?: Prisma.RentalRequestUncheckedCreateNestedManyWithoutPropertyInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutPropertyInput
   propertyAmenity?: Prisma.PropertyAmenityUncheckedCreateNestedManyWithoutPropertyInput
+  images?: Prisma.PropertyImageUncheckedCreateNestedManyWithoutPropertyInput
 }
 
 export type PropertyCreateOrConnectWithoutCategoryInput = {
@@ -1112,7 +1096,6 @@ export type PropertyScalarWhereInput = {
   furnished?: Prisma.BoolFilter<"Property"> | boolean
   size?: Prisma.IntFilter<"Property"> | number
   sizeUnit?: Prisma.EnumUnitFilter<"Property"> | $Enums.Unit
-  images?: Prisma.StringNullableListFilter<"Property">
   availableFrom?: Prisma.DateTimeFilter<"Property"> | Date | string
   available?: Prisma.BoolFilter<"Property"> | boolean
   status?: Prisma.EnumPropertyStatusFilter<"Property"> | $Enums.PropertyStatus
@@ -1137,7 +1120,6 @@ export type PropertyCreateWithoutPropertyAmenityInput = {
   furnished: boolean
   size: number
   sizeUnit: $Enums.Unit
-  images?: Prisma.PropertyCreateimagesInput | string[]
   availableFrom: Date | string
   available: boolean
   status?: $Enums.PropertyStatus
@@ -1147,6 +1129,7 @@ export type PropertyCreateWithoutPropertyAmenityInput = {
   category: Prisma.CategoryCreateNestedOneWithoutPropertiesInput
   rentalRequests?: Prisma.RentalRequestCreateNestedManyWithoutPropertyInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutPropertyInput
+  images?: Prisma.PropertyImageCreateNestedManyWithoutPropertyInput
 }
 
 export type PropertyUncheckedCreateWithoutPropertyAmenityInput = {
@@ -1168,7 +1151,6 @@ export type PropertyUncheckedCreateWithoutPropertyAmenityInput = {
   furnished: boolean
   size: number
   sizeUnit: $Enums.Unit
-  images?: Prisma.PropertyCreateimagesInput | string[]
   availableFrom: Date | string
   available: boolean
   status?: $Enums.PropertyStatus
@@ -1176,6 +1158,7 @@ export type PropertyUncheckedCreateWithoutPropertyAmenityInput = {
   updatedAt?: Date | string
   rentalRequests?: Prisma.RentalRequestUncheckedCreateNestedManyWithoutPropertyInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutPropertyInput
+  images?: Prisma.PropertyImageUncheckedCreateNestedManyWithoutPropertyInput
 }
 
 export type PropertyCreateOrConnectWithoutPropertyAmenityInput = {
@@ -1211,7 +1194,6 @@ export type PropertyUpdateWithoutPropertyAmenityInput = {
   furnished?: Prisma.BoolFieldUpdateOperationsInput | boolean
   size?: Prisma.IntFieldUpdateOperationsInput | number
   sizeUnit?: Prisma.EnumUnitFieldUpdateOperationsInput | $Enums.Unit
-  images?: Prisma.PropertyUpdateimagesInput | string[]
   availableFrom?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   available?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.EnumPropertyStatusFieldUpdateOperationsInput | $Enums.PropertyStatus
@@ -1221,6 +1203,7 @@ export type PropertyUpdateWithoutPropertyAmenityInput = {
   category?: Prisma.CategoryUpdateOneRequiredWithoutPropertiesNestedInput
   rentalRequests?: Prisma.RentalRequestUpdateManyWithoutPropertyNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutPropertyNestedInput
+  images?: Prisma.PropertyImageUpdateManyWithoutPropertyNestedInput
 }
 
 export type PropertyUncheckedUpdateWithoutPropertyAmenityInput = {
@@ -1242,7 +1225,6 @@ export type PropertyUncheckedUpdateWithoutPropertyAmenityInput = {
   furnished?: Prisma.BoolFieldUpdateOperationsInput | boolean
   size?: Prisma.IntFieldUpdateOperationsInput | number
   sizeUnit?: Prisma.EnumUnitFieldUpdateOperationsInput | $Enums.Unit
-  images?: Prisma.PropertyUpdateimagesInput | string[]
   availableFrom?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   available?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.EnumPropertyStatusFieldUpdateOperationsInput | $Enums.PropertyStatus
@@ -1250,6 +1232,139 @@ export type PropertyUncheckedUpdateWithoutPropertyAmenityInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   rentalRequests?: Prisma.RentalRequestUncheckedUpdateManyWithoutPropertyNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutPropertyNestedInput
+  images?: Prisma.PropertyImageUncheckedUpdateManyWithoutPropertyNestedInput
+}
+
+export type PropertyCreateWithoutImagesInput = {
+  id?: string
+  title: string
+  description: string
+  address: string
+  city: string
+  area: string
+  latitude: runtime.Decimal | runtime.DecimalJsLike | number | string
+  longitude: runtime.Decimal | runtime.DecimalJsLike | number | string
+  monthlyRent: runtime.Decimal | runtime.DecimalJsLike | number | string
+  securityDeposit: runtime.Decimal | runtime.DecimalJsLike | number | string
+  bedrooms: number
+  bathrooms: number
+  floor: number
+  furnished: boolean
+  size: number
+  sizeUnit: $Enums.Unit
+  availableFrom: Date | string
+  available: boolean
+  status?: $Enums.PropertyStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  landlord: Prisma.UserCreateNestedOneWithoutPropertiesInput
+  category: Prisma.CategoryCreateNestedOneWithoutPropertiesInput
+  rentalRequests?: Prisma.RentalRequestCreateNestedManyWithoutPropertyInput
+  reviews?: Prisma.ReviewCreateNestedManyWithoutPropertyInput
+  propertyAmenity?: Prisma.PropertyAmenityCreateNestedManyWithoutPropertyInput
+}
+
+export type PropertyUncheckedCreateWithoutImagesInput = {
+  id?: string
+  landlordId: string
+  categoryId: string
+  title: string
+  description: string
+  address: string
+  city: string
+  area: string
+  latitude: runtime.Decimal | runtime.DecimalJsLike | number | string
+  longitude: runtime.Decimal | runtime.DecimalJsLike | number | string
+  monthlyRent: runtime.Decimal | runtime.DecimalJsLike | number | string
+  securityDeposit: runtime.Decimal | runtime.DecimalJsLike | number | string
+  bedrooms: number
+  bathrooms: number
+  floor: number
+  furnished: boolean
+  size: number
+  sizeUnit: $Enums.Unit
+  availableFrom: Date | string
+  available: boolean
+  status?: $Enums.PropertyStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  rentalRequests?: Prisma.RentalRequestUncheckedCreateNestedManyWithoutPropertyInput
+  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutPropertyInput
+  propertyAmenity?: Prisma.PropertyAmenityUncheckedCreateNestedManyWithoutPropertyInput
+}
+
+export type PropertyCreateOrConnectWithoutImagesInput = {
+  where: Prisma.PropertyWhereUniqueInput
+  create: Prisma.XOR<Prisma.PropertyCreateWithoutImagesInput, Prisma.PropertyUncheckedCreateWithoutImagesInput>
+}
+
+export type PropertyUpsertWithoutImagesInput = {
+  update: Prisma.XOR<Prisma.PropertyUpdateWithoutImagesInput, Prisma.PropertyUncheckedUpdateWithoutImagesInput>
+  create: Prisma.XOR<Prisma.PropertyCreateWithoutImagesInput, Prisma.PropertyUncheckedCreateWithoutImagesInput>
+  where?: Prisma.PropertyWhereInput
+}
+
+export type PropertyUpdateToOneWithWhereWithoutImagesInput = {
+  where?: Prisma.PropertyWhereInput
+  data: Prisma.XOR<Prisma.PropertyUpdateWithoutImagesInput, Prisma.PropertyUncheckedUpdateWithoutImagesInput>
+}
+
+export type PropertyUpdateWithoutImagesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  address?: Prisma.StringFieldUpdateOperationsInput | string
+  city?: Prisma.StringFieldUpdateOperationsInput | string
+  area?: Prisma.StringFieldUpdateOperationsInput | string
+  latitude?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  longitude?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  monthlyRent?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  securityDeposit?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  bedrooms?: Prisma.IntFieldUpdateOperationsInput | number
+  bathrooms?: Prisma.IntFieldUpdateOperationsInput | number
+  floor?: Prisma.IntFieldUpdateOperationsInput | number
+  furnished?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  size?: Prisma.IntFieldUpdateOperationsInput | number
+  sizeUnit?: Prisma.EnumUnitFieldUpdateOperationsInput | $Enums.Unit
+  availableFrom?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  available?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.EnumPropertyStatusFieldUpdateOperationsInput | $Enums.PropertyStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  landlord?: Prisma.UserUpdateOneRequiredWithoutPropertiesNestedInput
+  category?: Prisma.CategoryUpdateOneRequiredWithoutPropertiesNestedInput
+  rentalRequests?: Prisma.RentalRequestUpdateManyWithoutPropertyNestedInput
+  reviews?: Prisma.ReviewUpdateManyWithoutPropertyNestedInput
+  propertyAmenity?: Prisma.PropertyAmenityUpdateManyWithoutPropertyNestedInput
+}
+
+export type PropertyUncheckedUpdateWithoutImagesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  landlordId?: Prisma.StringFieldUpdateOperationsInput | string
+  categoryId?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  address?: Prisma.StringFieldUpdateOperationsInput | string
+  city?: Prisma.StringFieldUpdateOperationsInput | string
+  area?: Prisma.StringFieldUpdateOperationsInput | string
+  latitude?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  longitude?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  monthlyRent?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  securityDeposit?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  bedrooms?: Prisma.IntFieldUpdateOperationsInput | number
+  bathrooms?: Prisma.IntFieldUpdateOperationsInput | number
+  floor?: Prisma.IntFieldUpdateOperationsInput | number
+  furnished?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  size?: Prisma.IntFieldUpdateOperationsInput | number
+  sizeUnit?: Prisma.EnumUnitFieldUpdateOperationsInput | $Enums.Unit
+  availableFrom?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  available?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.EnumPropertyStatusFieldUpdateOperationsInput | $Enums.PropertyStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  rentalRequests?: Prisma.RentalRequestUncheckedUpdateManyWithoutPropertyNestedInput
+  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutPropertyNestedInput
+  propertyAmenity?: Prisma.PropertyAmenityUncheckedUpdateManyWithoutPropertyNestedInput
 }
 
 export type PropertyCreateWithoutRentalRequestsInput = {
@@ -1269,7 +1384,6 @@ export type PropertyCreateWithoutRentalRequestsInput = {
   furnished: boolean
   size: number
   sizeUnit: $Enums.Unit
-  images?: Prisma.PropertyCreateimagesInput | string[]
   availableFrom: Date | string
   available: boolean
   status?: $Enums.PropertyStatus
@@ -1279,6 +1393,7 @@ export type PropertyCreateWithoutRentalRequestsInput = {
   category: Prisma.CategoryCreateNestedOneWithoutPropertiesInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutPropertyInput
   propertyAmenity?: Prisma.PropertyAmenityCreateNestedManyWithoutPropertyInput
+  images?: Prisma.PropertyImageCreateNestedManyWithoutPropertyInput
 }
 
 export type PropertyUncheckedCreateWithoutRentalRequestsInput = {
@@ -1300,7 +1415,6 @@ export type PropertyUncheckedCreateWithoutRentalRequestsInput = {
   furnished: boolean
   size: number
   sizeUnit: $Enums.Unit
-  images?: Prisma.PropertyCreateimagesInput | string[]
   availableFrom: Date | string
   available: boolean
   status?: $Enums.PropertyStatus
@@ -1308,6 +1422,7 @@ export type PropertyUncheckedCreateWithoutRentalRequestsInput = {
   updatedAt?: Date | string
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutPropertyInput
   propertyAmenity?: Prisma.PropertyAmenityUncheckedCreateNestedManyWithoutPropertyInput
+  images?: Prisma.PropertyImageUncheckedCreateNestedManyWithoutPropertyInput
 }
 
 export type PropertyCreateOrConnectWithoutRentalRequestsInput = {
@@ -1343,7 +1458,6 @@ export type PropertyUpdateWithoutRentalRequestsInput = {
   furnished?: Prisma.BoolFieldUpdateOperationsInput | boolean
   size?: Prisma.IntFieldUpdateOperationsInput | number
   sizeUnit?: Prisma.EnumUnitFieldUpdateOperationsInput | $Enums.Unit
-  images?: Prisma.PropertyUpdateimagesInput | string[]
   availableFrom?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   available?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.EnumPropertyStatusFieldUpdateOperationsInput | $Enums.PropertyStatus
@@ -1353,6 +1467,7 @@ export type PropertyUpdateWithoutRentalRequestsInput = {
   category?: Prisma.CategoryUpdateOneRequiredWithoutPropertiesNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutPropertyNestedInput
   propertyAmenity?: Prisma.PropertyAmenityUpdateManyWithoutPropertyNestedInput
+  images?: Prisma.PropertyImageUpdateManyWithoutPropertyNestedInput
 }
 
 export type PropertyUncheckedUpdateWithoutRentalRequestsInput = {
@@ -1374,7 +1489,6 @@ export type PropertyUncheckedUpdateWithoutRentalRequestsInput = {
   furnished?: Prisma.BoolFieldUpdateOperationsInput | boolean
   size?: Prisma.IntFieldUpdateOperationsInput | number
   sizeUnit?: Prisma.EnumUnitFieldUpdateOperationsInput | $Enums.Unit
-  images?: Prisma.PropertyUpdateimagesInput | string[]
   availableFrom?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   available?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.EnumPropertyStatusFieldUpdateOperationsInput | $Enums.PropertyStatus
@@ -1382,6 +1496,7 @@ export type PropertyUncheckedUpdateWithoutRentalRequestsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutPropertyNestedInput
   propertyAmenity?: Prisma.PropertyAmenityUncheckedUpdateManyWithoutPropertyNestedInput
+  images?: Prisma.PropertyImageUncheckedUpdateManyWithoutPropertyNestedInput
 }
 
 export type PropertyCreateWithoutReviewsInput = {
@@ -1401,7 +1516,6 @@ export type PropertyCreateWithoutReviewsInput = {
   furnished: boolean
   size: number
   sizeUnit: $Enums.Unit
-  images?: Prisma.PropertyCreateimagesInput | string[]
   availableFrom: Date | string
   available: boolean
   status?: $Enums.PropertyStatus
@@ -1411,6 +1525,7 @@ export type PropertyCreateWithoutReviewsInput = {
   category: Prisma.CategoryCreateNestedOneWithoutPropertiesInput
   rentalRequests?: Prisma.RentalRequestCreateNestedManyWithoutPropertyInput
   propertyAmenity?: Prisma.PropertyAmenityCreateNestedManyWithoutPropertyInput
+  images?: Prisma.PropertyImageCreateNestedManyWithoutPropertyInput
 }
 
 export type PropertyUncheckedCreateWithoutReviewsInput = {
@@ -1432,7 +1547,6 @@ export type PropertyUncheckedCreateWithoutReviewsInput = {
   furnished: boolean
   size: number
   sizeUnit: $Enums.Unit
-  images?: Prisma.PropertyCreateimagesInput | string[]
   availableFrom: Date | string
   available: boolean
   status?: $Enums.PropertyStatus
@@ -1440,6 +1554,7 @@ export type PropertyUncheckedCreateWithoutReviewsInput = {
   updatedAt?: Date | string
   rentalRequests?: Prisma.RentalRequestUncheckedCreateNestedManyWithoutPropertyInput
   propertyAmenity?: Prisma.PropertyAmenityUncheckedCreateNestedManyWithoutPropertyInput
+  images?: Prisma.PropertyImageUncheckedCreateNestedManyWithoutPropertyInput
 }
 
 export type PropertyCreateOrConnectWithoutReviewsInput = {
@@ -1475,7 +1590,6 @@ export type PropertyUpdateWithoutReviewsInput = {
   furnished?: Prisma.BoolFieldUpdateOperationsInput | boolean
   size?: Prisma.IntFieldUpdateOperationsInput | number
   sizeUnit?: Prisma.EnumUnitFieldUpdateOperationsInput | $Enums.Unit
-  images?: Prisma.PropertyUpdateimagesInput | string[]
   availableFrom?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   available?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.EnumPropertyStatusFieldUpdateOperationsInput | $Enums.PropertyStatus
@@ -1485,6 +1599,7 @@ export type PropertyUpdateWithoutReviewsInput = {
   category?: Prisma.CategoryUpdateOneRequiredWithoutPropertiesNestedInput
   rentalRequests?: Prisma.RentalRequestUpdateManyWithoutPropertyNestedInput
   propertyAmenity?: Prisma.PropertyAmenityUpdateManyWithoutPropertyNestedInput
+  images?: Prisma.PropertyImageUpdateManyWithoutPropertyNestedInput
 }
 
 export type PropertyUncheckedUpdateWithoutReviewsInput = {
@@ -1506,7 +1621,6 @@ export type PropertyUncheckedUpdateWithoutReviewsInput = {
   furnished?: Prisma.BoolFieldUpdateOperationsInput | boolean
   size?: Prisma.IntFieldUpdateOperationsInput | number
   sizeUnit?: Prisma.EnumUnitFieldUpdateOperationsInput | $Enums.Unit
-  images?: Prisma.PropertyUpdateimagesInput | string[]
   availableFrom?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   available?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.EnumPropertyStatusFieldUpdateOperationsInput | $Enums.PropertyStatus
@@ -1514,6 +1628,7 @@ export type PropertyUncheckedUpdateWithoutReviewsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   rentalRequests?: Prisma.RentalRequestUncheckedUpdateManyWithoutPropertyNestedInput
   propertyAmenity?: Prisma.PropertyAmenityUncheckedUpdateManyWithoutPropertyNestedInput
+  images?: Prisma.PropertyImageUncheckedUpdateManyWithoutPropertyNestedInput
 }
 
 export type PropertyCreateWithoutLandlordInput = {
@@ -1533,7 +1648,6 @@ export type PropertyCreateWithoutLandlordInput = {
   furnished: boolean
   size: number
   sizeUnit: $Enums.Unit
-  images?: Prisma.PropertyCreateimagesInput | string[]
   availableFrom: Date | string
   available: boolean
   status?: $Enums.PropertyStatus
@@ -1543,6 +1657,7 @@ export type PropertyCreateWithoutLandlordInput = {
   rentalRequests?: Prisma.RentalRequestCreateNestedManyWithoutPropertyInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutPropertyInput
   propertyAmenity?: Prisma.PropertyAmenityCreateNestedManyWithoutPropertyInput
+  images?: Prisma.PropertyImageCreateNestedManyWithoutPropertyInput
 }
 
 export type PropertyUncheckedCreateWithoutLandlordInput = {
@@ -1563,7 +1678,6 @@ export type PropertyUncheckedCreateWithoutLandlordInput = {
   furnished: boolean
   size: number
   sizeUnit: $Enums.Unit
-  images?: Prisma.PropertyCreateimagesInput | string[]
   availableFrom: Date | string
   available: boolean
   status?: $Enums.PropertyStatus
@@ -1572,6 +1686,7 @@ export type PropertyUncheckedCreateWithoutLandlordInput = {
   rentalRequests?: Prisma.RentalRequestUncheckedCreateNestedManyWithoutPropertyInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutPropertyInput
   propertyAmenity?: Prisma.PropertyAmenityUncheckedCreateNestedManyWithoutPropertyInput
+  images?: Prisma.PropertyImageUncheckedCreateNestedManyWithoutPropertyInput
 }
 
 export type PropertyCreateOrConnectWithoutLandlordInput = {
@@ -1618,7 +1733,6 @@ export type PropertyCreateManyCategoryInput = {
   furnished: boolean
   size: number
   sizeUnit: $Enums.Unit
-  images?: Prisma.PropertyCreateimagesInput | string[]
   availableFrom: Date | string
   available: boolean
   status?: $Enums.PropertyStatus
@@ -1643,7 +1757,6 @@ export type PropertyUpdateWithoutCategoryInput = {
   furnished?: Prisma.BoolFieldUpdateOperationsInput | boolean
   size?: Prisma.IntFieldUpdateOperationsInput | number
   sizeUnit?: Prisma.EnumUnitFieldUpdateOperationsInput | $Enums.Unit
-  images?: Prisma.PropertyUpdateimagesInput | string[]
   availableFrom?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   available?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.EnumPropertyStatusFieldUpdateOperationsInput | $Enums.PropertyStatus
@@ -1653,6 +1766,7 @@ export type PropertyUpdateWithoutCategoryInput = {
   rentalRequests?: Prisma.RentalRequestUpdateManyWithoutPropertyNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutPropertyNestedInput
   propertyAmenity?: Prisma.PropertyAmenityUpdateManyWithoutPropertyNestedInput
+  images?: Prisma.PropertyImageUpdateManyWithoutPropertyNestedInput
 }
 
 export type PropertyUncheckedUpdateWithoutCategoryInput = {
@@ -1673,7 +1787,6 @@ export type PropertyUncheckedUpdateWithoutCategoryInput = {
   furnished?: Prisma.BoolFieldUpdateOperationsInput | boolean
   size?: Prisma.IntFieldUpdateOperationsInput | number
   sizeUnit?: Prisma.EnumUnitFieldUpdateOperationsInput | $Enums.Unit
-  images?: Prisma.PropertyUpdateimagesInput | string[]
   availableFrom?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   available?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.EnumPropertyStatusFieldUpdateOperationsInput | $Enums.PropertyStatus
@@ -1682,6 +1795,7 @@ export type PropertyUncheckedUpdateWithoutCategoryInput = {
   rentalRequests?: Prisma.RentalRequestUncheckedUpdateManyWithoutPropertyNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutPropertyNestedInput
   propertyAmenity?: Prisma.PropertyAmenityUncheckedUpdateManyWithoutPropertyNestedInput
+  images?: Prisma.PropertyImageUncheckedUpdateManyWithoutPropertyNestedInput
 }
 
 export type PropertyUncheckedUpdateManyWithoutCategoryInput = {
@@ -1702,7 +1816,6 @@ export type PropertyUncheckedUpdateManyWithoutCategoryInput = {
   furnished?: Prisma.BoolFieldUpdateOperationsInput | boolean
   size?: Prisma.IntFieldUpdateOperationsInput | number
   sizeUnit?: Prisma.EnumUnitFieldUpdateOperationsInput | $Enums.Unit
-  images?: Prisma.PropertyUpdateimagesInput | string[]
   availableFrom?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   available?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.EnumPropertyStatusFieldUpdateOperationsInput | $Enums.PropertyStatus
@@ -1728,7 +1841,6 @@ export type PropertyCreateManyLandlordInput = {
   furnished: boolean
   size: number
   sizeUnit: $Enums.Unit
-  images?: Prisma.PropertyCreateimagesInput | string[]
   availableFrom: Date | string
   available: boolean
   status?: $Enums.PropertyStatus
@@ -1753,7 +1865,6 @@ export type PropertyUpdateWithoutLandlordInput = {
   furnished?: Prisma.BoolFieldUpdateOperationsInput | boolean
   size?: Prisma.IntFieldUpdateOperationsInput | number
   sizeUnit?: Prisma.EnumUnitFieldUpdateOperationsInput | $Enums.Unit
-  images?: Prisma.PropertyUpdateimagesInput | string[]
   availableFrom?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   available?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.EnumPropertyStatusFieldUpdateOperationsInput | $Enums.PropertyStatus
@@ -1763,6 +1874,7 @@ export type PropertyUpdateWithoutLandlordInput = {
   rentalRequests?: Prisma.RentalRequestUpdateManyWithoutPropertyNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutPropertyNestedInput
   propertyAmenity?: Prisma.PropertyAmenityUpdateManyWithoutPropertyNestedInput
+  images?: Prisma.PropertyImageUpdateManyWithoutPropertyNestedInput
 }
 
 export type PropertyUncheckedUpdateWithoutLandlordInput = {
@@ -1783,7 +1895,6 @@ export type PropertyUncheckedUpdateWithoutLandlordInput = {
   furnished?: Prisma.BoolFieldUpdateOperationsInput | boolean
   size?: Prisma.IntFieldUpdateOperationsInput | number
   sizeUnit?: Prisma.EnumUnitFieldUpdateOperationsInput | $Enums.Unit
-  images?: Prisma.PropertyUpdateimagesInput | string[]
   availableFrom?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   available?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.EnumPropertyStatusFieldUpdateOperationsInput | $Enums.PropertyStatus
@@ -1792,6 +1903,7 @@ export type PropertyUncheckedUpdateWithoutLandlordInput = {
   rentalRequests?: Prisma.RentalRequestUncheckedUpdateManyWithoutPropertyNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutPropertyNestedInput
   propertyAmenity?: Prisma.PropertyAmenityUncheckedUpdateManyWithoutPropertyNestedInput
+  images?: Prisma.PropertyImageUncheckedUpdateManyWithoutPropertyNestedInput
 }
 
 export type PropertyUncheckedUpdateManyWithoutLandlordInput = {
@@ -1812,7 +1924,6 @@ export type PropertyUncheckedUpdateManyWithoutLandlordInput = {
   furnished?: Prisma.BoolFieldUpdateOperationsInput | boolean
   size?: Prisma.IntFieldUpdateOperationsInput | number
   sizeUnit?: Prisma.EnumUnitFieldUpdateOperationsInput | $Enums.Unit
-  images?: Prisma.PropertyUpdateimagesInput | string[]
   availableFrom?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   available?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.EnumPropertyStatusFieldUpdateOperationsInput | $Enums.PropertyStatus
@@ -1829,12 +1940,14 @@ export type PropertyCountOutputType = {
   rentalRequests: number
   reviews: number
   propertyAmenity: number
+  images: number
 }
 
 export type PropertyCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   rentalRequests?: boolean | PropertyCountOutputTypeCountRentalRequestsArgs
   reviews?: boolean | PropertyCountOutputTypeCountReviewsArgs
   propertyAmenity?: boolean | PropertyCountOutputTypeCountPropertyAmenityArgs
+  images?: boolean | PropertyCountOutputTypeCountImagesArgs
 }
 
 /**
@@ -1868,6 +1981,13 @@ export type PropertyCountOutputTypeCountPropertyAmenityArgs<ExtArgs extends runt
   where?: Prisma.PropertyAmenityWhereInput
 }
 
+/**
+ * PropertyCountOutputType without action
+ */
+export type PropertyCountOutputTypeCountImagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.PropertyImageWhereInput
+}
+
 
 export type PropertySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -1888,7 +2008,6 @@ export type PropertySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   furnished?: boolean
   size?: boolean
   sizeUnit?: boolean
-  images?: boolean
   availableFrom?: boolean
   available?: boolean
   status?: boolean
@@ -1899,6 +2018,7 @@ export type PropertySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   rentalRequests?: boolean | Prisma.Property$rentalRequestsArgs<ExtArgs>
   reviews?: boolean | Prisma.Property$reviewsArgs<ExtArgs>
   propertyAmenity?: boolean | Prisma.Property$propertyAmenityArgs<ExtArgs>
+  images?: boolean | Prisma.Property$imagesArgs<ExtArgs>
   _count?: boolean | Prisma.PropertyCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["property"]>
 
@@ -1921,7 +2041,6 @@ export type PropertySelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exte
   furnished?: boolean
   size?: boolean
   sizeUnit?: boolean
-  images?: boolean
   availableFrom?: boolean
   available?: boolean
   status?: boolean
@@ -1950,7 +2069,6 @@ export type PropertySelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
   furnished?: boolean
   size?: boolean
   sizeUnit?: boolean
-  images?: boolean
   availableFrom?: boolean
   available?: boolean
   status?: boolean
@@ -1979,7 +2097,6 @@ export type PropertySelectScalar = {
   furnished?: boolean
   size?: boolean
   sizeUnit?: boolean
-  images?: boolean
   availableFrom?: boolean
   available?: boolean
   status?: boolean
@@ -1987,13 +2104,14 @@ export type PropertySelectScalar = {
   updatedAt?: boolean
 }
 
-export type PropertyOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "landlordId" | "categoryId" | "title" | "description" | "address" | "city" | "area" | "latitude" | "longitude" | "monthlyRent" | "securityDeposit" | "bedrooms" | "bathrooms" | "floor" | "furnished" | "size" | "sizeUnit" | "images" | "availableFrom" | "available" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["property"]>
+export type PropertyOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "landlordId" | "categoryId" | "title" | "description" | "address" | "city" | "area" | "latitude" | "longitude" | "monthlyRent" | "securityDeposit" | "bedrooms" | "bathrooms" | "floor" | "furnished" | "size" | "sizeUnit" | "availableFrom" | "available" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["property"]>
 export type PropertyInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   landlord?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   category?: boolean | Prisma.CategoryDefaultArgs<ExtArgs>
   rentalRequests?: boolean | Prisma.Property$rentalRequestsArgs<ExtArgs>
   reviews?: boolean | Prisma.Property$reviewsArgs<ExtArgs>
   propertyAmenity?: boolean | Prisma.Property$propertyAmenityArgs<ExtArgs>
+  images?: boolean | Prisma.Property$imagesArgs<ExtArgs>
   _count?: boolean | Prisma.PropertyCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type PropertyIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2013,6 +2131,7 @@ export type $PropertyPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     rentalRequests: Prisma.$RentalRequestPayload<ExtArgs>[]
     reviews: Prisma.$ReviewPayload<ExtArgs>[]
     propertyAmenity: Prisma.$PropertyAmenityPayload<ExtArgs>[]
+    images: Prisma.$PropertyImagePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -2033,7 +2152,6 @@ export type $PropertyPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     furnished: boolean
     size: number
     sizeUnit: $Enums.Unit
-    images: string[]
     availableFrom: Date
     available: boolean
     status: $Enums.PropertyStatus
@@ -2438,6 +2556,7 @@ export interface Prisma__PropertyClient<T, Null = never, ExtArgs extends runtime
   rentalRequests<T extends Prisma.Property$rentalRequestsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Property$rentalRequestsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RentalRequestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   reviews<T extends Prisma.Property$reviewsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Property$reviewsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   propertyAmenity<T extends Prisma.Property$propertyAmenityArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Property$propertyAmenityArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PropertyAmenityPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  images<T extends Prisma.Property$imagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Property$imagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PropertyImagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2485,7 +2604,6 @@ export interface PropertyFieldRefs {
   readonly furnished: Prisma.FieldRef<"Property", 'Boolean'>
   readonly size: Prisma.FieldRef<"Property", 'Int'>
   readonly sizeUnit: Prisma.FieldRef<"Property", 'Unit'>
-  readonly images: Prisma.FieldRef<"Property", 'String[]'>
   readonly availableFrom: Prisma.FieldRef<"Property", 'DateTime'>
   readonly available: Prisma.FieldRef<"Property", 'Boolean'>
   readonly status: Prisma.FieldRef<"Property", 'PropertyStatus'>
@@ -2961,6 +3079,30 @@ export type Property$propertyAmenityArgs<ExtArgs extends runtime.Types.Extension
   take?: number
   skip?: number
   distinct?: Prisma.PropertyAmenityScalarFieldEnum | Prisma.PropertyAmenityScalarFieldEnum[]
+}
+
+/**
+ * Property.images
+ */
+export type Property$imagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the PropertyImage
+   */
+  select?: Prisma.PropertyImageSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the PropertyImage
+   */
+  omit?: Prisma.PropertyImageOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PropertyImageInclude<ExtArgs> | null
+  where?: Prisma.PropertyImageWhereInput
+  orderBy?: Prisma.PropertyImageOrderByWithRelationInput | Prisma.PropertyImageOrderByWithRelationInput[]
+  cursor?: Prisma.PropertyImageWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.PropertyImageScalarFieldEnum | Prisma.PropertyImageScalarFieldEnum[]
 }
 
 /**

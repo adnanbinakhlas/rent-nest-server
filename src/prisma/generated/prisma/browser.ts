@@ -38,6 +38,11 @@ export type Payment = Prisma.PaymentModel
  */
 export type PropertyAmenity = Prisma.PropertyAmenityModel
 /**
+ * Model PropertyImage
+ * 
+ */
+export type PropertyImage = Prisma.PropertyImageModel
+/**
  * Model Property
  * 
  */

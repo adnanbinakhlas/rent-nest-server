@@ -24,8 +24,6 @@ model Property {
   size     Int
   sizeUnit Unit @map("size_unit")
 
-  images String[]
-
   availableFrom DateTime @map("available_from")
   available     Boolean
 
@@ -42,6 +40,7 @@ model Property {
 
   reviews         Review[]
   propertyAmenity PropertyAmenity[]
+  images          PropertyImage[]
 
   @@map("properties")
 }
