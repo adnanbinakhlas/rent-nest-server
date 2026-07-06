@@ -2,6 +2,8 @@ import { NextFunction, Request, Response } from "express";
 import status from "http-status";
 import { ZodError } from "zod";
 import { AppError } from "../helpers/AppError";
+import { Prisma } from "../../prisma/generated/prisma/client";
+import { handlePrismaClientKnownRequestError } from "../helpers/handlePrismaClientKnownRequestError";
 
 const globalErrorHandler = async (
   err: unknown,
@@ -36,6 +38,13 @@ const globalErrorHandler = async (
       field: err.path.join("."),
       message: err.message,
     }));
+  }
+
+  if (err instanceof Prisma.PrismaClientKnownRequestError) {
+    const result = handlePrismaClientKnownRequestError(err);
+    statusCode = result.statusCode;
+    message = result.message;
+    error = result.error;
   }
 
   if (process.env.NODE_ENV === "development") {
