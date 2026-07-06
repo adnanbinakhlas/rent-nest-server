@@ -15,7 +15,7 @@ const authGuard = (...roles: UserRole[]) =>
       const token = (
         req.cookies[tokenConstant.accessToken] ||
         req.headers[tokenConstant.accessToken]
-      ).split(" ")[1];
+      )?.split(" ")[1];
 
       if (!token) {
         throw new AppError(

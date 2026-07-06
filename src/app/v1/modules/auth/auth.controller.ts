@@ -60,7 +60,21 @@ const refreshToken = asyncHandler(
   },
 );
 
+const logout = asyncHandler(
+  async (_req: Request, res: Response): Promise<void> => {
+    cookieUtils.clearCookie(res, tokenConstant.accessToken);
+    cookieUtils.clearCookie(res, tokenConstant.refreshToken);
+
+    sendResponse(res, {
+      statusCode: status.OK,
+      success: true,
+      message: "User logged out successfully.",
+    });
+  },
+);
+
 export const AuthController = {
   login,
   refreshToken,
+  logout,
 };
