@@ -70,6 +70,16 @@ const getAllPropertiesFromDb = async (): Promise<PropertyModel[]> => {
   return properties;
 };
 
+const getPropertiesMeFromDb = async (
+  userId: string,
+): Promise<PropertyModel[]> => {
+  const properties = await prisma.property.findMany({
+    where: { landlordId: userId },
+  });
+
+  return properties;
+};
+
 const getPropertyById = async (id: string): Promise<PropertyModel> => {
   const property = await prisma.property.findUnique({
     where: { id },
@@ -87,5 +97,6 @@ export const PropertyService = {
   insertPropertyIntoDb,
   updatePropertyFromDb,
   getAllPropertiesFromDb,
+  getPropertiesMeFromDb,
   getPropertyById,
 };

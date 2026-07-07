@@ -50,6 +50,20 @@ const getAllProperties = asyncHandler(
   },
 );
 
+const getPropertiesMe = asyncHandler(
+  async (req: Request, res: Response): Promise<void> => {
+    const userId = (req.user as UserModel).id;
+    const data = await PropertyService.getPropertiesMeFromDb(userId);
+
+    sendResponse(res, {
+      statusCode: status.OK,
+      success: true,
+      message: "Your properties were retrieved successfully.",
+      data,
+    });
+  },
+);
+
 const getSingleProperty = asyncHandler(
   async (req: Request, res: Response): Promise<void> => {
     const id = req.params.id as string;
@@ -69,5 +83,6 @@ export const PropertyController = {
   createProperty,
   updateProperty,
   getAllProperties,
+  getPropertiesMe,
   getSingleProperty,
 };

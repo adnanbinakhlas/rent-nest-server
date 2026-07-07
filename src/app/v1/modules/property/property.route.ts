@@ -23,6 +23,12 @@ router.put(
 
 router.get("/", PropertyController.getAllProperties);
 
+router.get(
+  "/me",
+  authGuard(UserRole.LANDLORD),
+  PropertyController.getPropertiesMe,
+);
+
 router.get("/:id", PropertyController.getSingleProperty);
 
 export const PropertyRoutes = router;
