@@ -28,8 +28,16 @@ router.patch(
   RentalController.updateRentalRequestStatus,
 );
 
-router.get("/", RentalController.getAllRentalRequests);
+router.get(
+  "/",
+  authGuard(UserRole.ADMIN, UserRole.LANDLORD),
+  RentalController.getAllRentalRequests,
+);
 
-router.get("/:id", RentalController.getSingleRentalRequest);
+router.get(
+  "/:id",
+  authGuard(UserRole.ADMIN, UserRole.LANDLORD),
+  RentalController.getSingleRentalRequest,
+);
 
 export const RentalRoutes = router;
