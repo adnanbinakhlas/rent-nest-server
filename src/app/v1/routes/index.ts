@@ -4,6 +4,7 @@ import { AuthRoutes } from "../modules/auth/auth.route";
 import { CategoryRoutes } from "../modules/category/category.route";
 import { AmenityRoutes } from "../modules/amenity/amenity.route";
 import { PropertyRoutes } from "../modules/property/property.route";
+import { RentalRoutes } from "../modules/rental/rental.route";
 
 const v1Routes: Router = Router();
 
@@ -18,6 +19,7 @@ const routes: IRoutes[] = [
   { path: "/categories", router: CategoryRoutes },
   { path: "/amenities", router: AmenityRoutes },
   { path: "/properties", router: PropertyRoutes },
+  { path: "/rentals", router: RentalRoutes },
 ];
 
 routes.forEach((route) => {

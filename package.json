@@ -17,7 +17,8 @@
     "prisma:studio": "prisma studio",
     "prisma:format": "prisma format",
     "prisma:validate": "prisma validate",
-    "seed:admin": "tsx src/prisma/seed/admin.ts"
+    "seed:admin": "tsx src/prisma/seed/admin.ts",
+    "seed:data": "tsx src/prisma/seed/seed.ts"
   },
   "keywords": [],
   "author": "",
@@ -45,6 +46,7 @@
     "@commitlint/cli": "^21.2.0",
     "@commitlint/config-conventional": "^21.2.0",
     "@eslint/js": "^10.0.1",
+    "@faker-js/faker": "^10.5.0",
     "@types/bcrypt": "^6.0.0",
     "@types/cookie-parser": "^1.4.10",
     "@types/cors": "^2.8.19",
