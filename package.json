@@ -4,8 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "node dist/server.js",
     "dev": "tsx watch src/server.ts",
-    "build": "tsc",
+    "build": "tsup",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "prepare": "husky",
@@ -53,6 +54,7 @@
     "@types/node": "^26.1.0",
     "eslint": "^10.6.0",
     "husky": "^9.1.7",
+    "tsup": "^8.5.1",
     "tsx": "^4.23.0",
     "typescript": "^6.0.3",
     "typescript-eslint": "^8.62.1"
