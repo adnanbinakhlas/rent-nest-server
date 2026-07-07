@@ -14,4 +14,6 @@ router.post(
   PaymentController.createPayment,
 );
 
+router.post("/confirm", PaymentController.handleStripeWebhook);
+
 export const PaymentRoutes = router;

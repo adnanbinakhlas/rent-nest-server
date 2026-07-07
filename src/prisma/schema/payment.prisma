@@ -11,7 +11,9 @@ model Payment {
 
   currency String @default("usd")
 
-  stripePaymentIntentId String @unique @map("stripe_payment_intent_id")
+  stripeSessionId String @unique @map("stripe_session_id")
+
+  stripePaymentIntentId String? @unique @map("stripe_payment_intent_id")
 
   stripeChargeId String? @map("stripe_charge_id")
 

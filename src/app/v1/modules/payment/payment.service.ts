@@ -1,9 +1,10 @@
 import status from "http-status";
+import { PaymentModel } from "../../../../prisma/generated/prisma/models";
+import env from "../../../configs/env";
 import { AppError } from "../../../helpers/AppError";
 import prisma from "../../../libs/prisma";
 import stripe from "../../../libs/stripe";
-import env from "../../../configs/env";
-import { PaymentModel } from "../../../../prisma/generated/prisma/models";
+import { PaymentStripeWebhook } from "./payment.stripe.webhook";
 
 const createPayment = async (
   rentalId: string,
@@ -52,15 +53,17 @@ const createPayment = async (
             quantity: rental.rentalDuration,
             price_data: {
               currency: "usd",
-              unit_amount: Number(rental.monthlyRent) * 100,
-
+              unit_amount: Math.round(Number(rental.monthlyRent) * 100),
               product_data: {
-                metadata: { propertyId: rental.propertyId },
                 name: rental.property.title,
               },
             },
           },
         ],
+        metadata: {
+          propertyId: rental.propertyId,
+          rentalId: rental.id,
+        },
         success_url: `${env.CLIENT_URL}/payment/success?session_id={CHECKOUT_SESSION_ID}`,
         cancel_url: `${env.CLIENT_URL}/payment/cancel`,
       });
@@ -70,7 +73,7 @@ const createPayment = async (
           rentalRequestId: rental.id,
           tenantId: rental.tenantId,
           landlordId: rental.landlordId,
-          stripePaymentIntentId: session.id,
+          stripeSessionId: session.id,
           amount: session.amount_total as number,
           currency: session.currency as string,
         },
@@ -83,6 +86,30 @@ const createPayment = async (
   return result;
 };
 
+const handleStripeEvents = async (
+  payload: Buffer,
+  signature: string,
+): Promise<void> => {
+  const event = stripe.webhooks.constructEvent(
+    payload,
+    signature,
+    env.STRIPE_WEBHOOK_SECRET,
+  );
+
+  switch (event.type) {
+    case "checkout.session.completed": {
+      const session = event.data.object;
+      PaymentStripeWebhook.handleCheckoutSession(session);
+      break;
+    }
+    default:
+      // Unexpected event type
+      // eslint-disable-next-line no-console
+      console.log(`Unhandled event type ${event.type}.`);
+  }
+};
+
 export const PaymentService = {
   createPayment,
+  handleStripeEvents,
 };

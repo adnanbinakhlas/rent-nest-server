@@ -17,6 +17,22 @@ const createPayment = asyncHandler(async (req: Request, res: Response) => {
   });
 });
 
+const handleStripeWebhook = asyncHandler(
+  async (req: Request, res: Response): Promise<void> => {
+    const payload = req.body;
+    const signature = req.headers["stripe-signature"] as string;
+
+    await PaymentService.handleStripeEvents(payload, signature);
+
+    sendResponse(res, {
+      statusCode: status.OK,
+      success: true,
+      message: "Payment successful",
+    });
+  },
+);
+
 export const PaymentController = {
   createPayment,
+  handleStripeWebhook,
 };

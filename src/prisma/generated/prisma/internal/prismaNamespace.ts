@@ -1145,6 +1145,7 @@ export const PaymentScalarFieldEnum = {
   landlordId: 'landlordId',
   amount: 'amount',
   currency: 'currency',
+  stripeSessionId: 'stripeSessionId',
   stripePaymentIntentId: 'stripePaymentIntentId',
   stripeChargeId: 'stripeChargeId',
   stripeCustomerId: 'stripeCustomerId',
