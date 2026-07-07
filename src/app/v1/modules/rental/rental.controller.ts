@@ -38,7 +38,36 @@ const updateRentalRequest = asyncHandler(
   },
 );
 
+const getAllRentalRequests = asyncHandler(
+  async (req: Request, res: Response): Promise<void> => {
+    const data = await RentalService.getAllRentalsFromDb();
+
+    sendResponse(res, {
+      statusCode: status.OK,
+      success: true,
+      message: "All rentals retrieved successfully.",
+      data,
+    });
+  },
+);
+
+const getSingleRentalRequest = asyncHandler(
+  async (req: Request, res: Response): Promise<void> => {
+    const rentalId = req.params.id as string;
+    const data = await RentalService.getRentalById(rentalId);
+
+    sendResponse(res, {
+      statusCode: status.OK,
+      success: true,
+      message: "Rental retrieved successfully.",
+      data,
+    });
+  },
+);
+
 export const RentalController = {
   submitRentalRequest,
   updateRentalRequest,
+  getAllRentalRequests,
+  getSingleRentalRequest,
 };

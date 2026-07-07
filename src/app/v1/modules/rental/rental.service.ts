@@ -59,7 +59,24 @@ const updateRentalFromDb = async (
   return rental;
 };
 
+const getAllRentalsFromDb = async (): Promise<RentalRequestModel[]> => {
+  const rentals = await prisma.rentalRequest.findMany();
+  return rentals;
+};
+
+const getRentalById = async (id: string): Promise<RentalRequestModel> => {
+  const rental = await prisma.rentalRequest.findUnique({ where: { id } });
+
+  if (!rental) {
+    throw new AppError("Request rental record not found.", status.NOT_FOUND);
+  }
+
+  return rental;
+};
+
 export const RentalService = {
   insertRentalIntoDb,
   updateRentalFromDb,
+  getAllRentalsFromDb,
+  getRentalById,
 };

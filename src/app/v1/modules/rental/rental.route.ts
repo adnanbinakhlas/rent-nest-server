@@ -21,4 +21,8 @@ router.put(
   RentalController.updateRentalRequest,
 );
 
+router.get("/", RentalController.getAllRentalRequests);
+
+router.get("/:id", RentalController.getSingleRentalRequest);
+
 export const RentalRoutes = router;
