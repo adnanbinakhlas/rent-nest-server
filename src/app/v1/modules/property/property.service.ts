@@ -1,13 +1,8 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import status from "http-status";
-import {
-  PropertyModel,
-  PropertyUpdateInput,
-} from "../../../../prisma/generated/prisma/models";
+import { PropertyModel } from "../../../../prisma/generated/prisma/models";
 import { AppError } from "../../../helpers/AppError";
 import prisma from "../../../libs/prisma";
 import { TCreatePropertyInput, TUpdatePropertyInput } from "./property.types";
-import { Prisma } from "../../../../prisma/generated/prisma/client";
 
 const insertPropertyIntoDb = async (
   payload: TCreatePropertyInput,
@@ -41,28 +36,22 @@ const updatePropertyFromDb = async (
 ): Promise<PropertyModel> => {
   const { images, amenities, availableFrom, ...rest } = payload;
 
-  const clearRest = Object.fromEntries(
-    Object.entries(rest).filter(([, v]) => v !== undefined),
-  );
-
-  const data: Prisma.PropertyUpdateInput = {
-    ...clearRest,
-    ...(availableFrom
-      ? { availableFrom: new Date(availableFrom).toISOString() }
-      : {}),
-    ...(images ? { images: { create: images } } : {}),
-    ...(amenities
-      ? {
-          propertyAmenity: {
-            create: amenities.map((amenityId: string) => ({ amenityId })),
-          },
-        }
-      : {}),
-  };
-
   const property = await prisma.property.update({
     where: { id },
-    data,
+    data: {
+      ...rest,
+      ...(availableFrom
+        ? { availableFrom: new Date(availableFrom).toISOString() }
+        : {}),
+      ...(images ? { images: { create: images } } : {}),
+      ...(amenities
+        ? {
+            propertyAmenity: {
+              create: amenities.map((amenityId: string) => ({ amenityId })),
+            },
+          }
+        : {}),
+    },
 
     include: {
       images: { select: { imageUrl: true, isPrimary: true } },

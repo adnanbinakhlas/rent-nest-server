@@ -1,10 +1,53 @@
-import z from "zod";
-import { PropertyValidation } from "./property.validation";
+import { Unit } from "../../../../prisma/generated/prisma/client";
 
-export type TCreatePropertyInput = z.infer<
-  typeof PropertyValidation.createPropertyValidationSchema
->;
+export type TCreatePropertyInput = {
+  categoryId: string;
+  title: string;
+  description: string;
+  address: string;
+  city: string;
+  area: string;
+  latitude: number;
+  longitude: number;
+  monthlyRent: number;
+  securityDeposit: number;
+  bedrooms: number;
+  bathrooms: number;
+  floor: number;
+  furnished: boolean;
+  size: number;
+  sizeUnit: Unit;
+  availableFrom: Date;
+  available: boolean;
+  amenities: string[];
+  images: {
+    imageUrl: string;
+    isPrimary: boolean;
+  }[];
+};
 
-export type TUpdatePropertyInput = z.infer<
-  typeof PropertyValidation.updatePropertyValidationSchema
->;
+export type TUpdatePropertyInput = {
+  categoryId?: string;
+  title?: string;
+  description?: string;
+  address?: string;
+  city?: string;
+  area?: string;
+  latitude?: number;
+  longitude?: number;
+  monthlyRent?: number;
+  securityDeposit?: number;
+  bedrooms?: number;
+  bathrooms?: number;
+  floor?: number;
+  furnished?: boolean;
+  size?: number;
+  sizeUnit?: Unit;
+  availableFrom?: Date;
+  available?: boolean;
+  amenities?: string[];
+  images?: {
+    imageUrl: string;
+    isPrimary: boolean;
+  }[];
+};
