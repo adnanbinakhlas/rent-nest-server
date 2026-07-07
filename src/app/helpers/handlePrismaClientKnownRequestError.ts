@@ -17,6 +17,15 @@ interface IP2003 {
   };
 }
 
+interface IP2020 {
+  meta?: {
+    modelName?: string;
+    driverAdapterError?: {
+      cause?: { originalMessage: string };
+    };
+  };
+}
+
 interface IReturnType {
   statusCode: number;
   message: string;
@@ -54,6 +63,16 @@ export const handlePrismaClientKnownRequestError = (
     const index = (err.meta?.driverAdapterError as IP2003)?.cause?.constraint
       ?.index;
     error = { index };
+  }
+
+  if (err.code === "P2020") {
+    statusCode = status.UNPROCESSABLE_ENTITY;
+    message = "Value out of range";
+    const cause = {
+      modelName: (err as IP2020).meta?.modelName,
+      cause: (err as IP2020).meta?.driverAdapterError?.cause?.originalMessage,
+    };
+    error = cause;
   }
 
   return { statusCode, message, error };

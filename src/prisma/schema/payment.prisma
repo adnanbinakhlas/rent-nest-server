@@ -7,7 +7,7 @@ model Payment {
 
   landlordId String @map("landlord_id")
 
-  amount Decimal @db.Decimal(10, 2)
+  amount Decimal @db.Decimal(18, 2)
 
   currency String @default("usd")
 

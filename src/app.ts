@@ -8,6 +8,7 @@ import morgan from "morgan";
 const app: Application = express();
 
 // Parsers
+app.use("/api/v1/payments/confirm", express.raw({ type: "application/json" }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
