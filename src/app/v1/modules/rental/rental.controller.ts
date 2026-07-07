@@ -21,6 +21,24 @@ const submitRentalRequest = asyncHandler(
   },
 );
 
+const updateRentalRequest = asyncHandler(
+  async (req: Request, res: Response): Promise<void> => {
+    const rentalId = req.params.id as string;
+    const userId = (req.user as UserModel).id;
+    const body = req.body;
+
+    const data = await RentalService.updateRentalFromDb(rentalId, body, userId);
+
+    sendResponse(res, {
+      statusCode: status.OK,
+      success: true,
+      message: "Rental updated successfully.",
+      data,
+    });
+  },
+);
+
 export const RentalController = {
   submitRentalRequest,
+  updateRentalRequest,
 };

@@ -14,4 +14,11 @@ router.post(
   RentalController.submitRentalRequest,
 );
 
+router.put(
+  "/:id",
+  authGuard(UserRole.TENANT),
+  validateRequest(RentalValidation.updateRentalRequestValidationSchema),
+  RentalController.updateRentalRequest,
+);
+
 export const RentalRoutes = router;

@@ -33,7 +33,8 @@ const globalErrorHandler = async (
 
   if (err instanceof ZodError) {
     statusCode = status.BAD_REQUEST;
-    message = "Validation Error";
+    message =
+      "Validation failed. One or more fields are invalid or unrecognized.";
     error = err.issues.map((err) => ({
       field: err.path.join("."),
       message: err.message,

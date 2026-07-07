@@ -6,9 +6,9 @@ export type TCreateRentalRequestInput = {
 };
 
 export type TUpdateRentalRequestInput = {
-  moveInDate?: Date | undefined;
-  rentalDuration?: number | undefined;
-  message?: string | undefined;
+  moveInDate?: Date;
+  rentalDuration?: number;
+  message?: string;
 };
 
 export type TUpdateRentalStatusInput = {
