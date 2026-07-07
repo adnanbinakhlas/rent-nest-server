@@ -21,6 +21,7 @@ const handleCheckoutSession = async (
     await prisma.rentalRequest.update({
       where: { id: rentalId },
       data: {
+        status: "ACTIVE",
         payment: {
           update: {
             status: "SUCCEEDED",

@@ -1,5 +1,8 @@
 import status from "http-status";
-import { RentalRequestModel } from "../../../../prisma/generated/prisma/models";
+import {
+  RentalRequestModel,
+  RentalRequestUpdateInput,
+} from "../../../../prisma/generated/prisma/models";
 import { AppError } from "../../../helpers/AppError";
 import prisma from "../../../libs/prisma";
 import {
@@ -71,9 +74,21 @@ const updateRentalStatusFromDb = async (
   if (!exists) {
     throw new AppError("Requested rental not found.", status.NOT_FOUND);
   }
+
+  const data: RentalRequestUpdateInput = {};
+
+  if (payload.status === "REJECTED") {
+    data.rejectedAt = new Date().toISOString();
+    data.status = "REJECTED";
+    data.rejectionReason = payload.rejectionReason || null;
+  } else {
+    data.approvedAt = new Date().toISOString();
+    data.status = "APPROVED";
+  }
+
   const rental = await prisma.rentalRequest.update({
     where: { id: rentalId },
-    data: { ...payload, rejectedAt: new Date().toISOString() },
+    data,
   });
 
   return rental;
