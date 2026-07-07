@@ -43,6 +43,13 @@ const registerValidationSchema = z.object({
   }),
 });
 
+const updateUserStatusValidationSchema = z.object({
+  status: z.enum(["ACTIVE", "BANNED"], {
+    error: "User status is required.",
+  }),
+});
+
 export const UserValidation = {
   registerValidationSchema,
+  updateUserStatusValidationSchema,
 };

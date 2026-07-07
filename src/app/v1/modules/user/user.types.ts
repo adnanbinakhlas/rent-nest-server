@@ -1,6 +1,17 @@
-import z from "zod";
-import { UserValidation } from "./user.validation";
+import {
+  UserRole,
+  UserStatus,
+} from "../../../../prisma/generated/prisma/enums";
 
-export type TRegisterInput = z.infer<
-  typeof UserValidation.registerValidationSchema
->;
+export type TRegisterInput = {
+  fullname: string;
+  email: string;
+  password: string;
+  phone: string;
+  role: UserRole;
+  avatar?: string;
+};
+
+export type TUpdateUserStatusInput = {
+  status: UserStatus;
+};

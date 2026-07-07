@@ -33,4 +33,52 @@ const profileMe = asyncHandler(
   },
 );
 
-export const UserController = { register, profileMe };
+const getAllUsers = asyncHandler(
+  async (req: Request, res: Response): Promise<void> => {
+    const data = await UserService.getAllUserFromDb();
+
+    sendResponse(res, {
+      statusCode: status.OK,
+      success: true,
+      message: "All users retrieved successfully.",
+      data,
+    });
+  },
+);
+
+const getSingleUser = asyncHandler(
+  async (req: Request, res: Response): Promise<void> => {
+    const userId = req.params.id as string;
+    const data = await UserService.getUserById(userId);
+
+    sendResponse(res, {
+      statusCode: status.OK,
+      success: true,
+      message: "User retrieved successfully.",
+      data,
+    });
+  },
+);
+
+const updateUserStatus = asyncHandler(
+  async (req: Request, res: Response): Promise<void> => {
+    const userId = req.params.id as string;
+    const body = req.body;
+    const data = await UserService.updateUserStatus(userId, body);
+
+    sendResponse(res, {
+      statusCode: status.OK,
+      success: true,
+      message: "User status updated successfully.",
+      data,
+    });
+  },
+);
+
+export const UserController = {
+  register,
+  profileMe,
+  getAllUsers,
+  getSingleUser,
+  updateUserStatus,
+};

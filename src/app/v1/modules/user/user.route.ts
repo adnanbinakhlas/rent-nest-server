@@ -19,4 +19,15 @@ router.get(
   UserController.profileMe,
 );
 
+router.get("/", authGuard(UserRole.ADMIN), UserController.getAllUsers);
+
+router.get("/:id", authGuard(UserRole.ADMIN), UserController.getSingleUser);
+
+router.patch(
+  "/:id",
+  authGuard(UserRole.ADMIN),
+  validateRequest(UserValidation.updateUserStatusValidationSchema),
+  UserController.updateUserStatus,
+);
+
 export const UserRoutes = router;
