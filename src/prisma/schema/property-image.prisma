@@ -1,6 +1,6 @@
 model PropertyImage {
   id         String   @id @default(uuid())
-  propertyId String
+  propertyId String   @map("property_id")
   property   Property @relation(fields: [propertyId], references: [id])
 
   imageUrl  String  @map("image_url")
