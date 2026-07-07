@@ -21,6 +21,13 @@ router.put(
   RentalController.updateRentalRequest,
 );
 
+router.patch(
+  "/:id",
+  authGuard(UserRole.LANDLORD),
+  validateRequest(RentalValidation.updateRentalStatusValidationSchema),
+  RentalController.updateRentalRequestStatus,
+);
+
 router.get("/", RentalController.getAllRentalRequests);
 
 router.get("/:id", RentalController.getSingleRentalRequest);

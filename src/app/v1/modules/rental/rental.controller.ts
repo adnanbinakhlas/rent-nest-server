@@ -38,6 +38,21 @@ const updateRentalRequest = asyncHandler(
   },
 );
 
+const updateRentalRequestStatus = asyncHandler(
+  async (req: Request, res: Response): Promise<void> => {
+    const rentalId = req.params.id as string;
+    const body = req.body;
+    const data = await RentalService.updateRentalStatusFromDb(rentalId, body);
+
+    sendResponse(res, {
+      statusCode: status.OK,
+      success: true,
+      message: "Rental status updated successfully.",
+      data,
+    });
+  },
+);
+
 const getAllRentalRequests = asyncHandler(
   async (req: Request, res: Response): Promise<void> => {
     const data = await RentalService.getAllRentalsFromDb();
@@ -68,6 +83,7 @@ const getSingleRentalRequest = asyncHandler(
 export const RentalController = {
   submitRentalRequest,
   updateRentalRequest,
+  updateRentalRequestStatus,
   getAllRentalRequests,
   getSingleRentalRequest,
 };

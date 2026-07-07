@@ -5,6 +5,7 @@ import prisma from "../../../libs/prisma";
 import {
   TCreateRentalRequestInput,
   TUpdateRentalRequestInput,
+  TUpdateRentalStatusInput,
 } from "./rental.types";
 
 const insertRentalIntoDb = async (
@@ -59,6 +60,25 @@ const updateRentalFromDb = async (
   return rental;
 };
 
+const updateRentalStatusFromDb = async (
+  rentalId: string,
+  payload: TUpdateRentalStatusInput,
+): Promise<RentalRequestModel> => {
+  const exists = await prisma.rentalRequest.findUnique({
+    where: { id: rentalId },
+  });
+
+  if (!exists) {
+    throw new AppError("Requested rental not found.", status.NOT_FOUND);
+  }
+  const rental = await prisma.rentalRequest.update({
+    where: { id: rentalId },
+    data: { ...payload, rejectedAt: new Date().toISOString() },
+  });
+
+  return rental;
+};
+
 const getAllRentalsFromDb = async (): Promise<RentalRequestModel[]> => {
   const rentals = await prisma.rentalRequest.findMany();
   return rentals;
@@ -77,6 +97,7 @@ const getRentalById = async (id: string): Promise<RentalRequestModel> => {
 export const RentalService = {
   insertRentalIntoDb,
   updateRentalFromDb,
+  updateRentalStatusFromDb,
   getAllRentalsFromDb,
   getRentalById,
 };
