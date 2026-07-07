@@ -11,7 +11,7 @@
     "lint:fix": "eslint . --fix",
     "prepare": "husky",
     "prisma:dev": "prisma migrate dev",
-    "prisma:prod": "prisma migrate prod",
+    "prisma:deploy": "prisma migrate deploy",
     "prisma:reset": "prisma migrate reset",
     "prisma:generate": "prisma generate",
     "prisma:studio": "prisma studio",
