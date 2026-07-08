@@ -4,13 +4,19 @@ import { sendResponse } from "../../../utils/sendResponse";
 import status from "http-status";
 import { PropertyService } from "./property.service";
 import { UserModel } from "../../../../prisma/generated/prisma/models";
+import { TImageFiles } from "./property.types";
 
 const createProperty = asyncHandler(
   async (req: Request, res: Response): Promise<void> => {
     const userId = (req.user as UserModel).id;
     const body = req.body;
+    const files = req.files as TImageFiles;
 
-    const data = await PropertyService.insertPropertyIntoDb(body, userId);
+    const data = await PropertyService.insertPropertyIntoDb(
+      body,
+      userId,
+      files,
+    );
 
     sendResponse(res, {
       statusCode: status.CREATED,

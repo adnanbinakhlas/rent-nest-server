@@ -4,11 +4,16 @@ import authGuard from "../../../middlewares/authGuard.middleware";
 import { UserRole } from "../../../../prisma/generated/prisma/enums";
 import validateRequest from "../../../middlewares/validateRequest.middleware";
 import { PropertyValidation } from "./property.validation";
+import upload from "../../../middlewares/multer.middleware";
 
 const router: Router = Router();
 
 router.post(
   "/",
+  upload.fields([
+    { name: "thumbnail", maxCount: 1 },
+    { name: "images", maxCount: 4 },
+  ]),
   authGuard(UserRole.LANDLORD),
   validateRequest(PropertyValidation.createPropertyValidationSchema),
   PropertyController.createProperty,

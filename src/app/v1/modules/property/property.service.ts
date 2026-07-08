@@ -1,30 +1,67 @@
+import { UploadApiResponse } from "cloudinary";
 import status from "http-status";
 import { PropertyModel } from "../../../../prisma/generated/prisma/models";
 import { AppError } from "../../../helpers/AppError";
 import prisma from "../../../libs/prisma";
-import { TCreatePropertyInput, TUpdatePropertyInput } from "./property.types";
+import imageUpload from "../../../utils/imageUpload";
+import {
+  TCreatePropertyInput,
+  TImageFiles,
+  TUpdatePropertyInput,
+} from "./property.types";
 
 const insertPropertyIntoDb = async (
   payload: TCreatePropertyInput,
   userId: string,
+  files: TImageFiles,
 ): Promise<PropertyModel> => {
-  const { images, amenities, ...data } = payload;
+  const { amenities, ...rest } = payload;
+
+  const thumbnailFile = files.thumbnail?.[0];
+  const imageFiles = files.images || [];
+
+  const imageCreates: {
+    imageUrl: string;
+    isPrimary: boolean;
+  }[] = [];
+
+  if (thumbnailFile) {
+    const thumbnail = (await imageUpload(
+      thumbnailFile.path,
+      "rent-nest/properties",
+    )) as UploadApiResponse;
+
+    imageCreates.push({
+      imageUrl: thumbnail.secure_url,
+      isPrimary: true,
+    });
+  }
+
+  if (imageFiles.length) {
+    const uploadedImages = (await Promise.all(
+      imageFiles.map((file) => imageUpload(file.path, "rent-nest/properties")),
+    )) as UploadApiResponse[];
+
+    imageCreates.push(
+      ...uploadedImages.map((image) => ({
+        imageUrl: image.secure_url,
+        isPrimary: false,
+      })),
+    );
+  }
+
+  const data = {
+    ...rest,
+    landlordId: userId,
+    availableFrom: new Date(rest.availableFrom).toISOString(),
+    images: { create: imageCreates },
+    propertyAmenity: {
+      create: amenities.map((amenityId) => ({ amenityId })),
+    },
+  };
 
   const property = await prisma.property.create({
-    data: {
-      ...data,
-      landlordId: userId,
-      availableFrom: new Date(data.availableFrom).toISOString(),
-      images: { create: images },
-      propertyAmenity: {
-        create: amenities.map((amenityId) => ({ amenityId })),
-      },
-    },
-
-    include: {
-      images: { select: { imageUrl: true, isPrimary: true } },
-      propertyAmenity: { select: { amenity: { select: { name: true } } } },
-    },
+    data,
   });
 
   return property;

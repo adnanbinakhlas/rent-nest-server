@@ -51,3 +51,8 @@ export type TUpdatePropertyInput = {
     isPrimary: boolean;
   }[];
 };
+
+export type TImageFiles = {
+  thumbnail?: Express.Multer.File[];
+  images?: Express.Multer.File[];
+};
