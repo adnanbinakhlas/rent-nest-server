@@ -36,8 +36,6 @@ const registerValidationSchema = z.object({
       "Phone number must be in E.164 format (e.g. +14155552671).",
     ),
 
-  avatar: z.url("Profile image must be a valid URL.").optional(),
-
   role: z.enum([UserRole.LANDLORD, UserRole.TENANT], {
     error: "Role is required.",
   }),

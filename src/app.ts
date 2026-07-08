@@ -1,16 +1,14 @@
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import express, { Application, Request, Response } from "express";
+import morgan from "morgan";
 import globalErrorHandler from "./app/middlewares/globalErrorHandler.middleware";
 import v1Routes from "./app/v1/routes";
-import morgan from "morgan";
-import upload from "./app/middlewares/multer.middleware";
 
 const app: Application = express();
 
 // Parsers
 app.use("/api/v1/payments/confirm", express.raw({ type: "application/json" }));
-app.use(upload.none());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());

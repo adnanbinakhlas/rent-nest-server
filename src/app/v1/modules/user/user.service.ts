@@ -9,18 +9,29 @@ import prisma from "../../../libs/prisma";
 import { TRegisterInput } from "./user.types";
 import bcrypt from "bcrypt";
 import { UserStatus } from "../../../../prisma/generated/prisma/enums";
+import imageUpload from "../../../utils/imageUpload";
 
 const registerUserIntoDb = async (
   payload: TRegisterInput,
+  file: Express.Multer.File | undefined,
 ): Promise<Omit<UserModel, "password" | "isDeleted">> => {
+  const data: UserCreateInput = { ...payload };
+
+  if (file) {
+    const avatarUrl = await imageUpload(file.path, "rent-nest/users");
+    if (typeof avatarUrl?.secure_url === "string") {
+      data.avatar = avatarUrl?.secure_url;
+    }
+  }
+
   const passwordHash = await bcrypt.hash(
     payload.password,
     Number(env.BCRYPT_SALT),
   );
-  payload.password = passwordHash;
+  data.password = passwordHash;
 
   const user = await prisma.user.create({
-    data: payload as UserCreateInput,
+    data,
     omit: { password: true, isDeleted: true },
   });
 

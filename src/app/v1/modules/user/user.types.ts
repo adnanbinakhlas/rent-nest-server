@@ -9,7 +9,6 @@ export type TRegisterInput = {
   password: string;
   phone: string;
   role: UserRole;
-  avatar?: string;
 };
 
 export type TUpdateUserStatusInput = {

@@ -4,11 +4,13 @@ import validateRequest from "../../../middlewares/validateRequest.middleware";
 import { UserValidation } from "./user.validation";
 import authGuard from "../../../middlewares/authGuard.middleware";
 import { UserRole } from "../../../../prisma/generated/prisma/enums";
+import upload from "../../../middlewares/multer.middleware";
 
 const router: Router = Router();
 
 router.post(
   "/",
+  upload.single("avatar"),
   validateRequest(UserValidation.registerValidationSchema),
   UserController.register,
 );

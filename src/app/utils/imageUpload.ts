@@ -15,12 +15,12 @@ const imageUpload = async (
       upload_preset: env.CLOUDINARY_UPLOAD_PRESET,
     });
 
-    await fs.promises.unlink(filePath);
+    fs.unlinkSync(filePath);
 
     return result;
   } catch (error: unknown) {
     // eslint-disable-next-line no-console
-    console.error("Cloudinary", error);
+    console.error("Clodinary", error);
   }
 };
 

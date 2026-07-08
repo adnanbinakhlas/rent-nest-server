@@ -8,8 +8,9 @@ import { UserModel } from "../../../../prisma/generated/prisma/models";
 const register = asyncHandler(
   async (req: Request, res: Response): Promise<void> => {
     const body = req.body;
+    const file = req.file;
 
-    const data = await UserService.registerUserIntoDb(body);
+    const data = await UserService.registerUserIntoDb(body, file);
 
     sendResponse(res, {
       statusCode: status.CREATED,
