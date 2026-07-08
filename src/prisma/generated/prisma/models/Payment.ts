@@ -53,6 +53,9 @@ export type PaymentMinAggregateOutputType = {
   paidAt: Date | null
   refundedAt: Date | null
   refundedAmount: runtime.Decimal | null
+  failedAt: Date | null
+  failureCode: string | null
+  failureDeclineCode: string | null
   failureReason: string | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -75,6 +78,9 @@ export type PaymentMaxAggregateOutputType = {
   paidAt: Date | null
   refundedAt: Date | null
   refundedAmount: runtime.Decimal | null
+  failedAt: Date | null
+  failureCode: string | null
+  failureDeclineCode: string | null
   failureReason: string | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -97,6 +103,9 @@ export type PaymentCountAggregateOutputType = {
   paidAt: number
   refundedAt: number
   refundedAmount: number
+  failedAt: number
+  failureCode: number
+  failureDeclineCode: number
   failureReason: number
   createdAt: number
   updatedAt: number
@@ -131,6 +140,9 @@ export type PaymentMinAggregateInputType = {
   paidAt?: true
   refundedAt?: true
   refundedAmount?: true
+  failedAt?: true
+  failureCode?: true
+  failureDeclineCode?: true
   failureReason?: true
   createdAt?: true
   updatedAt?: true
@@ -153,6 +165,9 @@ export type PaymentMaxAggregateInputType = {
   paidAt?: true
   refundedAt?: true
   refundedAmount?: true
+  failedAt?: true
+  failureCode?: true
+  failureDeclineCode?: true
   failureReason?: true
   createdAt?: true
   updatedAt?: true
@@ -175,6 +190,9 @@ export type PaymentCountAggregateInputType = {
   paidAt?: true
   refundedAt?: true
   refundedAmount?: true
+  failedAt?: true
+  failureCode?: true
+  failureDeclineCode?: true
   failureReason?: true
   createdAt?: true
   updatedAt?: true
@@ -284,6 +302,9 @@ export type PaymentGroupByOutputType = {
   paidAt: Date | null
   refundedAt: Date | null
   refundedAmount: runtime.Decimal | null
+  failedAt: Date | null
+  failureCode: string | null
+  failureDeclineCode: string | null
   failureReason: string | null
   createdAt: Date
   updatedAt: Date
@@ -329,6 +350,9 @@ export type PaymentWhereInput = {
   paidAt?: Prisma.DateTimeNullableFilter<"Payment"> | Date | string | null
   refundedAt?: Prisma.DateTimeNullableFilter<"Payment"> | Date | string | null
   refundedAmount?: Prisma.DecimalNullableFilter<"Payment"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  failedAt?: Prisma.DateTimeNullableFilter<"Payment"> | Date | string | null
+  failureCode?: Prisma.StringNullableFilter<"Payment"> | string | null
+  failureDeclineCode?: Prisma.StringNullableFilter<"Payment"> | string | null
   failureReason?: Prisma.StringNullableFilter<"Payment"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Payment"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Payment"> | Date | string
@@ -354,6 +378,9 @@ export type PaymentOrderByWithRelationInput = {
   paidAt?: Prisma.SortOrderInput | Prisma.SortOrder
   refundedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   refundedAmount?: Prisma.SortOrderInput | Prisma.SortOrder
+  failedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  failureCode?: Prisma.SortOrderInput | Prisma.SortOrder
+  failureDeclineCode?: Prisma.SortOrderInput | Prisma.SortOrder
   failureReason?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -382,6 +409,9 @@ export type PaymentWhereUniqueInput = Prisma.AtLeast<{
   paidAt?: Prisma.DateTimeNullableFilter<"Payment"> | Date | string | null
   refundedAt?: Prisma.DateTimeNullableFilter<"Payment"> | Date | string | null
   refundedAmount?: Prisma.DecimalNullableFilter<"Payment"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  failedAt?: Prisma.DateTimeNullableFilter<"Payment"> | Date | string | null
+  failureCode?: Prisma.StringNullableFilter<"Payment"> | string | null
+  failureDeclineCode?: Prisma.StringNullableFilter<"Payment"> | string | null
   failureReason?: Prisma.StringNullableFilter<"Payment"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Payment"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Payment"> | Date | string
@@ -407,6 +437,9 @@ export type PaymentOrderByWithAggregationInput = {
   paidAt?: Prisma.SortOrderInput | Prisma.SortOrder
   refundedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   refundedAmount?: Prisma.SortOrderInput | Prisma.SortOrder
+  failedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  failureCode?: Prisma.SortOrderInput | Prisma.SortOrder
+  failureDeclineCode?: Prisma.SortOrderInput | Prisma.SortOrder
   failureReason?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -437,6 +470,9 @@ export type PaymentScalarWhereWithAggregatesInput = {
   paidAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Payment"> | Date | string | null
   refundedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Payment"> | Date | string | null
   refundedAmount?: Prisma.DecimalNullableWithAggregatesFilter<"Payment"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  failedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Payment"> | Date | string | null
+  failureCode?: Prisma.StringNullableWithAggregatesFilter<"Payment"> | string | null
+  failureDeclineCode?: Prisma.StringNullableWithAggregatesFilter<"Payment"> | string | null
   failureReason?: Prisma.StringNullableWithAggregatesFilter<"Payment"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Payment"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Payment"> | Date | string
@@ -456,6 +492,9 @@ export type PaymentCreateInput = {
   paidAt?: Date | string | null
   refundedAt?: Date | string | null
   refundedAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  failedAt?: Date | string | null
+  failureCode?: string | null
+  failureDeclineCode?: string | null
   failureReason?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -481,6 +520,9 @@ export type PaymentUncheckedCreateInput = {
   paidAt?: Date | string | null
   refundedAt?: Date | string | null
   refundedAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  failedAt?: Date | string | null
+  failureCode?: string | null
+  failureDeclineCode?: string | null
   failureReason?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -500,6 +542,9 @@ export type PaymentUpdateInput = {
   paidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   refundedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   refundedAmount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  failedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  failureCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  failureDeclineCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   failureReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -525,6 +570,9 @@ export type PaymentUncheckedUpdateInput = {
   paidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   refundedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   refundedAmount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  failedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  failureCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  failureDeclineCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   failureReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -547,6 +595,9 @@ export type PaymentCreateManyInput = {
   paidAt?: Date | string | null
   refundedAt?: Date | string | null
   refundedAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  failedAt?: Date | string | null
+  failureCode?: string | null
+  failureDeclineCode?: string | null
   failureReason?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -566,6 +617,9 @@ export type PaymentUpdateManyMutationInput = {
   paidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   refundedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   refundedAmount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  failedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  failureCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  failureDeclineCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   failureReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -588,6 +642,9 @@ export type PaymentUncheckedUpdateManyInput = {
   paidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   refundedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   refundedAmount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  failedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  failureCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  failureDeclineCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   failureReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -610,6 +667,9 @@ export type PaymentCountOrderByAggregateInput = {
   paidAt?: Prisma.SortOrder
   refundedAt?: Prisma.SortOrder
   refundedAmount?: Prisma.SortOrder
+  failedAt?: Prisma.SortOrder
+  failureCode?: Prisma.SortOrder
+  failureDeclineCode?: Prisma.SortOrder
   failureReason?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -637,6 +697,9 @@ export type PaymentMaxOrderByAggregateInput = {
   paidAt?: Prisma.SortOrder
   refundedAt?: Prisma.SortOrder
   refundedAmount?: Prisma.SortOrder
+  failedAt?: Prisma.SortOrder
+  failureCode?: Prisma.SortOrder
+  failureDeclineCode?: Prisma.SortOrder
   failureReason?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -659,6 +722,9 @@ export type PaymentMinOrderByAggregateInput = {
   paidAt?: Prisma.SortOrder
   refundedAt?: Prisma.SortOrder
   refundedAmount?: Prisma.SortOrder
+  failedAt?: Prisma.SortOrder
+  failureCode?: Prisma.SortOrder
+  failureDeclineCode?: Prisma.SortOrder
   failureReason?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -838,6 +904,9 @@ export type PaymentCreateWithoutRentalRequestInput = {
   paidAt?: Date | string | null
   refundedAt?: Date | string | null
   refundedAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  failedAt?: Date | string | null
+  failureCode?: string | null
+  failureDeclineCode?: string | null
   failureReason?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -861,6 +930,9 @@ export type PaymentUncheckedCreateWithoutRentalRequestInput = {
   paidAt?: Date | string | null
   refundedAt?: Date | string | null
   refundedAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  failedAt?: Date | string | null
+  failureCode?: string | null
+  failureDeclineCode?: string | null
   failureReason?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -896,6 +968,9 @@ export type PaymentUpdateWithoutRentalRequestInput = {
   paidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   refundedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   refundedAmount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  failedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  failureCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  failureDeclineCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   failureReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -919,6 +994,9 @@ export type PaymentUncheckedUpdateWithoutRentalRequestInput = {
   paidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   refundedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   refundedAmount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  failedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  failureCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  failureDeclineCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   failureReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -938,6 +1016,9 @@ export type PaymentCreateWithoutTenantInput = {
   paidAt?: Date | string | null
   refundedAt?: Date | string | null
   refundedAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  failedAt?: Date | string | null
+  failureCode?: string | null
+  failureDeclineCode?: string | null
   failureReason?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -961,6 +1042,9 @@ export type PaymentUncheckedCreateWithoutTenantInput = {
   paidAt?: Date | string | null
   refundedAt?: Date | string | null
   refundedAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  failedAt?: Date | string | null
+  failureCode?: string | null
+  failureDeclineCode?: string | null
   failureReason?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -990,6 +1074,9 @@ export type PaymentCreateWithoutLandlordInput = {
   paidAt?: Date | string | null
   refundedAt?: Date | string | null
   refundedAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  failedAt?: Date | string | null
+  failureCode?: string | null
+  failureDeclineCode?: string | null
   failureReason?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1013,6 +1100,9 @@ export type PaymentUncheckedCreateWithoutLandlordInput = {
   paidAt?: Date | string | null
   refundedAt?: Date | string | null
   refundedAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  failedAt?: Date | string | null
+  failureCode?: string | null
+  failureDeclineCode?: string | null
   failureReason?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1064,6 +1154,9 @@ export type PaymentScalarWhereInput = {
   paidAt?: Prisma.DateTimeNullableFilter<"Payment"> | Date | string | null
   refundedAt?: Prisma.DateTimeNullableFilter<"Payment"> | Date | string | null
   refundedAmount?: Prisma.DecimalNullableFilter<"Payment"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  failedAt?: Prisma.DateTimeNullableFilter<"Payment"> | Date | string | null
+  failureCode?: Prisma.StringNullableFilter<"Payment"> | string | null
+  failureDeclineCode?: Prisma.StringNullableFilter<"Payment"> | string | null
   failureReason?: Prisma.StringNullableFilter<"Payment"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Payment"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Payment"> | Date | string
@@ -1101,6 +1194,9 @@ export type PaymentCreateManyTenantInput = {
   paidAt?: Date | string | null
   refundedAt?: Date | string | null
   refundedAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  failedAt?: Date | string | null
+  failureCode?: string | null
+  failureDeclineCode?: string | null
   failureReason?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1122,6 +1218,9 @@ export type PaymentCreateManyLandlordInput = {
   paidAt?: Date | string | null
   refundedAt?: Date | string | null
   refundedAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  failedAt?: Date | string | null
+  failureCode?: string | null
+  failureDeclineCode?: string | null
   failureReason?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1141,6 +1240,9 @@ export type PaymentUpdateWithoutTenantInput = {
   paidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   refundedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   refundedAmount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  failedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  failureCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  failureDeclineCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   failureReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1164,6 +1266,9 @@ export type PaymentUncheckedUpdateWithoutTenantInput = {
   paidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   refundedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   refundedAmount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  failedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  failureCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  failureDeclineCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   failureReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1185,6 +1290,9 @@ export type PaymentUncheckedUpdateManyWithoutTenantInput = {
   paidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   refundedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   refundedAmount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  failedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  failureCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  failureDeclineCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   failureReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1204,6 +1312,9 @@ export type PaymentUpdateWithoutLandlordInput = {
   paidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   refundedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   refundedAmount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  failedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  failureCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  failureDeclineCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   failureReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1227,6 +1338,9 @@ export type PaymentUncheckedUpdateWithoutLandlordInput = {
   paidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   refundedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   refundedAmount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  failedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  failureCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  failureDeclineCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   failureReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1248,6 +1362,9 @@ export type PaymentUncheckedUpdateManyWithoutLandlordInput = {
   paidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   refundedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   refundedAmount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  failedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  failureCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  failureDeclineCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   failureReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1272,6 +1389,9 @@ export type PaymentSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   paidAt?: boolean
   refundedAt?: boolean
   refundedAmount?: boolean
+  failedAt?: boolean
+  failureCode?: boolean
+  failureDeclineCode?: boolean
   failureReason?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -1297,6 +1417,9 @@ export type PaymentSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   paidAt?: boolean
   refundedAt?: boolean
   refundedAmount?: boolean
+  failedAt?: boolean
+  failureCode?: boolean
+  failureDeclineCode?: boolean
   failureReason?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -1322,6 +1445,9 @@ export type PaymentSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   paidAt?: boolean
   refundedAt?: boolean
   refundedAmount?: boolean
+  failedAt?: boolean
+  failureCode?: boolean
+  failureDeclineCode?: boolean
   failureReason?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -1347,12 +1473,15 @@ export type PaymentSelectScalar = {
   paidAt?: boolean
   refundedAt?: boolean
   refundedAmount?: boolean
+  failedAt?: boolean
+  failureCode?: boolean
+  failureDeclineCode?: boolean
   failureReason?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type PaymentOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "rentalRequestId" | "tenantId" | "landlordId" | "amount" | "currency" | "stripeSessionId" | "stripePaymentIntentId" | "stripeChargeId" | "stripeCustomerId" | "paymentMethod" | "receiptUrl" | "status" | "paidAt" | "refundedAt" | "refundedAmount" | "failureReason" | "createdAt" | "updatedAt", ExtArgs["result"]["payment"]>
+export type PaymentOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "rentalRequestId" | "tenantId" | "landlordId" | "amount" | "currency" | "stripeSessionId" | "stripePaymentIntentId" | "stripeChargeId" | "stripeCustomerId" | "paymentMethod" | "receiptUrl" | "status" | "paidAt" | "refundedAt" | "refundedAmount" | "failedAt" | "failureCode" | "failureDeclineCode" | "failureReason" | "createdAt" | "updatedAt", ExtArgs["result"]["payment"]>
 export type PaymentInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   rentalRequest?: boolean | Prisma.RentalRequestDefaultArgs<ExtArgs>
   tenant?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -1393,6 +1522,9 @@ export type $PaymentPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     paidAt: Date | null
     refundedAt: Date | null
     refundedAmount: runtime.Decimal | null
+    failedAt: Date | null
+    failureCode: string | null
+    failureDeclineCode: string | null
     failureReason: string | null
     createdAt: Date
     updatedAt: Date
@@ -1838,6 +1970,9 @@ export interface PaymentFieldRefs {
   readonly paidAt: Prisma.FieldRef<"Payment", 'DateTime'>
   readonly refundedAt: Prisma.FieldRef<"Payment", 'DateTime'>
   readonly refundedAmount: Prisma.FieldRef<"Payment", 'Decimal'>
+  readonly failedAt: Prisma.FieldRef<"Payment", 'DateTime'>
+  readonly failureCode: Prisma.FieldRef<"Payment", 'String'>
+  readonly failureDeclineCode: Prisma.FieldRef<"Payment", 'String'>
   readonly failureReason: Prisma.FieldRef<"Payment", 'String'>
   readonly createdAt: Prisma.FieldRef<"Payment", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Payment", 'DateTime'>

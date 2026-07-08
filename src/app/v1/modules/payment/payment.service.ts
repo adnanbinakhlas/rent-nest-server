@@ -102,6 +102,11 @@ const handleStripeEvents = async (
       PaymentStripeWebhook.handleCheckoutSession(session);
       break;
     }
+    case "payment_intent.payment_failed": {
+      const session = event.data.object;
+      PaymentStripeWebhook.handlePaymentIntentFail(session);
+      break;
+    }
     default:
       // Unexpected event type
       // eslint-disable-next-line no-console
