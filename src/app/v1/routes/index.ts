@@ -6,6 +6,7 @@ import { AmenityRoutes } from "../modules/amenity/amenity.route";
 import { PropertyRoutes } from "../modules/property/property.route";
 import { RentalRoutes } from "../modules/rental/rental.route";
 import { PaymentRoutes } from "../modules/payment/payment.route";
+import { ReviewRoutes } from "../modules/review/review.route";
 
 const v1Routes: Router = Router();
 
@@ -22,6 +23,7 @@ const routes: IRoutes[] = [
   { path: "/properties", router: PropertyRoutes },
   { path: "/rentals", router: RentalRoutes },
   { path: "/payments", router: PaymentRoutes },
+  { path: "/reviews", router: ReviewRoutes },
 ];
 
 routes.forEach((route) => {

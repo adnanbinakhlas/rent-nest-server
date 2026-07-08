@@ -7,7 +7,7 @@ model Review {
 
   rentalRequestId String @unique @map("rental_request_id")
 
-  rating Int
+  rating Decimal @db.Decimal(2, 1)
 
   comment String
 

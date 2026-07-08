@@ -27,11 +27,11 @@ export type AggregateReview = {
 }
 
 export type ReviewAvgAggregateOutputType = {
-  rating: number | null
+  rating: runtime.Decimal | null
 }
 
 export type ReviewSumAggregateOutputType = {
-  rating: number | null
+  rating: runtime.Decimal | null
 }
 
 export type ReviewMinAggregateOutputType = {
@@ -39,7 +39,7 @@ export type ReviewMinAggregateOutputType = {
   propertyId: string | null
   tenantId: string | null
   rentalRequestId: string | null
-  rating: number | null
+  rating: runtime.Decimal | null
   comment: string | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -50,7 +50,7 @@ export type ReviewMaxAggregateOutputType = {
   propertyId: string | null
   tenantId: string | null
   rentalRequestId: string | null
-  rating: number | null
+  rating: runtime.Decimal | null
   comment: string | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -202,7 +202,7 @@ export type ReviewGroupByOutputType = {
   propertyId: string
   tenantId: string
   rentalRequestId: string
-  rating: number
+  rating: runtime.Decimal
   comment: string
   createdAt: Date
   updatedAt: Date
@@ -236,7 +236,7 @@ export type ReviewWhereInput = {
   propertyId?: Prisma.StringFilter<"Review"> | string
   tenantId?: Prisma.StringFilter<"Review"> | string
   rentalRequestId?: Prisma.StringFilter<"Review"> | string
-  rating?: Prisma.IntFilter<"Review"> | number
+  rating?: Prisma.DecimalFilter<"Review"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   comment?: Prisma.StringFilter<"Review"> | string
   createdAt?: Prisma.DateTimeFilter<"Review"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Review"> | Date | string
@@ -267,7 +267,7 @@ export type ReviewWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.ReviewWhereInput | Prisma.ReviewWhereInput[]
   propertyId?: Prisma.StringFilter<"Review"> | string
   tenantId?: Prisma.StringFilter<"Review"> | string
-  rating?: Prisma.IntFilter<"Review"> | number
+  rating?: Prisma.DecimalFilter<"Review"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   comment?: Prisma.StringFilter<"Review"> | string
   createdAt?: Prisma.DateTimeFilter<"Review"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Review"> | Date | string
@@ -300,7 +300,7 @@ export type ReviewScalarWhereWithAggregatesInput = {
   propertyId?: Prisma.StringWithAggregatesFilter<"Review"> | string
   tenantId?: Prisma.StringWithAggregatesFilter<"Review"> | string
   rentalRequestId?: Prisma.StringWithAggregatesFilter<"Review"> | string
-  rating?: Prisma.IntWithAggregatesFilter<"Review"> | number
+  rating?: Prisma.DecimalWithAggregatesFilter<"Review"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   comment?: Prisma.StringWithAggregatesFilter<"Review"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Review"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Review"> | Date | string
@@ -308,7 +308,7 @@ export type ReviewScalarWhereWithAggregatesInput = {
 
 export type ReviewCreateInput = {
   id?: string
-  rating: number
+  rating: runtime.Decimal | runtime.DecimalJsLike | number | string
   comment: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -322,7 +322,7 @@ export type ReviewUncheckedCreateInput = {
   propertyId: string
   tenantId: string
   rentalRequestId: string
-  rating: number
+  rating: runtime.Decimal | runtime.DecimalJsLike | number | string
   comment: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -330,7 +330,7 @@ export type ReviewUncheckedCreateInput = {
 
 export type ReviewUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  rating?: Prisma.IntFieldUpdateOperationsInput | number
+  rating?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   comment?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -344,7 +344,7 @@ export type ReviewUncheckedUpdateInput = {
   propertyId?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   rentalRequestId?: Prisma.StringFieldUpdateOperationsInput | string
-  rating?: Prisma.IntFieldUpdateOperationsInput | number
+  rating?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   comment?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -355,7 +355,7 @@ export type ReviewCreateManyInput = {
   propertyId: string
   tenantId: string
   rentalRequestId: string
-  rating: number
+  rating: runtime.Decimal | runtime.DecimalJsLike | number | string
   comment: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -363,7 +363,7 @@ export type ReviewCreateManyInput = {
 
 export type ReviewUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  rating?: Prisma.IntFieldUpdateOperationsInput | number
+  rating?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   comment?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -374,7 +374,7 @@ export type ReviewUncheckedUpdateManyInput = {
   propertyId?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   rentalRequestId?: Prisma.StringFieldUpdateOperationsInput | string
-  rating?: Prisma.IntFieldUpdateOperationsInput | number
+  rating?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   comment?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -554,7 +554,7 @@ export type ReviewUncheckedUpdateManyWithoutTenantNestedInput = {
 
 export type ReviewCreateWithoutPropertyInput = {
   id?: string
-  rating: number
+  rating: runtime.Decimal | runtime.DecimalJsLike | number | string
   comment: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -566,7 +566,7 @@ export type ReviewUncheckedCreateWithoutPropertyInput = {
   id?: string
   tenantId: string
   rentalRequestId: string
-  rating: number
+  rating: runtime.Decimal | runtime.DecimalJsLike | number | string
   comment: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -606,7 +606,7 @@ export type ReviewScalarWhereInput = {
   propertyId?: Prisma.StringFilter<"Review"> | string
   tenantId?: Prisma.StringFilter<"Review"> | string
   rentalRequestId?: Prisma.StringFilter<"Review"> | string
-  rating?: Prisma.IntFilter<"Review"> | number
+  rating?: Prisma.DecimalFilter<"Review"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   comment?: Prisma.StringFilter<"Review"> | string
   createdAt?: Prisma.DateTimeFilter<"Review"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Review"> | Date | string
@@ -614,7 +614,7 @@ export type ReviewScalarWhereInput = {
 
 export type ReviewCreateWithoutRentalRequestInput = {
   id?: string
-  rating: number
+  rating: runtime.Decimal | runtime.DecimalJsLike | number | string
   comment: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -626,7 +626,7 @@ export type ReviewUncheckedCreateWithoutRentalRequestInput = {
   id?: string
   propertyId: string
   tenantId: string
-  rating: number
+  rating: runtime.Decimal | runtime.DecimalJsLike | number | string
   comment: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -650,7 +650,7 @@ export type ReviewUpdateToOneWithWhereWithoutRentalRequestInput = {
 
 export type ReviewUpdateWithoutRentalRequestInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  rating?: Prisma.IntFieldUpdateOperationsInput | number
+  rating?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   comment?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -662,7 +662,7 @@ export type ReviewUncheckedUpdateWithoutRentalRequestInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   propertyId?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
-  rating?: Prisma.IntFieldUpdateOperationsInput | number
+  rating?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   comment?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -670,7 +670,7 @@ export type ReviewUncheckedUpdateWithoutRentalRequestInput = {
 
 export type ReviewCreateWithoutTenantInput = {
   id?: string
-  rating: number
+  rating: runtime.Decimal | runtime.DecimalJsLike | number | string
   comment: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -682,7 +682,7 @@ export type ReviewUncheckedCreateWithoutTenantInput = {
   id?: string
   propertyId: string
   rentalRequestId: string
-  rating: number
+  rating: runtime.Decimal | runtime.DecimalJsLike | number | string
   comment: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -718,7 +718,7 @@ export type ReviewCreateManyPropertyInput = {
   id?: string
   tenantId: string
   rentalRequestId: string
-  rating: number
+  rating: runtime.Decimal | runtime.DecimalJsLike | number | string
   comment: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -726,7 +726,7 @@ export type ReviewCreateManyPropertyInput = {
 
 export type ReviewUpdateWithoutPropertyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  rating?: Prisma.IntFieldUpdateOperationsInput | number
+  rating?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   comment?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -738,7 +738,7 @@ export type ReviewUncheckedUpdateWithoutPropertyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   rentalRequestId?: Prisma.StringFieldUpdateOperationsInput | string
-  rating?: Prisma.IntFieldUpdateOperationsInput | number
+  rating?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   comment?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -748,7 +748,7 @@ export type ReviewUncheckedUpdateManyWithoutPropertyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   rentalRequestId?: Prisma.StringFieldUpdateOperationsInput | string
-  rating?: Prisma.IntFieldUpdateOperationsInput | number
+  rating?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   comment?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -758,7 +758,7 @@ export type ReviewCreateManyTenantInput = {
   id?: string
   propertyId: string
   rentalRequestId: string
-  rating: number
+  rating: runtime.Decimal | runtime.DecimalJsLike | number | string
   comment: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -766,7 +766,7 @@ export type ReviewCreateManyTenantInput = {
 
 export type ReviewUpdateWithoutTenantInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  rating?: Prisma.IntFieldUpdateOperationsInput | number
+  rating?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   comment?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -778,7 +778,7 @@ export type ReviewUncheckedUpdateWithoutTenantInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   propertyId?: Prisma.StringFieldUpdateOperationsInput | string
   rentalRequestId?: Prisma.StringFieldUpdateOperationsInput | string
-  rating?: Prisma.IntFieldUpdateOperationsInput | number
+  rating?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   comment?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -788,7 +788,7 @@ export type ReviewUncheckedUpdateManyWithoutTenantInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   propertyId?: Prisma.StringFieldUpdateOperationsInput | string
   rentalRequestId?: Prisma.StringFieldUpdateOperationsInput | string
-  rating?: Prisma.IntFieldUpdateOperationsInput | number
+  rating?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   comment?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -878,7 +878,7 @@ export type $ReviewPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     propertyId: string
     tenantId: string
     rentalRequestId: string
-    rating: number
+    rating: runtime.Decimal
     comment: string
     createdAt: Date
     updatedAt: Date
@@ -1312,7 +1312,7 @@ export interface ReviewFieldRefs {
   readonly propertyId: Prisma.FieldRef<"Review", 'String'>
   readonly tenantId: Prisma.FieldRef<"Review", 'String'>
   readonly rentalRequestId: Prisma.FieldRef<"Review", 'String'>
-  readonly rating: Prisma.FieldRef<"Review", 'Int'>
+  readonly rating: Prisma.FieldRef<"Review", 'Decimal'>
   readonly comment: Prisma.FieldRef<"Review", 'String'>
   readonly createdAt: Prisma.FieldRef<"Review", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Review", 'DateTime'>

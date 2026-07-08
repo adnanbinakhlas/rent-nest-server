@@ -10,11 +10,11 @@ const router: Router = Router();
 
 router.post(
   "/",
+  authGuard(UserRole.LANDLORD),
   upload.fields([
     { name: "thumbnail", maxCount: 1 },
     { name: "images", maxCount: 4 },
   ]),
-  authGuard(UserRole.LANDLORD),
   validateRequest(PropertyValidation.createPropertyValidationSchema),
   PropertyController.createProperty,
 );
