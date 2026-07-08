@@ -2,40 +2,48 @@
 import Stripe from "stripe";
 import prisma from "../../../libs/prisma";
 import stripe from "../../../libs/stripe";
-import { PaymentStatus } from "../../../../prisma/generated/prisma/enums";
+import {
+  PaymentStatus,
+  RentalRequestStatus,
+} from "../../../../prisma/generated/prisma/enums";
+import { RentalRequestUpdateInput } from "../../../../prisma/generated/prisma/models";
 
 const handleCheckoutSession = async (
   session: Stripe.Checkout.Session,
 ): Promise<void> => {
   try {
     const rentalId = session.metadata?.rentalId as string;
-    const _propertyId = session.metadata?.propertyId as string;
-
+    const paymentIntentId = session.payment_intent as string;
     const paymentIntent = await stripe.paymentIntents.retrieve(
-      session.payment_intent as string,
+      paymentIntentId,
       { expand: ["latest_charge"] },
     );
-
     const charge = paymentIntent.latest_charge as Stripe.Charge;
+    const receiptUrl = charge?.receipt_url as string;
+    const rentalStatus = RentalRequestStatus.ACTIVE;
+    const paymentStatus = PaymentStatus.SUCCEEDED;
+    const paidAt = new Date().toISOString();
 
-    const receiptUrl = charge?.receipt_url;
+    if (!rentalId || !receiptUrl || !paymentIntentId) {
+      console.log("Webhook error: missing payment success required values.");
+      return;
+    }
+
+    const data: RentalRequestUpdateInput = {
+      status: rentalStatus,
+      payment: {
+        update: {
+          status: paymentStatus,
+          stripePaymentIntentId: paymentIntentId,
+          receiptUrl,
+          paidAt,
+        },
+      },
+    };
 
     await prisma.rentalRequest.update({
       where: { id: rentalId },
-      data: {
-        status: "ACTIVE",
-        payment: {
-          update: {
-            status: "SUCCEEDED",
-            stripeCustomerId: session.customer as string,
-            paymentMethod: session.payment_method_types[0] as string,
-            currency: session.currency as string,
-            paidAt: new Date().toISOString(),
-            stripePaymentIntentId: session.payment_intent as string,
-            receiptUrl,
-          },
-        },
-      },
+      data,
     });
   } catch (error: unknown) {
     console.error(error);
@@ -62,7 +70,7 @@ const handlePaymentIntentFail = async (
       !failedDeclineCode ||
       !failedReason
     ) {
-      console.log("Webhook error: Required values not found.");
+      console.log("Webhook error: missing payment fail required values.");
       return;
     }
 

@@ -76,6 +76,8 @@ const createPayment = async (
           stripeSessionId: session.id,
           amount: session.amount_total as number,
           currency: session.currency as string,
+          stripeCustomerId,
+          paymentMethod: session.payment_method_types[0] as string,
         },
       });
 
