@@ -274,7 +274,7 @@ ADMIN_PASSWORD
 
 ### Postman Workspace
 
-https://www.postman.com/adnan-b-akhlas-dev-9537537/rent-nest/?sideView=agentMode
+https://documenter.getpostman.com/view/56065843/2sBY4JxNuv
 
 > You can import the collection directly from the workspace and test every endpoint.
 

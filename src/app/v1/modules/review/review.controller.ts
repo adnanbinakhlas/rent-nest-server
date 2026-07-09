@@ -21,6 +21,20 @@ const createReview = asyncHandler(
   },
 );
 
+const getAllReviews = asyncHandler(
+  async (req: Request, res: Response): Promise<void> => {
+    const data = await ReviewService.getAllReviewsFromDb();
+
+    sendResponse(res, {
+      statusCode: status.OK,
+      success: true,
+      message: "All reviews retrieved successfully.",
+      data,
+    });
+  },
+);
+
 export const ReviewController = {
   createReview,
+  getAllReviews,
 };

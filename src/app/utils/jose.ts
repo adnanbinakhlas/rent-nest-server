@@ -20,9 +20,7 @@ const generateToken = async (
       .encrypt(secret);
 
     return token;
-  } catch (err: unknown) {
-    // eslint-disable-next-line no-console
-    console.error("Failed to generate access token", err);
+  } catch {
     throw new AppError(
       "Failed to generate access token",
       status.INTERNAL_SERVER_ERROR,
@@ -40,11 +38,8 @@ const verifyToken = async (
     const { payload } = await jwtDecrypt(token, secret);
 
     return payload;
-  } catch (error) {
-    // eslint-disable-next-line no-console
-    console.error("Invalid or expired token:", error);
-
-    throw new AppError("Unauthorized access.", status.UNAUTHORIZED);
+  } catch {
+    throw new AppError("Invalid or expired token", status.UNAUTHORIZED);
   }
 };
 

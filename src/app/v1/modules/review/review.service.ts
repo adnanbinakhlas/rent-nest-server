@@ -44,6 +44,13 @@ const insertReviewIntoDb = async (
   return review;
 };
 
+const getAllReviewsFromDb = async (): Promise<ReviewModel[]> => {
+  const reviews = await prisma.review.findMany();
+
+  return reviews;
+};
+
 export const ReviewService = {
   insertReviewIntoDb,
+  getAllReviewsFromDb,
 };
