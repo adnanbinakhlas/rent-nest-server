@@ -1,9 +1,15 @@
 import { UploadApiResponse } from "cloudinary";
 import status from "http-status";
-import { PropertyModel } from "../../../../prisma/generated/prisma/models";
+import {
+  PropertyModel,
+  PropertyUpdateInput,
+  PropertyWhereInput,
+} from "../../../../prisma/generated/prisma/models";
 import { AppError } from "../../../helpers/AppError";
 import prisma from "../../../libs/prisma";
 import imageUpload from "../../../utils/imageUpload";
+import { queryBuilder } from "../../../utils/queryBuilder";
+import { IMeta } from "../../../utils/sendResponse";
 import {
   TCreatePropertyInput,
   TImageFiles,
@@ -14,7 +20,7 @@ const insertPropertyIntoDb = async (
   payload: TCreatePropertyInput,
   userId: string,
   files: TImageFiles,
-): Promise<PropertyModel> => {
+): Promise<Pick<PropertyModel, "id">> => {
   const { amenities, ...rest } = payload;
 
   const thumbnailFile = files.thumbnail?.[0];
@@ -62,6 +68,7 @@ const insertPropertyIntoDb = async (
 
   const property = await prisma.property.create({
     data,
+    select: { id: true },
   });
 
   return property;
@@ -71,24 +78,9 @@ const updatePropertyFromDb = async (
   payload: TUpdatePropertyInput,
   id: string,
 ): Promise<PropertyModel> => {
-  const { images, amenities, availableFrom, ...rest } = payload;
-
   const property = await prisma.property.update({
     where: { id },
-    data: {
-      ...rest,
-      ...(availableFrom
-        ? { availableFrom: new Date(availableFrom).toISOString() }
-        : {}),
-      ...(images ? { images: { create: images } } : {}),
-      ...(amenities
-        ? {
-            propertyAmenity: {
-              create: amenities.map((amenityId: string) => ({ amenityId })),
-            },
-          }
-        : {}),
-    },
+    data: payload as PropertyUpdateInput,
 
     include: {
       images: { select: { imageUrl: true, isPrimary: true } },
@@ -99,28 +91,83 @@ const updatePropertyFromDb = async (
   return property;
 };
 
-const getAllPropertiesFromDb = async (): Promise<PropertyModel[]> => {
+const getAllPropertiesFromDb = async (
+  query: Record<string, string | undefined>,
+): Promise<{ properties: PropertyModel[]; meta: IMeta }> => {
+  const pagination = queryBuilder.pagination(query);
+  const sorting = queryBuilder.sorting(query);
+  const fields = queryBuilder.parseFields(query.fields);
+  const totalProperties = await prisma.property.count();
+  const totalPages = queryBuilder.countPages(totalProperties, pagination.limit);
+
+  if (pagination.page === totalPages) {
+    pagination.nextPage = null;
+  }
+
   const properties = await prisma.property.findMany({
-    include: { images: true, propertyAmenity: { include: { amenity: true } } },
+    select: fields,
+    take: pagination.limit,
+    skip: pagination.skip,
+    orderBy: sorting,
   });
 
-  return properties;
+  return {
+    properties,
+    meta: {
+      totalPages,
+      totalProperties,
+      limit: pagination.limit,
+      page: pagination.page,
+      nextPage: pagination.nextPage,
+      prevPage: pagination.prevPage,
+    },
+  };
 };
 
 const getPropertiesMeFromDb = async (
   userId: string,
-): Promise<PropertyModel[]> => {
+  query: Record<string, string | undefined>,
+): Promise<{ properties: PropertyModel[]; meta: IMeta }> => {
+  const whereInput: PropertyWhereInput = { landlordId: userId };
+  const pagination = queryBuilder.pagination(query);
+  const sorting = queryBuilder.sorting(query);
+  const fields = queryBuilder.parseFields(query.fields);
+  const totalProperties = await prisma.property.count({ where: whereInput });
+  const totalPages = queryBuilder.countPages(totalProperties, pagination.limit);
+
+  if (pagination.page === totalPages) {
+    pagination.nextPage = null;
+  }
+
   const properties = await prisma.property.findMany({
-    where: { landlordId: userId },
+    where: whereInput,
+    select: fields,
+    take: pagination.limit,
+    skip: pagination.skip,
+    orderBy: sorting,
   });
 
-  return properties;
+  return {
+    properties,
+    meta: {
+      totalPages,
+      totalProperties,
+      limit: pagination.limit,
+      page: pagination.page,
+      nextPage: pagination.nextPage,
+      prevPage: pagination.prevPage,
+    },
+  };
 };
 
-const getPropertyById = async (id: string): Promise<PropertyModel> => {
+const getPropertyById = async (
+  id: string,
+  query: Record<string, string | undefined>,
+): Promise<PropertyModel> => {
+  const fields = queryBuilder.parseFields(query.fields);
   const property = await prisma.property.findUnique({
     where: { id },
-    include: { images: true, propertyAmenity: { include: { amenity: true } } },
+    ...(fields ? { select: fields } : {}),
   });
 
   if (!property) {

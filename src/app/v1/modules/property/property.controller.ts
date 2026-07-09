@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
+import status from "http-status";
+import { UserModel } from "../../../../prisma/generated/prisma/models";
 import { asyncHandler } from "../../../utils/asyncHandler";
 import { sendResponse } from "../../../utils/sendResponse";
-import status from "http-status";
 import { PropertyService } from "./property.service";
-import { UserModel } from "../../../../prisma/generated/prisma/models";
 import { TImageFiles } from "./property.types";
 
 const createProperty = asyncHandler(
@@ -45,13 +45,16 @@ const updateProperty = asyncHandler(
 
 const getAllProperties = asyncHandler(
   async (req: Request, res: Response): Promise<void> => {
-    const data = await PropertyService.getAllPropertiesFromDb();
+    const query = req.query as Record<string, string | undefined>;
+    const { properties: data, meta } =
+      await PropertyService.getAllPropertiesFromDb(query);
 
     sendResponse(res, {
-      statusCode: status.CREATED,
+      statusCode: status.OK,
       success: true,
       message: "All properties retrieved successfully.",
       data,
+      meta,
     });
   },
 );
@@ -59,13 +62,16 @@ const getAllProperties = asyncHandler(
 const getPropertiesMe = asyncHandler(
   async (req: Request, res: Response): Promise<void> => {
     const userId = (req.user as UserModel).id;
-    const data = await PropertyService.getPropertiesMeFromDb(userId);
+    const query = req.query as Record<string, string | undefined>;
+    const { properties: data, meta } =
+      await PropertyService.getPropertiesMeFromDb(userId, query);
 
     sendResponse(res, {
       statusCode: status.OK,
       success: true,
       message: "Your properties were retrieved successfully.",
       data,
+      meta,
     });
   },
 );
@@ -73,8 +79,8 @@ const getPropertiesMe = asyncHandler(
 const getSingleProperty = asyncHandler(
   async (req: Request, res: Response): Promise<void> => {
     const id = req.params.id as string;
-
-    const data = await PropertyService.getPropertyById(id);
+    const query = req.query as Record<string, string | undefined>;
+    const data = await PropertyService.getPropertyById(id, query);
 
     sendResponse(res, {
       statusCode: status.OK,

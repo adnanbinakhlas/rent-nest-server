@@ -1,9 +1,12 @@
 import { Response } from "express";
 
-interface IMeta {
+export interface IMeta {
   page: number;
   limit: number;
-  total: number;
+  totalPages: number;
+  nextPage: number | null;
+  prevPage: number | null;
+  [key: string]: unknown;
 }
 
 interface ILink {
@@ -24,8 +27,8 @@ export const sendResponse = <T>(res: Response, data: IResponse<T>) => {
     success: data.success,
     statusCode: data.statusCode,
     message: data.message,
-    ...(data?.data && { data: data.data }),
     ...(data?.meta && { meta: data.meta }),
+    ...(data?.data && { data: data.data }),
     ...(data?.links && { links: data.links }),
   });
 };
