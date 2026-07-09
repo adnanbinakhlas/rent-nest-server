@@ -73,7 +73,8 @@ const getAllRentalRequests = asyncHandler(
 const getSingleRentalRequest = asyncHandler(
   async (req: Request, res: Response): Promise<void> => {
     const rentalId = req.params.id as string;
-    const data = await RentalService.getRentalById(rentalId);
+    const query = req.query as TQuery;
+    const data = await RentalService.getRentalById(rentalId, query);
 
     sendResponse(res, {
       statusCode: status.OK,

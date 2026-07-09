@@ -105,12 +105,14 @@ const getAllRentalsFromDb = async (
   const sorting = queryBuilder.sorting(query);
   const totalRentals = await prisma.rentalRequest.count();
   const totalPages = queryBuilder.countPages(totalRentals, pagination.limit);
+  const fields = queryBuilder.parseFields(query.fields);
 
   if (pagination.page >= totalPages) {
     pagination.nextPage = null;
   }
 
   const rentals = await prisma.rentalRequest.findMany({
+    select: fields,
     take: pagination.limit,
     skip: pagination.skip,
     orderBy: sorting,
@@ -129,8 +131,15 @@ const getAllRentalsFromDb = async (
   };
 };
 
-const getRentalById = async (id: string): Promise<RentalRequestModel> => {
-  const rental = await prisma.rentalRequest.findUnique({ where: { id } });
+const getRentalById = async (
+  id: string,
+  query: TQuery,
+): Promise<RentalRequestModel> => {
+  const fields = queryBuilder.parseFields(query.fields);
+  const rental = await prisma.rentalRequest.findUnique({
+    where: { id },
+    select: fields,
+  });
 
   if (!rental) {
     throw new AppError("Request rental record not found.", status.NOT_FOUND);
