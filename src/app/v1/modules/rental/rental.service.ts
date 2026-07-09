@@ -115,6 +115,7 @@ const getAllRentalsFromDb = async (
     skip: pagination.skip,
     orderBy: sorting,
   });
+
   return {
     rentals,
     meta: {
