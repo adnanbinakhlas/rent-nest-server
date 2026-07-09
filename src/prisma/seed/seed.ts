@@ -1,427 +1,251 @@
 /* eslint-disable no-console */
 import { faker } from "@faker-js/faker";
 import bcrypt from "bcrypt";
-import { Prisma, PrismaClient, UserRole } from "../generated/prisma/client";
 import prisma from "../../app/libs/prisma";
+import {
+  PaymentStatus,
+  PropertyStatus,
+  RentalRequestStatus,
+  Unit,
+  UserRole,
+} from "../generated/prisma/client";
 
-/* ────────────────────────────────────────────────────────────────
- * CONFIG — tune these to control how "massive" the dataset is.
- * ──────────────────────────────────────────────────────────────── */
-
-const CONFIG = {
-  ADMIN_COUNT: 5,
-  LANDLORD_COUNT: 150,
-  TENANT_COUNT: 600,
-
-  CATEGORY_COUNT: 8, // capped by CATEGORY_NAMES.length below
-  AMENITY_COUNT: 25, // capped by AMENITY_NAMES.length below
-
-  PROPERTIES_COUNT: 1500,
-
-  // Insert this many rows per createMany() call. Keeps us under
-  // Postgres' bound parameter limit and memory footprint sane.
-  BATCH_SIZE: 1000,
-
-  // Every seeded user gets this password (hashed once, reused everywhere).
-  DEFAULT_PASSWORD: "Password123!",
-} as const;
-
-const CITIES = [
-  {
-    city: "Dhaka",
-    areas: [
-      "Gulshan",
-      "Banani",
-      "Dhanmondi",
-      "Uttara",
-      "Mirpur",
-      "Mohammadpur",
-      "Bashundhara R/A",
-      "Baridhara",
-      "Motijheel",
-      "Badda",
-    ],
-    lat: [23.7, 23.88],
-    lng: [90.34, 90.44],
-  },
-  {
-    city: "Chattogram",
-    areas: [
-      "Agrabad",
-      "Khulshi",
-      "Nasirabad",
-      "Panchlaish",
-      "Halishahar",
-      "GEC Circle",
-    ],
-    lat: [22.3, 22.42],
-    lng: [91.78, 91.86],
-  },
-  {
-    city: "Sylhet",
-    areas: ["Zindabazar", "Amberkhana", "Shahjalal Upashahar", "Subid Bazar"],
-    lat: [24.88, 24.92],
-    lng: [91.85, 91.89],
-  },
-  {
-    city: "Khulna",
-    areas: ["Sonadanga", "Khalishpur", "Boyra", "Daulatpur"],
-    lat: [22.79, 22.85],
-    lng: [89.53, 89.58],
-  },
-  {
-    city: "Rajshahi",
-    areas: ["Shaheb Bazar", "Uposhohor", "Rajpara", "Boalia"],
-    lat: [24.36, 24.4],
-    lng: [88.58, 88.63],
-  },
-  {
-    city: "Barishal",
-    areas: ["Band Road", "Sadar Road", "Rupatali"],
-    lat: [22.68, 22.72],
-    lng: [90.35, 90.39],
-  },
-  {
-    city: "Rangpur",
-    areas: ["Jahaj Company More", "Dhap", "Shapla Chattar"],
-    lat: [25.73, 25.77],
-    lng: [89.23, 89.28],
-  },
-  {
-    city: "Mymensingh",
-    areas: ["Ganginarpar", "Chorpara", "Kalibari"],
-    lat: [24.73, 24.77],
-    lng: [90.39, 90.43],
-  },
-] as const;
-
-const CATEGORY_NAMES = [
-  {
-    name: "Apartment",
-    description: "Self-contained residential unit within a larger building",
-  },
-  { name: "Flat", description: "Residential unit typically on a single floor" },
-  { name: "House", description: "Standalone residential building" },
-  {
-    name: "Studio",
-    description: "Single-room unit combining living and sleeping space",
-  },
-  { name: "Duplex", description: "Two-level residential unit" },
-  {
-    name: "Penthouse",
-    description: "Top-floor unit, usually with premium finishes",
-  },
-  {
-    name: "Sublet / Room",
-    description: "Single furnished room within a shared unit",
-  },
-  {
-    name: "Commercial Space",
-    description: "Space suited for office or retail use",
-  },
-] as const;
-
-const AMENITY_NAMES = [
-  "WiFi",
-  "Air Conditioning",
-  "Parking",
-  "Elevator",
-  "Generator Backup",
-  "Gas Line",
-  "Security Guard",
-  "CCTV Surveillance",
-  "24/7 Water Supply",
-  "Balcony",
-  "Rooftop Access",
-  "Gym",
-  "Swimming Pool",
-  "Furnished",
-  "Intercom",
-  "Fire Extinguisher",
-  "Servant Room",
-  "Dining Space",
-  "Study Room",
-  "Kids Play Area",
-  "Community Hall",
-  "Mosque Nearby",
-  "School Nearby",
-  "Hospital Nearby",
-  "Shopping Mall Nearby",
-] as const;
-
-const PROPERTY_ADJECTIVES = [
-  "Spacious",
-  "Cozy",
-  "Modern",
-  "Elegant",
-  "Sunlit",
-  "Newly Renovated",
-  "Family-Friendly",
-  "Fully Furnished",
-  "Quiet",
-  "Well-Ventilated",
-];
-
-/* ────────────────────────────────────────────────────────────────
- * UTILS
- * ──────────────────────────────────────────────────────────────── */
-
-function randomInt(min: number, max: number): number {
-  return faker.number.int({ min, max });
-}
-
-function randomFloat(min: number, max: number, decimals = 2): number {
-  return faker.number.float({ min, max, fractionDigits: decimals });
-}
-
-function pick<T>(arr: readonly T[]): T {
-  return faker.helpers.arrayElement(arr);
-}
-
-function bdPhoneNumber(): string {
-  const prefixes = ["13", "14", "15", "16", "17", "18", "19"];
-  return `+880${pick(prefixes)}${faker.string.numeric(8)}`;
-}
-
-function chunkArray<T>(arr: T[], size: number): T[][] {
-  const chunks: T[][] = [];
-  for (let i = 0; i < arr.length; i += size)
-    chunks.push(arr.slice(i, i + size));
-  return chunks;
-}
-
-async function batchInsert<T>(
-  items: T[],
-  batchSize: number,
-  insertFn: (batch: T[]) => Promise<{ count: number }>,
-  label: string,
-): Promise<number> {
-  if (items.length === 0) {
-    console.log(`  [${label}] nothing to insert`);
-    return 0;
-  }
-
-  const chunks = chunkArray(items, batchSize);
-  let total = 0;
-
-  for (let i = 0; i < chunks.length; i++) {
-    const result = await insertFn(chunks[i] as T[]);
-    total += result.count;
-    console.log(
-      `  [${label}] batch ${i + 1}/${chunks.length} inserted (${total}/${items.length})`,
-    );
-  }
-
-  return total;
-}
-
-/* ────────────────────────────────────────────────────────────────
- * USERS (admins, landlords, tenants)
- * ──────────────────────────────────────────────────────────────── */
-
-type SeedUser = Prisma.UserCreateManyInput & { id: string; role: UserRole };
-
-function buildUser(role: UserRole, passwordHash: string): SeedUser {
-  const firstName = faker.person.firstName();
-  const lastName = faker.person.lastName();
-
-  return {
-    id: faker.string.uuid(),
-    fullname: `${firstName} ${lastName}`,
-    email: faker.internet.email({ firstName, lastName }).toLowerCase(),
-    password: passwordHash,
-    phone: bdPhoneNumber(),
-    avatar: faker.datatype.boolean({ probability: 0.7 })
-      ? faker.image.avatar()
-      : null,
-    role,
-    status: faker.datatype.boolean({ probability: 0.95 }) ? "ACTIVE" : "BANNED",
-    isVerified: faker.datatype.boolean({ probability: 0.9 }),
-    isDeleted: false,
-  };
-}
-
-async function seedUsers(prisma: PrismaClient) {
-  console.log("Seeding users...");
-
-  const passwordHash = bcrypt.hashSync(CONFIG.DEFAULT_PASSWORD, 10);
-
-  const admins = Array.from({ length: CONFIG.ADMIN_COUNT }, () =>
-    buildUser("ADMIN", passwordHash),
-  );
-  const landlords = Array.from({ length: CONFIG.LANDLORD_COUNT }, () =>
-    buildUser("LANDLORD", passwordHash),
-  );
-  const tenants = Array.from({ length: CONFIG.TENANT_COUNT }, () =>
-    buildUser("TENANT", passwordHash),
-  );
-
-  const all = [...admins, ...landlords, ...tenants];
-
-  await batchInsert(
-    all,
-    CONFIG.BATCH_SIZE,
-    (batch) => prisma.user.createMany({ data: batch, skipDuplicates: true }),
-    "Users",
-  );
-
-  console.log(
-    `  -> ${admins.length} admins, ${landlords.length} landlords, ${tenants.length} tenants`,
-  );
-
-  return { admins, landlords, tenants, all };
-}
-
-/* ────────────────────────────────────────────────────────────────
- * CATEGORIES
- * ──────────────────────────────────────────────────────────────── */
-
-type SeedCategory = Prisma.CategoryCreateManyInput & { id: string };
-
-async function seedCategories(prisma: PrismaClient) {
-  console.log("Seeding categories...");
-
-  const categories: SeedCategory[] = CATEGORY_NAMES.slice(
-    0,
-    CONFIG.CATEGORY_COUNT,
-  ).map((c) => ({
-    id: faker.string.uuid(),
-    name: c.name,
-    description: c.description,
-  }));
-
-  await prisma.category.createMany({ data: categories, skipDuplicates: true });
-
-  console.log(`  -> ${categories.length} categories`);
-
-  return categories;
-}
-
-/* ────────────────────────────────────────────────────────────────
- * AMENITIES
- * ──────────────────────────────────────────────────────────────── */
-
-type SeedAmenity = Prisma.AmenityCreateManyInput & { id: string };
-
-async function seedAmenities(prisma: PrismaClient) {
-  console.log("Seeding amenities...");
-
-  const amenities: SeedAmenity[] = AMENITY_NAMES.slice(
-    0,
-    CONFIG.AMENITY_COUNT,
-  ).map((name) => ({
-    id: faker.string.uuid(),
-    name,
-  }));
-
-  await prisma.amenity.createMany({ data: amenities, skipDuplicates: true });
-
-  console.log(`  -> ${amenities.length} amenities`);
-
-  return amenities;
-}
-
-/* ────────────────────────────────────────────────────────────────
- * PROPERTIES
- * ──────────────────────────────────────────────────────────────── */
-
-type SeedProperty = Prisma.PropertyCreateManyInput & { id: string };
-
-function buildProperty(
-  landlords: SeedUser[],
-  categories: SeedCategory[],
-): SeedProperty {
-  const location = pick(CITIES);
-  const area = pick(location.areas);
-  const category = pick(categories);
-  const bedrooms = randomInt(1, 5);
-  const furnished = faker.datatype.boolean({ probability: 0.4 });
-  const availableFrom = faker.date.soon({ days: 90 });
-
-  return {
-    id: faker.string.uuid(),
-    landlordId: pick(landlords).id,
-    categoryId: category.id,
-    title: `${pick(PROPERTY_ADJECTIVES)} ${bedrooms}-Bed ${category.name} in ${area}`,
-    description: faker.lorem.paragraphs({ min: 2, max: 4 }, "\n\n"),
-    address: `${faker.location.buildingNumber()}, Road ${randomInt(1, 30)}, ${area}`,
-    city: location.city,
-    area,
-    latitude: randomFloat(location.lat[0], location.lat[1], 6),
-    longitude: randomFloat(location.lng[0], location.lng[1], 6),
-    monthlyRent: randomInt(8, 150) * 1000,
-    securityDeposit: randomInt(16, 300) * 1000,
-    bedrooms,
-    bathrooms: randomInt(1, Math.max(2, bedrooms - 1)),
-    floor: randomInt(0, 12),
-    furnished,
-    size: randomInt(450, 3200),
-    sizeUnit: "SQFT",
-    availableFrom,
-    available: faker.datatype.boolean({ probability: 0.8 }),
-    status: faker.datatype.boolean({ probability: 0.75 })
-      ? "AVAILABLE"
-      : "RENTED",
-  };
-}
-
-async function seedProperties(
-  prisma: PrismaClient,
-  landlords: SeedUser[],
-  categories: SeedCategory[],
-) {
-  console.log("Seeding properties...");
-
-  const properties: SeedProperty[] = Array.from(
-    { length: CONFIG.PROPERTIES_COUNT },
-    () => buildProperty(landlords, categories),
-  );
-
-  await batchInsert(
-    properties,
-    CONFIG.BATCH_SIZE,
-    (batch) =>
-      prisma.property.createMany({ data: batch, skipDuplicates: true }),
-    "Properties",
-  );
-
-  console.log(`  -> ${properties.length} properties`);
-
-  return properties;
-}
-
-/* ────────────────────────────────────────────────────────────────
- * MAIN
- * ──────────────────────────────────────────────────────────────── */
+// ==========================================
+// ⚙️ GLOBAL SEEDING CONFIGURATION
+// ==========================================
+const SEED_CONFIG = {
+  NUM_LANDLORDS: 75, // Total number of landlords to create
+  NUM_TENANTS: 95, // Total number of tenants to create
+  MIN_PROPERTIES_PER_LANDLORD: 1, // Minimum properties a landlord can own
+  MAX_PROPERTIES_PER_LANDLORD: 5, // Maximum properties a landlord can own
+  IMAGES_PER_PROPERTY: 3, // Number of images generated per property
+  DEFAULT_PASSWORD: "Password123!", // Plain text password to hash
+  SALT_ROUNDS: 10, // Bcrypt work factor
+};
 
 async function main() {
-  const start = Date.now();
-  console.log("Starting streamlined database seed...\n");
+  console.log("🌱 Starting database seeding...");
 
-  // Independent tables
-  const { admins, landlords, tenants, all: users } = await seedUsers(prisma);
-  const categories = await seedCategories(prisma);
-  const amenities = await seedAmenities(prisma);
-
-  // Core dependent table
-  const properties = await seedProperties(prisma, landlords, categories);
-
-  const seconds = ((Date.now() - start) / 1000).toFixed(1);
-  console.log(`\nSeed complete in ${seconds}s.`);
-  console.log(
-    `  Users: ${users.length} (${admins.length} admins, ${landlords.length} landlords, ${tenants.length} tenants)`,
+  // Generate the password hash once to keep the seed script fast
+  console.log("Hashing default password...");
+  const hashedPassword = await bcrypt.hash(
+    SEED_CONFIG.DEFAULT_PASSWORD,
+    SEED_CONFIG.SALT_ROUNDS,
   );
-  console.log(`  Categories: ${categories.length}`);
-  console.log(`  Amenities: ${amenities.length}`);
-  console.log(`  Properties: ${properties.length}`);
-  console.log(
-    `\nAll seeded users share the password: "${CONFIG.DEFAULT_PASSWORD}"`,
+
+  console.log("Sweeping old data...");
+  await prisma.review.deleteMany();
+  await prisma.payment.deleteMany();
+  await prisma.rentalRequest.deleteMany();
+  await prisma.propertyImage.deleteMany();
+  await prisma.propertyAmenity.deleteMany();
+  await prisma.property.deleteMany();
+  await prisma.amenity.deleteMany();
+  await prisma.category.deleteMany();
+  await prisma.user.deleteMany();
+
+  console.log("Seeding Categories...");
+  const categoryNames = ["Apartment", "House", "Studio", "Condo", "Villa"];
+  const categories = await Promise.all(
+    categoryNames.map((name) =>
+      prisma.category.create({
+        data: {
+          name,
+          description: faker.lorem.sentence(),
+        },
+      }),
+    ),
   );
+
+  console.log("Seeding Amenities...");
+  const amenityNames = [
+    "WiFi",
+    "Air Conditioning",
+    "Pool",
+    "Gym",
+    "Parking",
+    "Balcony",
+    "Heating",
+    "Pet Friendly",
+  ];
+  const amenities = await Promise.all(
+    amenityNames.map((name) =>
+      prisma.amenity.create({
+        data: { name },
+      }),
+    ),
+  );
+
+  console.log(
+    `Seeding Users (${SEED_CONFIG.NUM_LANDLORDS} Landlords, ${SEED_CONFIG.NUM_TENANTS} Tenants)...`,
+  );
+  const landlords = await Promise.all(
+    Array.from({ length: SEED_CONFIG.NUM_LANDLORDS }).map(() =>
+      prisma.user.create({
+        data: {
+          fullname: faker.person.fullName(),
+          email: faker.internet.email(),
+          password: hashedPassword, // Using the pre-hashed password
+          phone: faker.phone.number(),
+          avatar: faker.image.avatar(),
+          role: UserRole.LANDLORD,
+        },
+      }),
+    ),
+  );
+
+  const tenants = await Promise.all(
+    Array.from({ length: SEED_CONFIG.NUM_TENANTS }).map(() =>
+      prisma.user.create({
+        data: {
+          fullname: faker.person.fullName(),
+          email: faker.internet.email(),
+          password: hashedPassword, // Using the pre-hashed password
+          phone: faker.phone.number(),
+          avatar: faker.image.avatar(),
+          role: UserRole.TENANT,
+        },
+      }),
+    ),
+  );
+
+  await prisma.user.create({
+    data: {
+      fullname: "System Admin",
+      email: "admin@system.com",
+      password: hashedPassword, // Using the pre-hashed password
+      phone: faker.phone.number(),
+      role: UserRole.ADMIN,
+    },
+  });
+
+  console.log("Seeding Properties...");
+  for (const landlord of landlords) {
+    const propertyCount = faker.number.int({
+      min: SEED_CONFIG.MIN_PROPERTIES_PER_LANDLORD,
+      max: SEED_CONFIG.MAX_PROPERTIES_PER_LANDLORD,
+    });
+
+    for (let i = 0; i < propertyCount; i++) {
+      const category = faker.helpers.arrayElement(categories);
+      const randomAmenities = faker.helpers.arrayElements(
+        amenities,
+        faker.number.int({ min: 2, max: 5 }),
+      );
+
+      const property = await prisma.property.create({
+        data: {
+          landlordId: landlord.id,
+          categoryId: category.id,
+          title: faker.lorem.words(3),
+          description: faker.lorem.paragraphs(2),
+          address: faker.location.streetAddress(),
+          city: faker.location.city(),
+          area: faker.location.state(),
+
+          latitude: faker.number.float({
+            min: -90,
+            max: 90,
+            fractionDigits: 6,
+          }),
+          longitude: faker.number.float({
+            min: -99,
+            max: 99,
+            fractionDigits: 6,
+          }),
+
+          monthlyRent: faker.number.float({
+            min: 500,
+            max: 5000,
+            fractionDigits: 2,
+          }),
+          securityDeposit: faker.number.float({
+            min: 500,
+            max: 5000,
+            fractionDigits: 2,
+          }),
+          bedrooms: faker.number.int({ min: 1, max: 5 }),
+          bathrooms: faker.number.int({ min: 1, max: 3 }),
+          floor: faker.number.int({ min: 1, max: 20 }),
+          furnished: faker.datatype.boolean(),
+          size: faker.number.int({ min: 300, max: 3000 }),
+          sizeUnit: faker.helpers.arrayElement([Unit.SQFT, Unit.SQM]),
+          availableFrom: faker.date.future(),
+          available: true,
+          status: PropertyStatus.AVAILABLE,
+
+          propertyAmenity: {
+            create: randomAmenities.map((amenity) => ({
+              amenityId: amenity.id,
+            })),
+          },
+          images: {
+            create: Array.from({ length: SEED_CONFIG.IMAGES_PER_PROPERTY }).map(
+              (_, index) => ({
+                imageUrl: faker.image.url(),
+                isPrimary: index === 0,
+              }),
+            ),
+          },
+        },
+      });
+
+      const shouldHaveHistory = faker.datatype.boolean();
+
+      if (shouldHaveHistory) {
+        const tenant = faker.helpers.arrayElement(tenants);
+        const monthlyRent = property.monthlyRent;
+        const moveInDate = faker.date.recent();
+
+        const rentalRequest = await prisma.rentalRequest.create({
+          data: {
+            propertyId: property.id,
+            tenantId: tenant.id,
+            landlordId: landlord.id,
+            moveInDate: moveInDate,
+            rentalDuration: faker.number.int({ min: 6, max: 24 }),
+            message: faker.lorem.sentence(),
+            monthlyRent: monthlyRent,
+            status: RentalRequestStatus.COMPLETED,
+            approvedAt: moveInDate,
+          },
+        });
+
+        await prisma.payment.create({
+          data: {
+            rentalRequestId: rentalRequest.id,
+            tenantId: tenant.id,
+            landlordId: landlord.id,
+            amount: monthlyRent,
+            currency: "usd",
+            stripeSessionId: `cs_test_${faker.string.alphanumeric(24)}`,
+            stripePaymentIntentId: `pi_${faker.string.alphanumeric(24)}`,
+            stripeChargeId: `ch_${faker.string.alphanumeric(24)}`,
+            status: PaymentStatus.SUCCEEDED,
+            paidAt: moveInDate,
+            paymentMethod: "card",
+          },
+        });
+
+        await prisma.review.create({
+          data: {
+            propertyId: property.id,
+            tenantId: tenant.id,
+            rentalRequestId: rentalRequest.id,
+            rating: faker.number.float({ min: 3, max: 5, fractionDigits: 1 }),
+            comment: faker.lorem.paragraph(),
+          },
+        });
+      }
+    }
+  }
+
+  console.log("✅ Seeding completed successfully!");
 }
 
 main()
-  .catch((err) => {
-    console.error("Seed failed:", err);
+  .catch((e) => {
+    console.error("❌ Error during seeding:", e);
     process.exit(1);
   })
   .finally(async () => {

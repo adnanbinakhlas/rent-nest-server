@@ -10,7 +10,7 @@ const registerValidationSchema = z.object({
     .min(2, "Name must be at least 2 characters.")
     .max(100, "Name cannot exceed 100 characters."),
 
-  email: z.email("Please provide a valid email address.").trim().toLowerCase(),
+  email: z.email("Please provide a valid email address.").trim(),
 
   password: z
     .string({

@@ -1,7 +1,7 @@
 import z from "zod";
 
 export const loginValidationSchema = z.object({
-  email: z.email("Please provide a valid email address.").trim().toLowerCase(),
+  email: z.email("Please provide a valid email address.").trim(),
 
   password: z
     .string({
