@@ -14,7 +14,7 @@ import imageUpload from "../../../utils/imageUpload";
 const registerUserIntoDb = async (
   payload: TRegisterInput,
   file: Express.Multer.File | undefined,
-): Promise<Omit<UserModel, "password" | "isDeleted">> => {
+): Promise<Pick<UserModel, "id">> => {
   const data: UserCreateInput = { ...payload };
 
   if (file) {
@@ -32,7 +32,7 @@ const registerUserIntoDb = async (
 
   const user = await prisma.user.create({
     data,
-    omit: { password: true, isDeleted: true },
+    select: { id: true },
   });
 
   return user;

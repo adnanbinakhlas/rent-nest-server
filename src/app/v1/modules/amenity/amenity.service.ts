@@ -6,9 +6,10 @@ import { AppError } from "../../../helpers/AppError";
 
 const insertAmenityIntoDb = async (
   payload: TCreateAmenityInput,
-): Promise<AmenityModel> => {
+): Promise<Pick<AmenityModel, "id">> => {
   const amenity = await prisma.amenity.create({
     data: payload,
+    select: { id: true },
   });
 
   return amenity;

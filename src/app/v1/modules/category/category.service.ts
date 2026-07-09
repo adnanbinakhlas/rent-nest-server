@@ -10,9 +10,10 @@ import { TCreateCategoryInput, TUpdateCategoryInput } from "./category.types";
 
 const insertCategoryIntoDb = async (
   payload: TCreateCategoryInput,
-): Promise<CategoryModel> => {
+): Promise<Pick<CategoryModel, "id">> => {
   const category = await prisma.category.create({
     data: payload as CategoryCreateInput,
+    select: { id: true },
   });
 
   return category;

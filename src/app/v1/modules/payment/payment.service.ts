@@ -1,10 +1,16 @@
 import status from "http-status";
-import { PaymentModel } from "../../../../prisma/generated/prisma/models";
+import {
+  PaymentModel,
+  PaymentWhereInput,
+} from "../../../../prisma/generated/prisma/models";
 import env from "../../../configs/env";
 import { AppError } from "../../../helpers/AppError";
 import prisma from "../../../libs/prisma";
 import stripe from "../../../libs/stripe";
 import { PaymentStripeWebhook } from "./payment.stripe.webhook";
+import { queryBuilder } from "../../../utils/queryBuilder";
+import { IMeta } from "../../../utils/sendResponse";
+import { TQuery } from "../../../interfaces";
 
 const createPayment = async (
   rentalId: string,
@@ -116,7 +122,111 @@ const handleStripeEvents = async (
   }
 };
 
+const getAllPaymentsFromDb = async (
+  query: Record<string, string | undefined>,
+): Promise<{ payments: PaymentModel[]; meta: IMeta }> => {
+  const pagination = queryBuilder.pagination(query);
+  const sorting = queryBuilder.sorting(query);
+  const fields = queryBuilder.parseFields(query.fields);
+
+  const totalPayments = await prisma.property.count();
+  const totalPages = queryBuilder.countPages(totalPayments, pagination.limit);
+  if (pagination.page === totalPages) {
+    pagination.nextPage = null;
+  }
+
+  const payments = await prisma.payment.findMany({
+    select: fields,
+    take: pagination.limit,
+    skip: pagination.skip,
+    orderBy: sorting,
+  });
+
+  return {
+    payments,
+    meta: {
+      totalPages,
+      totalPayments,
+      limit: pagination.limit,
+      page: pagination.page,
+      nextPage: pagination.nextPage,
+      prevPage: pagination.prevPage,
+    },
+  };
+};
+
+const getAllPaymentsMeFromDb = async (
+  userId: string,
+  query: Record<string, string | undefined>,
+): Promise<{ payments: PaymentModel[]; meta: IMeta }> => {
+  const pagination = queryBuilder.pagination(query);
+  const sorting = queryBuilder.sorting(query);
+  const fields = queryBuilder.parseFields(query.fields);
+
+  const whereInput: PaymentWhereInput = {
+    OR: [{ tenantId: userId }, { landlordId: userId }],
+  };
+
+  const totalPayments = await prisma.payment.count({ where: whereInput });
+  const totalPages = queryBuilder.countPages(totalPayments, pagination.limit);
+  if (pagination.page === totalPages) {
+    pagination.nextPage = null;
+  }
+
+  const payments = await prisma.payment.findMany({
+    where: whereInput,
+    select: fields,
+    take: pagination.limit,
+    skip: pagination.skip,
+    orderBy: sorting,
+  });
+
+  return {
+    payments,
+    meta: {
+      totalPages,
+      totalPayments,
+      limit: pagination.limit,
+      page: pagination.page,
+      nextPage: pagination.nextPage,
+      prevPage: pagination.prevPage,
+    },
+  };
+};
+
+const getPaymentById = async (
+  query: TQuery,
+  userId: string,
+  isAdmin: boolean,
+  paymentId: string,
+): Promise<PaymentModel> => {
+  const fields = queryBuilder.parseFields(query.fields);
+  const payment = await prisma.payment.findUnique({
+    select: fields,
+    where: { id: paymentId },
+  });
+
+  if (!payment) {
+    throw new AppError("Requested payment record not found.", status.NOT_FOUND);
+  }
+
+  if (
+    !isAdmin &&
+    userId !== payment.landlordId &&
+    userId !== payment.tenantId
+  ) {
+    throw new AppError(
+      "Access forbidden. You are not authorized to view others payment",
+    );
+  }
+
+  return payment;
+};
+
 export const PaymentService = {
   createPayment,
   handleStripeEvents,
+  getAllPaymentsFromDb,
+  getAllPaymentsMeFromDb,
+  getPaymentById,
 };

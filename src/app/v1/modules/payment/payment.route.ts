@@ -16,4 +16,18 @@ router.post(
 
 router.post("/confirm", PaymentController.handleStripeWebhook);
 
+router.get("/", authGuard(UserRole.ADMIN), PaymentController.getAllPayments);
+
+router.get(
+  "/me",
+  authGuard(UserRole.LANDLORD, UserRole.TENANT),
+  PaymentController.getAllPaymentsMe,
+);
+
+router.get(
+  "/:id",
+  authGuard(UserRole.ADMIN, UserRole.LANDLORD, UserRole.TENANT),
+  PaymentController.getSinglePayment,
+);
+
 export const PaymentRoutes = router;

@@ -7,7 +7,7 @@ import { ReviewModel } from "../../../../prisma/generated/prisma/models";
 const insertReviewIntoDb = async (
   payload: TCreateReview,
   userId: string,
-): Promise<ReviewModel> => {
+): Promise<Pick<ReviewModel, "id">> => {
   const rental = await prisma.rentalRequest.findUnique({
     where: { id: payload.rentalRequestId },
     select: { id: true, tenantId: true, status: true, propertyId: true },
@@ -39,6 +39,7 @@ const insertReviewIntoDb = async (
       comment: payload.comment,
       rating: payload.rating,
     },
+    select: { id: true },
   });
 
   return review;

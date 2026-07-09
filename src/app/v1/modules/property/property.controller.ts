@@ -5,6 +5,7 @@ import { asyncHandler } from "../../../utils/asyncHandler";
 import { sendResponse } from "../../../utils/sendResponse";
 import { PropertyService } from "./property.service";
 import { TImageFiles } from "./property.types";
+import { TQuery } from "../../../interfaces";
 
 const createProperty = asyncHandler(
   async (req: Request, res: Response): Promise<void> => {
@@ -45,7 +46,7 @@ const updateProperty = asyncHandler(
 
 const getAllProperties = asyncHandler(
   async (req: Request, res: Response): Promise<void> => {
-    const query = req.query as Record<string, string | undefined>;
+    const query = req.query as TQuery;
     const { properties: data, meta } =
       await PropertyService.getAllPropertiesFromDb(query);
 
@@ -62,7 +63,7 @@ const getAllProperties = asyncHandler(
 const getPropertiesMe = asyncHandler(
   async (req: Request, res: Response): Promise<void> => {
     const userId = (req.user as UserModel).id;
-    const query = req.query as Record<string, string | undefined>;
+    const query = req.query as TQuery;
     const { properties: data, meta } =
       await PropertyService.getPropertiesMeFromDb(userId, query);
 
@@ -79,7 +80,7 @@ const getPropertiesMe = asyncHandler(
 const getSingleProperty = asyncHandler(
   async (req: Request, res: Response): Promise<void> => {
     const id = req.params.id as string;
-    const query = req.query as Record<string, string | undefined>;
+    const query = req.query as TQuery;
     const data = await PropertyService.getPropertyById(id, query);
 
     sendResponse(res, {

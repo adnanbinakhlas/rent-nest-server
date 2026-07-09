@@ -14,7 +14,7 @@ import {
 const insertRentalIntoDb = async (
   payload: TCreateRentalRequestInput,
   userId: string,
-): Promise<RentalRequestModel> => {
+): Promise<Pick<RentalRequestModel, "id">> => {
   const property = await prisma.property.findUnique({
     where: { id: payload.propertyId },
   });
@@ -30,6 +30,7 @@ const insertRentalIntoDb = async (
       landlordId: property.landlordId,
       monthlyRent: property.monthlyRent,
     },
+    select: { id: true },
   });
 
   return rental;

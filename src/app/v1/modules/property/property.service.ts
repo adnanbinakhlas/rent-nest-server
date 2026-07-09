@@ -15,6 +15,7 @@ import {
   TImageFiles,
   TUpdatePropertyInput,
 } from "./property.types";
+import { TQuery } from "../../../interfaces";
 
 const insertPropertyIntoDb = async (
   payload: TCreatePropertyInput,
@@ -92,7 +93,7 @@ const updatePropertyFromDb = async (
 };
 
 const getAllPropertiesFromDb = async (
-  query: Record<string, string | undefined>,
+  query: TQuery,
 ): Promise<{ properties: PropertyModel[]; meta: IMeta }> => {
   const pagination = queryBuilder.pagination(query);
   const sorting = queryBuilder.sorting(query);
@@ -134,7 +135,7 @@ const getAllPropertiesFromDb = async (
 
 const getPropertiesMeFromDb = async (
   userId: string,
-  query: Record<string, string | undefined>,
+  query: TQuery,
 ): Promise<{ properties: PropertyModel[]; meta: IMeta }> => {
   const pagination = queryBuilder.pagination(query);
   const sorting = queryBuilder.sorting(query);
@@ -178,7 +179,7 @@ const getPropertiesMeFromDb = async (
 
 const getPropertyById = async (
   id: string,
-  query: Record<string, string | undefined>,
+  query: TQuery,
 ): Promise<PropertyModel> => {
   const fields = queryBuilder.parseFields(query.fields);
   const property = await prisma.property.findUnique({
