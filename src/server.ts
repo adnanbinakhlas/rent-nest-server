@@ -4,6 +4,7 @@ import http from "http";
 import app from "./app";
 import env from "./app/configs/env";
 import prisma from "./app/libs/prisma";
+import { awake } from "./app/utils/awake";
 
 const PORT = Number(env.PORT) || 5000;
 
@@ -35,6 +36,7 @@ async function bootstrap() {
     server.listen(PORT, () => {
       console.log(`🚀 RentNest Server running on http://localhost:${PORT}`);
     });
+    awake();
   } catch (error) {
     console.error("❌ Failed to start server:", error);
 
