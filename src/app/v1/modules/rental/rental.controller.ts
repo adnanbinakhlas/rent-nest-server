@@ -4,6 +4,7 @@ import { UserModel } from "../../../../prisma/generated/prisma/models";
 import { RentalService } from "./rental.service";
 import { sendResponse } from "../../../utils/sendResponse";
 import status from "http-status";
+import { TQuery } from "../../../interfaces";
 
 const submitRentalRequest = asyncHandler(
   async (req: Request, res: Response): Promise<void> => {
@@ -55,13 +56,16 @@ const updateRentalRequestStatus = asyncHandler(
 
 const getAllRentalRequests = asyncHandler(
   async (req: Request, res: Response): Promise<void> => {
-    const data = await RentalService.getAllRentalsFromDb();
+    const query = req.query as TQuery;
+    const { rentals: data, meta } =
+      await RentalService.getAllRentalsFromDb(query);
 
     sendResponse(res, {
       statusCode: status.OK,
       success: true,
       message: "All rentals retrieved successfully.",
       data,
+      meta,
     });
   },
 );

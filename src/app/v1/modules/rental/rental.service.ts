@@ -10,6 +10,9 @@ import {
   TUpdateRentalRequestInput,
   TUpdateRentalStatusInput,
 } from "./rental.types";
+import { TQuery } from "../../../interfaces";
+import { queryBuilder } from "../../../utils/queryBuilder";
+import { IMeta } from "../../../utils/sendResponse";
 
 const insertRentalIntoDb = async (
   payload: TCreateRentalRequestInput,
@@ -95,9 +98,34 @@ const updateRentalStatusFromDb = async (
   return rental;
 };
 
-const getAllRentalsFromDb = async (): Promise<RentalRequestModel[]> => {
-  const rentals = await prisma.rentalRequest.findMany();
-  return rentals;
+const getAllRentalsFromDb = async (
+  query: TQuery,
+): Promise<{ rentals: RentalRequestModel[]; meta: IMeta }> => {
+  const pagination = queryBuilder.pagination(query);
+  const sorting = queryBuilder.sorting(query);
+  const totalRentals = await prisma.rentalRequest.count();
+  const totalPages = queryBuilder.countPages(totalRentals, pagination.limit);
+
+  if (pagination.page >= totalPages) {
+    pagination.nextPage = null;
+  }
+
+  const rentals = await prisma.rentalRequest.findMany({
+    take: pagination.limit,
+    skip: pagination.skip,
+    orderBy: sorting,
+  });
+  return {
+    rentals,
+    meta: {
+      totalPages,
+      totalRentals,
+      limit: pagination.limit,
+      page: pagination.page,
+      nextPage: pagination.nextPage,
+      prevPage: pagination.prevPage,
+    },
+  };
 };
 
 const getRentalById = async (id: string): Promise<RentalRequestModel> => {
