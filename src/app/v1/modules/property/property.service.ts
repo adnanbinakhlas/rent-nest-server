@@ -97,14 +97,22 @@ const getAllPropertiesFromDb = async (
   const pagination = queryBuilder.pagination(query);
   const sorting = queryBuilder.sorting(query);
   const fields = queryBuilder.parseFields(query.fields);
-  const totalProperties = await prisma.property.count();
-  const totalPages = queryBuilder.countPages(totalProperties, pagination.limit);
+  const searchOrConditions = queryBuilder.searching<PropertyModel>(query.q, [
+    "title",
+    "description",
+  ]);
 
+  const andConditions: PropertyWhereInput[] = [{ OR: searchOrConditions }];
+
+  const whereInput: PropertyWhereInput = { AND: andConditions };
+  const totalProperties = await prisma.property.count({ where: whereInput });
+  const totalPages = queryBuilder.countPages(totalProperties, pagination.limit);
   if (pagination.page === totalPages) {
     pagination.nextPage = null;
   }
 
   const properties = await prisma.property.findMany({
+    where: whereInput,
     select: fields,
     take: pagination.limit,
     skip: pagination.skip,
@@ -128,13 +136,21 @@ const getPropertiesMeFromDb = async (
   userId: string,
   query: Record<string, string | undefined>,
 ): Promise<{ properties: PropertyModel[]; meta: IMeta }> => {
-  const whereInput: PropertyWhereInput = { landlordId: userId };
   const pagination = queryBuilder.pagination(query);
   const sorting = queryBuilder.sorting(query);
   const fields = queryBuilder.parseFields(query.fields);
+  const searchOrConditions = queryBuilder.searching<PropertyModel>(query.q, [
+    "title",
+    "description",
+  ]);
+
+  const andConditions: PropertyWhereInput[] = [{ OR: searchOrConditions }];
+
+  andConditions.push({ landlordId: userId });
+
+  const whereInput: PropertyWhereInput = { AND: andConditions };
   const totalProperties = await prisma.property.count({ where: whereInput });
   const totalPages = queryBuilder.countPages(totalProperties, pagination.limit);
-
   if (pagination.page === totalPages) {
     pagination.nextPage = null;
   }

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 export type TPagination = {
   page: number;
   limit: number;
@@ -27,6 +26,23 @@ const sorting = (query: Record<string, string | undefined>): TSorting => {
   const sortOrder = query.sortOrder || "desc";
 
   return { [sortBy]: sortOrder };
+};
+
+type SearchableField<T> = Extract<keyof T, string>;
+const searching = <T extends Record<string, unknown>>(
+  value: string | undefined,
+  fields: SearchableField<T>[],
+) => {
+  if (!value?.trim()) return [];
+
+  const conditions = fields.map((field) => ({
+    [field]: {
+      contains: value,
+      mode: "insensitive" as const,
+    },
+  }));
+
+  return conditions;
 };
 
 // field parser start
@@ -98,4 +114,10 @@ function deepMerge(target: PrismaSelect, source: PrismaSelect): PrismaSelect {
 }
 // field parser end
 
-export const queryBuilder = { pagination, countPages, sorting, parseFields };
+export const queryBuilder = {
+  pagination,
+  countPages,
+  sorting,
+  parseFields,
+  searching,
+};
