@@ -108,7 +108,7 @@ const getAllPropertiesFromDb = async (
   const whereInput: PropertyWhereInput = { AND: andConditions };
   const totalProperties = await prisma.property.count({ where: whereInput });
   const totalPages = queryBuilder.countPages(totalProperties, pagination.limit);
-  if (pagination.page === totalPages) {
+  if (pagination.page >= totalPages) {
     pagination.nextPage = null;
   }
 
@@ -152,7 +152,7 @@ const getPropertiesMeFromDb = async (
   const whereInput: PropertyWhereInput = { AND: andConditions };
   const totalProperties = await prisma.property.count({ where: whereInput });
   const totalPages = queryBuilder.countPages(totalProperties, pagination.limit);
-  if (pagination.page === totalPages) {
+  if (pagination.page >= totalPages) {
     pagination.nextPage = null;
   }
 

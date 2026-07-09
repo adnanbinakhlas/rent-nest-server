@@ -131,7 +131,7 @@ const getAllPaymentsFromDb = async (
 
   const totalPayments = await prisma.property.count();
   const totalPages = queryBuilder.countPages(totalPayments, pagination.limit);
-  if (pagination.page === totalPages) {
+  if (pagination.page >= totalPages) {
     pagination.nextPage = null;
   }
 
@@ -169,7 +169,7 @@ const getAllPaymentsMeFromDb = async (
 
   const totalPayments = await prisma.payment.count({ where: whereInput });
   const totalPages = queryBuilder.countPages(totalPayments, pagination.limit);
-  if (pagination.page === totalPages) {
+  if (pagination.page >= totalPages) {
     pagination.nextPage = null;
   }
 
