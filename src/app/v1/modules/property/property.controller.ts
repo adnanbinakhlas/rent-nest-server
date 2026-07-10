@@ -1,11 +1,11 @@
 import { Request, Response } from "express";
 import status from "http-status";
 import { UserModel } from "../../../../prisma/generated/prisma/models";
+import { TQuery } from "../../../interfaces";
 import { asyncHandler } from "../../../utils/asyncHandler";
 import { sendResponse } from "../../../utils/sendResponse";
 import { PropertyService } from "./property.service";
 import { TImageFiles } from "./property.types";
-import { TQuery } from "../../../interfaces";
 
 const createProperty = asyncHandler(
   async (req: Request, res: Response): Promise<void> => {
