@@ -5,6 +5,7 @@ import status from "http-status";
 import { UserService } from "./user.service";
 import { UserModel } from "../../../../prisma/generated/prisma/models";
 import { TQuery } from "../../../interfaces";
+import genCacheKey from "../../../utils/genCacheKey";
 
 const register = asyncHandler(
   async (req: Request, res: Response): Promise<void> => {
@@ -38,7 +39,11 @@ const profileMe = asyncHandler(
 const getAllUsers = asyncHandler(
   async (req: Request, res: Response): Promise<void> => {
     const query = req.query as TQuery;
-    const { users: data, meta } = await UserService.getAllUserFromDb(query);
+    const cacheKey = genCacheKey(req, "users");
+    const { users: data, meta } = await UserService.getAllUserFromDb(
+      query,
+      cacheKey,
+    );
 
     const message =
       data.length === 0

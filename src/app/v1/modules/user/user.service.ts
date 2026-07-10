@@ -14,6 +14,7 @@ import imageUpload from "../../../utils/imageUpload";
 import { TQuery } from "../../../interfaces";
 import { queryBuilder } from "../../../utils/queryBuilder";
 import { IMeta } from "../../../utils/sendResponse";
+import { redisUtils } from "../../../utils/redis";
 
 const registerUserIntoDb = async (
   payload: TRegisterInput,
@@ -44,6 +45,7 @@ const registerUserIntoDb = async (
 
 const getAllUserFromDb = async (
   query: TQuery,
+  cacheKey: string,
 ): Promise<{ users: Omit<UserModel, "password">[]; meta: IMeta }> => {
   const pagination = queryBuilder.pagination(query);
   const sorting = queryBuilder.sorting(query);
@@ -62,12 +64,21 @@ const getAllUserFromDb = async (
     pagination.nextPage = null;
   }
 
-  const users = await prisma.user.findMany({
-    take: pagination.limit,
-    skip: pagination.skip,
-    orderBy: sorting,
-    omit: { password: true },
-  });
+  const cacheData = await redisUtils.redisGet<UserModel[]>(cacheKey);
+  let users: Omit<UserModel, "password">[];
+
+  if (cacheData) {
+    users = cacheData;
+  } else {
+    users = await prisma.user.findMany({
+      take: pagination.limit,
+      skip: pagination.skip,
+      orderBy: sorting,
+      omit: { password: true },
+    });
+
+    await redisUtils.redisSet(cacheKey, users, 60 * 5);
+  }
 
   return {
     users,
