@@ -33,7 +33,9 @@ export const genCacheKey = (req: Request, meta: string): string => {
 
   const hashKey = crypto.createHash("md5").update(rawKey).digest("hex");
 
-  return `${prefix}:${hashKey}`;
+  const finalKey = `${prefix}:${hashKey}`;
+
+  return finalKey;
 };
 
 export default genCacheKey;

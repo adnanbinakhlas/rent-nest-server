@@ -21,7 +21,18 @@ const redisGet = async <T>(key: string): Promise<T | null> => {
   return JSON.parse(data);
 };
 
+const redisGetKeys = async (value: string): Promise<string[]> => {
+  const keys = await client.keys(value);
+  return keys;
+};
+
+const redisDelete = async (values: string[]): Promise<void> => {
+  await client.del(values);
+};
+
 export const redisUtils = {
   redisSet,
   redisGet,
+  redisGetKeys,
+  redisDelete,
 };

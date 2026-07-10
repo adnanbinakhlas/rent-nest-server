@@ -73,22 +73,25 @@ const insertPropertyIntoDb = async (
     select: { id: true },
   });
 
+  const keys = await redisUtils.redisGetKeys("properties*");
+  await redisUtils.redisDelete(keys);
+
   return property;
 };
 
 const updatePropertyFromDb = async (
   payload: TUpdatePropertyInput,
   id: string,
-): Promise<PropertyModel> => {
+): Promise<Pick<PropertyModel, "id">> => {
   const property = await prisma.property.update({
     where: { id },
     data: payload as PropertyUpdateInput,
 
-    include: {
-      images: { select: { imageUrl: true, isPrimary: true } },
-      propertyAmenity: { select: { amenity: { select: { name: true } } } },
-    },
+    select: { id: true },
   });
+
+  const keys = await redisUtils.redisGetKeys("properties*");
+  await redisUtils.redisDelete(keys);
 
   return property;
 };
