@@ -1,10 +1,12 @@
+import crypto from "node:crypto";
 import { Request } from "express";
-import crypto from "crypto";
 
-const genCacheKey = (req: Request, meta: string): string => {
+export const genCacheKey = (req: Request, meta: string): string => {
   const baseUrl = req.baseUrl || "";
   const queryString = req.originalUrl?.split("?")[1];
-  const str = meta.replace(/\//g, ":");
+  const resourceId = req.params?.id;
+
+  const prefix = meta.replace(/\//g, ":");
 
   let sortedParams = "";
 
@@ -14,9 +16,11 @@ const genCacheKey = (req: Request, meta: string): string => {
       .map((param) => {
         const [key, value] = param.split("=");
 
-        if (key === "fields" && value) {
-          const sortedFields = value.split(",").sort().join(",");
-          return `${key}=${sortedFields}`;
+        if (
+          ["fields", "sort", "include", "populate"].includes(key as string) &&
+          value
+        ) {
+          return `${key}=${value.split(",").sort().join(",")}`;
         }
 
         return param;
@@ -25,13 +29,11 @@ const genCacheKey = (req: Request, meta: string): string => {
       .join("&");
   }
 
-  const rawKey = `${baseUrl}:${sortedParams}`;
+  const rawKey = [baseUrl, resourceId, sortedParams].filter(Boolean).join(":");
 
   const hashKey = crypto.createHash("md5").update(rawKey).digest("hex");
 
-  const finalKey = `${str}:${hashKey}`;
-
-  return finalKey;
+  return `${prefix}:${hashKey}`;
 };
 
 export default genCacheKey;

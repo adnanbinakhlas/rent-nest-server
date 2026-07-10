@@ -84,7 +84,8 @@ const getSingleProperty = asyncHandler(
   async (req: Request, res: Response): Promise<void> => {
     const id = req.params.id as string;
     const query = req.query as TQuery;
-    const data = await PropertyService.getPropertyById(id, query);
+    const cacheKey = genCacheKey(req, "properties/id");
+    const data = await PropertyService.getPropertyById(id, query, cacheKey);
 
     sendResponse(res, {
       statusCode: status.OK,

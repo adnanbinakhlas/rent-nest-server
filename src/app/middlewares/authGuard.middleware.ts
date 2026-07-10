@@ -8,7 +8,7 @@ import prisma from "../libs/prisma";
 import { asyncHandler } from "../utils/asyncHandler";
 import { jwtUtils } from "../utils/jose";
 import { UserModel } from "../../prisma/generated/prisma/models";
-import redis from "../libs/redis";
+import client from "../libs/redis";
 
 const authGuard = (...roles: UserRole[]) =>
   asyncHandler(
@@ -29,7 +29,7 @@ const authGuard = (...roles: UserRole[]) =>
 
       const cacheKey = `user:${decode.id}`;
 
-      const cached = await redis.get(cacheKey);
+      const cached = await client.get(cacheKey);
       let user: UserModel | null;
 
       if (cached) {
@@ -38,7 +38,7 @@ const authGuard = (...roles: UserRole[]) =>
         user = await prisma.user.findUnique({
           where: { id: decode.id as string },
         });
-        await redis.set(cacheKey, JSON.stringify(user), {
+        await client.set(cacheKey, JSON.stringify(user), {
           EX: 60 * 60,
           NX: true,
         });

@@ -6,17 +6,17 @@ import {
   PropertyWhereInput,
 } from "../../../../prisma/generated/prisma/models";
 import { AppError } from "../../../helpers/AppError";
+import { TQuery } from "../../../interfaces";
 import prisma from "../../../libs/prisma";
 import imageUpload from "../../../utils/imageUpload";
 import { queryBuilder } from "../../../utils/queryBuilder";
+import { redisUtils } from "../../../utils/redis";
 import { IMeta } from "../../../utils/sendResponse";
 import {
   TCreatePropertyInput,
   TImageFiles,
   TUpdatePropertyInput,
 } from "./property.types";
-import { TQuery } from "../../../interfaces";
-import redis from "../../../libs/redis";
 
 const insertPropertyIntoDb = async (
   payload: TCreatePropertyInput,
@@ -114,11 +114,11 @@ const getAllPropertiesFromDb = async (
     pagination.nextPage = null;
   }
 
-  const cacheData = await redis.get(cacheKey);
+  const cacheData = await redisUtils.redisGet<PropertyModel[]>(cacheKey);
   let properties: PropertyModel[];
 
   if (cacheData) {
-    properties = JSON.parse(cacheData);
+    properties = cacheData;
   } else {
     properties = await prisma.property.findMany({
       where: whereInput,
@@ -127,10 +127,8 @@ const getAllPropertiesFromDb = async (
       skip: pagination.skip,
       orderBy: sorting,
     });
-    await redis.set(cacheKey, JSON.stringify(properties), {
-      EX: 60 * 10,
-      NX: true,
-    });
+
+    await redisUtils.redisSet(cacheKey, properties, 60 * 10);
   }
 
   return {
@@ -170,11 +168,11 @@ const getPropertiesMeFromDb = async (
     pagination.nextPage = null;
   }
 
-  const cacheData = await redis.get(cacheKey);
+  const cacheData = await redisUtils.redisGet<PropertyModel[]>(cacheKey);
   let properties: PropertyModel[];
 
   if (cacheData) {
-    properties = JSON.parse(cacheData);
+    properties = cacheData;
   } else {
     properties = await prisma.property.findMany({
       where: whereInput,
@@ -183,10 +181,8 @@ const getPropertiesMeFromDb = async (
       skip: pagination.skip,
       orderBy: sorting,
     });
-    await redis.set(cacheKey, JSON.stringify(properties), {
-      EX: 60 * 10,
-      NX: true,
-    });
+
+    await redisUtils.redisSet(cacheKey, properties, 60 * 10);
   }
 
   return {
@@ -205,15 +201,29 @@ const getPropertiesMeFromDb = async (
 const getPropertyById = async (
   id: string,
   query: TQuery,
+  cacheKey: string,
 ): Promise<PropertyModel> => {
   const fields = queryBuilder.parseFields(query.fields);
-  const property = await prisma.property.findUnique({
-    where: { id },
-    ...(fields ? { select: fields } : {}),
-  });
+  let property: PropertyModel | null;
 
-  if (!property) {
-    throw new AppError("Request property not found.", status.NOT_FOUND);
+  const cacheData = await redisUtils.redisGet<PropertyModel>(cacheKey);
+
+  if (cacheData) {
+    property = cacheData;
+  } else {
+    property = await prisma.property.findUnique({
+      where: { id },
+      ...(fields ? { select: fields } : {}),
+    });
+
+    if (!property) {
+      throw new AppError(
+        "Request property record not found.",
+        status.NOT_FOUND,
+      );
+    }
+
+    await redisUtils.redisSet(cacheKey, property, 60 * 30);
   }
 
   return property;
