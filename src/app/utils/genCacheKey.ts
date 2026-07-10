@@ -1,9 +1,10 @@
 import { Request } from "express";
 import crypto from "crypto";
 
-const genCacheKey = (req: Request): string => {
+const genCacheKey = (req: Request, meta: string): string => {
   const baseUrl = req.baseUrl || "";
   const queryString = req.originalUrl?.split("?")[1];
+  const str = meta.replace(/\//g, ":");
 
   let sortedParams = "";
 
@@ -26,7 +27,9 @@ const genCacheKey = (req: Request): string => {
 
   const rawKey = `${baseUrl}:${sortedParams}`;
 
-  const finalKey = crypto.createHash("md5").update(rawKey).digest("hex");
+  const hashKey = crypto.createHash("md5").update(rawKey).digest("hex");
+
+  const finalKey = `${str}:${hashKey}`;
 
   return finalKey;
 };

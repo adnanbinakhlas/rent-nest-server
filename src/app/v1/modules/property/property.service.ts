@@ -16,6 +16,7 @@ import {
   TUpdatePropertyInput,
 } from "./property.types";
 import { TQuery } from "../../../interfaces";
+import redis from "../../../libs/redis";
 
 const insertPropertyIntoDb = async (
   payload: TCreatePropertyInput,
@@ -94,6 +95,7 @@ const updatePropertyFromDb = async (
 
 const getAllPropertiesFromDb = async (
   query: TQuery,
+  cacheKey: string,
 ): Promise<{ properties: PropertyModel[]; meta: IMeta }> => {
   const pagination = queryBuilder.pagination(query);
   const sorting = queryBuilder.sorting(query);
@@ -112,13 +114,24 @@ const getAllPropertiesFromDb = async (
     pagination.nextPage = null;
   }
 
-  const properties = await prisma.property.findMany({
-    where: whereInput,
-    select: fields,
-    take: pagination.limit,
-    skip: pagination.skip,
-    orderBy: sorting,
-  });
+  const cacheData = await redis.get(cacheKey);
+  let properties: PropertyModel[];
+
+  if (cacheData) {
+    properties = JSON.parse(cacheData);
+  } else {
+    properties = await prisma.property.findMany({
+      where: whereInput,
+      select: fields,
+      take: pagination.limit,
+      skip: pagination.skip,
+      orderBy: sorting,
+    });
+    await redis.set(cacheKey, JSON.stringify(properties), {
+      EX: 60 * 10,
+      NX: true,
+    });
+  }
 
   return {
     properties,
@@ -136,6 +149,7 @@ const getAllPropertiesFromDb = async (
 const getPropertiesMeFromDb = async (
   userId: string,
   query: TQuery,
+  cacheKey: string,
 ): Promise<{ properties: PropertyModel[]; meta: IMeta }> => {
   const pagination = queryBuilder.pagination(query);
   const sorting = queryBuilder.sorting(query);
@@ -156,13 +170,24 @@ const getPropertiesMeFromDb = async (
     pagination.nextPage = null;
   }
 
-  const properties = await prisma.property.findMany({
-    where: whereInput,
-    select: fields,
-    take: pagination.limit,
-    skip: pagination.skip,
-    orderBy: sorting,
-  });
+  const cacheData = await redis.get(cacheKey);
+  let properties: PropertyModel[];
+
+  if (cacheData) {
+    properties = JSON.parse(cacheData);
+  } else {
+    properties = await prisma.property.findMany({
+      where: whereInput,
+      select: fields,
+      take: pagination.limit,
+      skip: pagination.skip,
+      orderBy: sorting,
+    });
+    await redis.set(cacheKey, JSON.stringify(properties), {
+      EX: 60 * 10,
+      NX: true,
+    });
+  }
 
   return {
     properties,

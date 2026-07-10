@@ -6,6 +6,7 @@ import { asyncHandler } from "../../../utils/asyncHandler";
 import { sendResponse } from "../../../utils/sendResponse";
 import { PropertyService } from "./property.service";
 import { TImageFiles } from "./property.types";
+import genCacheKey from "../../../utils/genCacheKey";
 
 const createProperty = asyncHandler(
   async (req: Request, res: Response): Promise<void> => {
@@ -47,8 +48,9 @@ const updateProperty = asyncHandler(
 const getAllProperties = asyncHandler(
   async (req: Request, res: Response): Promise<void> => {
     const query = req.query as TQuery;
+    const cacheKey = genCacheKey(req, "properties");
     const { properties: data, meta } =
-      await PropertyService.getAllPropertiesFromDb(query);
+      await PropertyService.getAllPropertiesFromDb(query, cacheKey);
 
     sendResponse(res, {
       statusCode: status.OK,
@@ -64,8 +66,9 @@ const getPropertiesMe = asyncHandler(
   async (req: Request, res: Response): Promise<void> => {
     const userId = (req.user as UserModel).id;
     const query = req.query as TQuery;
+    const cacheKey = genCacheKey(req, "properties/me");
     const { properties: data, meta } =
-      await PropertyService.getPropertiesMeFromDb(userId, query);
+      await PropertyService.getPropertiesMeFromDb(userId, query, cacheKey);
 
     sendResponse(res, {
       statusCode: status.OK,
