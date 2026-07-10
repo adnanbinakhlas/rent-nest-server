@@ -9,6 +9,7 @@ const env = {
   CLIENT_URL: process.env.CLIENT_URL as string,
   SERVER_URL: process.env.SERVER_URL as string,
   DATABASE_URL: process.env.DATABASE_URL as string,
+  REDIS_URL: process.env.REDIS_URL as string,
   BCRYPT_SALT: process.env.BCRYPT_SALT as string,
   JWT_ACCESS_SECRET: process.env.JWT_ACCESS_SECRET as string,
   JWT_REFRESH_SECRET: process.env.JWT_REFRESH_SECRET as string,

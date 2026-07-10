@@ -8,6 +8,7 @@ import prisma from "../libs/prisma";
 import { asyncHandler } from "../utils/asyncHandler";
 import { jwtUtils } from "../utils/jose";
 import { UserModel } from "../../prisma/generated/prisma/models";
+import redis from "../libs/redis";
 
 const authGuard = (...roles: UserRole[]) =>
   asyncHandler(
@@ -26,9 +27,22 @@ const authGuard = (...roles: UserRole[]) =>
 
       const decode = await jwtUtils.verifyToken(token, env.JWT_ACCESS_SECRET);
 
-      const user = await prisma.user.findUnique({
-        where: { id: decode.id as string },
-      });
+      const cacheKey = `user:${decode.id}`;
+
+      const cached = await redis.get(cacheKey);
+      let user: UserModel | null;
+
+      if (cached) {
+        user = JSON.parse(cached);
+      } else {
+        user = await prisma.user.findUnique({
+          where: { id: decode.id as string },
+        });
+        await redis.set(cacheKey, JSON.stringify(user), {
+          EX: 60 * 60,
+          NX: true,
+        });
+      }
 
       if (!user || user.isDeleted) {
         throw new AppError("User not found.", status.NOT_FOUND);
