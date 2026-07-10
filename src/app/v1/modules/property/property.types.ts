@@ -20,10 +20,6 @@ export type TCreatePropertyInput = {
   availableFrom: Date;
   available: boolean;
   amenities: string[];
-  images: {
-    imageUrl: string;
-    isPrimary: boolean;
-  }[];
 };
 
 export type TUpdatePropertyInput = {
@@ -46,10 +42,6 @@ export type TUpdatePropertyInput = {
   availableFrom?: Date;
   available?: boolean;
   amenities?: string[];
-  images?: {
-    imageUrl: string;
-    isPrimary: boolean;
-  }[];
 };
 
 export type TImageFiles = {

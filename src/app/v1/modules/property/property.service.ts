@@ -83,10 +83,20 @@ const updatePropertyFromDb = async (
   payload: TUpdatePropertyInput,
   id: string,
 ): Promise<Pick<PropertyModel, "id">> => {
+  const { amenities, ...rest } = payload;
+
+  const data: PropertyUpdateInput = { ...rest };
+
+  if (amenities?.length) {
+    data["propertyAmenity"] = {
+      deleteMany: {},
+      create: amenities.map((amenityId) => ({ amenityId })),
+    };
+  }
+
   const property = await prisma.property.update({
     where: { id },
-    data: payload as PropertyUpdateInput,
-
+    data,
     select: { id: true },
   });
 

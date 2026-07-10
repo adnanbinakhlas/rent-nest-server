@@ -196,6 +196,8 @@ const updatePropertyValidationSchema = z.object({
       error: "Availability status is required.",
     })
     .optional(),
+
+  amenities: amenitiesSchema.optional(),
 });
 
 export const PropertyValidation = {

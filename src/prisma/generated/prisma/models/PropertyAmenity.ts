@@ -27,22 +27,16 @@ export type AggregatePropertyAmenity = {
 export type PropertyAmenityMinAggregateOutputType = {
   propertyId: string | null
   amenityId: string | null
-  createdAt: Date | null
-  updatedAt: Date | null
 }
 
 export type PropertyAmenityMaxAggregateOutputType = {
   propertyId: string | null
   amenityId: string | null
-  createdAt: Date | null
-  updatedAt: Date | null
 }
 
 export type PropertyAmenityCountAggregateOutputType = {
   propertyId: number
   amenityId: number
-  createdAt: number
-  updatedAt: number
   _all: number
 }
 
@@ -50,22 +44,16 @@ export type PropertyAmenityCountAggregateOutputType = {
 export type PropertyAmenityMinAggregateInputType = {
   propertyId?: true
   amenityId?: true
-  createdAt?: true
-  updatedAt?: true
 }
 
 export type PropertyAmenityMaxAggregateInputType = {
   propertyId?: true
   amenityId?: true
-  createdAt?: true
-  updatedAt?: true
 }
 
 export type PropertyAmenityCountAggregateInputType = {
   propertyId?: true
   amenityId?: true
-  createdAt?: true
-  updatedAt?: true
   _all?: true
 }
 
@@ -144,8 +132,6 @@ export type PropertyAmenityGroupByArgs<ExtArgs extends runtime.Types.Extensions.
 export type PropertyAmenityGroupByOutputType = {
   propertyId: string
   amenityId: string
-  createdAt: Date
-  updatedAt: Date
   _count: PropertyAmenityCountAggregateOutputType | null
   _min: PropertyAmenityMinAggregateOutputType | null
   _max: PropertyAmenityMaxAggregateOutputType | null
@@ -172,8 +158,6 @@ export type PropertyAmenityWhereInput = {
   NOT?: Prisma.PropertyAmenityWhereInput | Prisma.PropertyAmenityWhereInput[]
   propertyId?: Prisma.StringFilter<"PropertyAmenity"> | string
   amenityId?: Prisma.StringFilter<"PropertyAmenity"> | string
-  createdAt?: Prisma.DateTimeFilter<"PropertyAmenity"> | Date | string
-  updatedAt?: Prisma.DateTimeFilter<"PropertyAmenity"> | Date | string
   amenity?: Prisma.XOR<Prisma.AmenityScalarRelationFilter, Prisma.AmenityWhereInput>
   property?: Prisma.XOR<Prisma.PropertyScalarRelationFilter, Prisma.PropertyWhereInput>
 }
@@ -181,8 +165,6 @@ export type PropertyAmenityWhereInput = {
 export type PropertyAmenityOrderByWithRelationInput = {
   propertyId?: Prisma.SortOrder
   amenityId?: Prisma.SortOrder
-  createdAt?: Prisma.SortOrder
-  updatedAt?: Prisma.SortOrder
   amenity?: Prisma.AmenityOrderByWithRelationInput
   property?: Prisma.PropertyOrderByWithRelationInput
 }
@@ -194,8 +176,6 @@ export type PropertyAmenityWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.PropertyAmenityWhereInput | Prisma.PropertyAmenityWhereInput[]
   propertyId?: Prisma.StringFilter<"PropertyAmenity"> | string
   amenityId?: Prisma.StringFilter<"PropertyAmenity"> | string
-  createdAt?: Prisma.DateTimeFilter<"PropertyAmenity"> | Date | string
-  updatedAt?: Prisma.DateTimeFilter<"PropertyAmenity"> | Date | string
   amenity?: Prisma.XOR<Prisma.AmenityScalarRelationFilter, Prisma.AmenityWhereInput>
   property?: Prisma.XOR<Prisma.PropertyScalarRelationFilter, Prisma.PropertyWhereInput>
 }, "propertyId_amenityId">
@@ -203,8 +183,6 @@ export type PropertyAmenityWhereUniqueInput = Prisma.AtLeast<{
 export type PropertyAmenityOrderByWithAggregationInput = {
   propertyId?: Prisma.SortOrder
   amenityId?: Prisma.SortOrder
-  createdAt?: Prisma.SortOrder
-  updatedAt?: Prisma.SortOrder
   _count?: Prisma.PropertyAmenityCountOrderByAggregateInput
   _max?: Prisma.PropertyAmenityMaxOrderByAggregateInput
   _min?: Prisma.PropertyAmenityMinOrderByAggregateInput
@@ -216,13 +194,9 @@ export type PropertyAmenityScalarWhereWithAggregatesInput = {
   NOT?: Prisma.PropertyAmenityScalarWhereWithAggregatesInput | Prisma.PropertyAmenityScalarWhereWithAggregatesInput[]
   propertyId?: Prisma.StringWithAggregatesFilter<"PropertyAmenity"> | string
   amenityId?: Prisma.StringWithAggregatesFilter<"PropertyAmenity"> | string
-  createdAt?: Prisma.DateTimeWithAggregatesFilter<"PropertyAmenity"> | Date | string
-  updatedAt?: Prisma.DateTimeWithAggregatesFilter<"PropertyAmenity"> | Date | string
 }
 
 export type PropertyAmenityCreateInput = {
-  createdAt?: Date | string
-  updatedAt?: Date | string
   amenity: Prisma.AmenityCreateNestedOneWithoutPropertyAmenityInput
   property: Prisma.PropertyCreateNestedOneWithoutPropertyAmenityInput
 }
@@ -230,13 +204,9 @@ export type PropertyAmenityCreateInput = {
 export type PropertyAmenityUncheckedCreateInput = {
   propertyId: string
   amenityId: string
-  createdAt?: Date | string
-  updatedAt?: Date | string
 }
 
 export type PropertyAmenityUpdateInput = {
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   amenity?: Prisma.AmenityUpdateOneRequiredWithoutPropertyAmenityNestedInput
   property?: Prisma.PropertyUpdateOneRequiredWithoutPropertyAmenityNestedInput
 }
@@ -244,27 +214,20 @@ export type PropertyAmenityUpdateInput = {
 export type PropertyAmenityUncheckedUpdateInput = {
   propertyId?: Prisma.StringFieldUpdateOperationsInput | string
   amenityId?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type PropertyAmenityCreateManyInput = {
   propertyId: string
   amenityId: string
-  createdAt?: Date | string
-  updatedAt?: Date | string
 }
 
 export type PropertyAmenityUpdateManyMutationInput = {
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+
 }
 
 export type PropertyAmenityUncheckedUpdateManyInput = {
   propertyId?: Prisma.StringFieldUpdateOperationsInput | string
   amenityId?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type PropertyAmenityListRelationFilter = {
@@ -285,22 +248,16 @@ export type PropertyAmenityPropertyIdAmenityIdCompoundUniqueInput = {
 export type PropertyAmenityCountOrderByAggregateInput = {
   propertyId?: Prisma.SortOrder
   amenityId?: Prisma.SortOrder
-  createdAt?: Prisma.SortOrder
-  updatedAt?: Prisma.SortOrder
 }
 
 export type PropertyAmenityMaxOrderByAggregateInput = {
   propertyId?: Prisma.SortOrder
   amenityId?: Prisma.SortOrder
-  createdAt?: Prisma.SortOrder
-  updatedAt?: Prisma.SortOrder
 }
 
 export type PropertyAmenityMinOrderByAggregateInput = {
   propertyId?: Prisma.SortOrder
   amenityId?: Prisma.SortOrder
-  createdAt?: Prisma.SortOrder
-  updatedAt?: Prisma.SortOrder
 }
 
 export type PropertyAmenityCreateNestedManyWithoutAmenityInput = {
@@ -388,15 +345,11 @@ export type PropertyAmenityUncheckedUpdateManyWithoutPropertyNestedInput = {
 }
 
 export type PropertyAmenityCreateWithoutAmenityInput = {
-  createdAt?: Date | string
-  updatedAt?: Date | string
   property: Prisma.PropertyCreateNestedOneWithoutPropertyAmenityInput
 }
 
 export type PropertyAmenityUncheckedCreateWithoutAmenityInput = {
   propertyId: string
-  createdAt?: Date | string
-  updatedAt?: Date | string
 }
 
 export type PropertyAmenityCreateOrConnectWithoutAmenityInput = {
@@ -431,20 +384,14 @@ export type PropertyAmenityScalarWhereInput = {
   NOT?: Prisma.PropertyAmenityScalarWhereInput | Prisma.PropertyAmenityScalarWhereInput[]
   propertyId?: Prisma.StringFilter<"PropertyAmenity"> | string
   amenityId?: Prisma.StringFilter<"PropertyAmenity"> | string
-  createdAt?: Prisma.DateTimeFilter<"PropertyAmenity"> | Date | string
-  updatedAt?: Prisma.DateTimeFilter<"PropertyAmenity"> | Date | string
 }
 
 export type PropertyAmenityCreateWithoutPropertyInput = {
-  createdAt?: Date | string
-  updatedAt?: Date | string
   amenity: Prisma.AmenityCreateNestedOneWithoutPropertyAmenityInput
 }
 
 export type PropertyAmenityUncheckedCreateWithoutPropertyInput = {
   amenityId: string
-  createdAt?: Date | string
-  updatedAt?: Date | string
 }
 
 export type PropertyAmenityCreateOrConnectWithoutPropertyInput = {
@@ -475,50 +422,34 @@ export type PropertyAmenityUpdateManyWithWhereWithoutPropertyInput = {
 
 export type PropertyAmenityCreateManyAmenityInput = {
   propertyId: string
-  createdAt?: Date | string
-  updatedAt?: Date | string
 }
 
 export type PropertyAmenityUpdateWithoutAmenityInput = {
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   property?: Prisma.PropertyUpdateOneRequiredWithoutPropertyAmenityNestedInput
 }
 
 export type PropertyAmenityUncheckedUpdateWithoutAmenityInput = {
   propertyId?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type PropertyAmenityUncheckedUpdateManyWithoutAmenityInput = {
   propertyId?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type PropertyAmenityCreateManyPropertyInput = {
   amenityId: string
-  createdAt?: Date | string
-  updatedAt?: Date | string
 }
 
 export type PropertyAmenityUpdateWithoutPropertyInput = {
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   amenity?: Prisma.AmenityUpdateOneRequiredWithoutPropertyAmenityNestedInput
 }
 
 export type PropertyAmenityUncheckedUpdateWithoutPropertyInput = {
   amenityId?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type PropertyAmenityUncheckedUpdateManyWithoutPropertyInput = {
   amenityId?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 
@@ -526,8 +457,6 @@ export type PropertyAmenityUncheckedUpdateManyWithoutPropertyInput = {
 export type PropertyAmenitySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   propertyId?: boolean
   amenityId?: boolean
-  createdAt?: boolean
-  updatedAt?: boolean
   amenity?: boolean | Prisma.AmenityDefaultArgs<ExtArgs>
   property?: boolean | Prisma.PropertyDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["propertyAmenity"]>
@@ -535,8 +464,6 @@ export type PropertyAmenitySelect<ExtArgs extends runtime.Types.Extensions.Inter
 export type PropertyAmenitySelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   propertyId?: boolean
   amenityId?: boolean
-  createdAt?: boolean
-  updatedAt?: boolean
   amenity?: boolean | Prisma.AmenityDefaultArgs<ExtArgs>
   property?: boolean | Prisma.PropertyDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["propertyAmenity"]>
@@ -544,8 +471,6 @@ export type PropertyAmenitySelectCreateManyAndReturn<ExtArgs extends runtime.Typ
 export type PropertyAmenitySelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   propertyId?: boolean
   amenityId?: boolean
-  createdAt?: boolean
-  updatedAt?: boolean
   amenity?: boolean | Prisma.AmenityDefaultArgs<ExtArgs>
   property?: boolean | Prisma.PropertyDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["propertyAmenity"]>
@@ -553,11 +478,9 @@ export type PropertyAmenitySelectUpdateManyAndReturn<ExtArgs extends runtime.Typ
 export type PropertyAmenitySelectScalar = {
   propertyId?: boolean
   amenityId?: boolean
-  createdAt?: boolean
-  updatedAt?: boolean
 }
 
-export type PropertyAmenityOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"propertyId" | "amenityId" | "createdAt" | "updatedAt", ExtArgs["result"]["propertyAmenity"]>
+export type PropertyAmenityOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"propertyId" | "amenityId", ExtArgs["result"]["propertyAmenity"]>
 export type PropertyAmenityInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   amenity?: boolean | Prisma.AmenityDefaultArgs<ExtArgs>
   property?: boolean | Prisma.PropertyDefaultArgs<ExtArgs>
@@ -580,8 +503,6 @@ export type $PropertyAmenityPayload<ExtArgs extends runtime.Types.Extensions.Int
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     propertyId: string
     amenityId: string
-    createdAt: Date
-    updatedAt: Date
   }, ExtArgs["result"]["propertyAmenity"]>
   composites: {}
 }
@@ -1009,8 +930,6 @@ export interface Prisma__PropertyAmenityClient<T, Null = never, ExtArgs extends 
 export interface PropertyAmenityFieldRefs {
   readonly propertyId: Prisma.FieldRef<"PropertyAmenity", 'String'>
   readonly amenityId: Prisma.FieldRef<"PropertyAmenity", 'String'>
-  readonly createdAt: Prisma.FieldRef<"PropertyAmenity", 'DateTime'>
-  readonly updatedAt: Prisma.FieldRef<"PropertyAmenity", 'DateTime'>
 }
     
 
