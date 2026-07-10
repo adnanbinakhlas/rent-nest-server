@@ -30,13 +30,18 @@ const updateAmenity = asyncHandler(async (req: Request, res: Response) => {
   });
 });
 
-const getAllAmenities = asyncHandler(async (_req: Request, res: Response) => {
+const getAllAmenities = asyncHandler(async (req: Request, res: Response) => {
   const data = await AmenityService.getAllAmenitiesFromDb();
+
+  const message =
+    data.length === 0
+      ? "No amenities found."
+      : "Amenities retrieved successfully.";
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: "All amenities retrieved successfully.",
+    message,
     data,
   });
 });

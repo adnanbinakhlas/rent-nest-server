@@ -39,10 +39,15 @@ const getAllCategories = asyncHandler(
   async (req: Request, res: Response): Promise<void> => {
     const data = await CategoryService.getAllCategoriesFromDb();
 
+    const message =
+      data.length === 0
+        ? "No categories found."
+        : "Categories retrieved successfully.";
+
     sendResponse(res, {
       statusCode: status.OK,
       success: true,
-      message: "All categories retrieved successfully.",
+      message,
       data,
     });
   },

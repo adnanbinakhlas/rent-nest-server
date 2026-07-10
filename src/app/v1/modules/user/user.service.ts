@@ -2,6 +2,7 @@ import status from "http-status";
 import {
   UserCreateInput,
   UserModel,
+  UserWhereInput,
 } from "../../../../prisma/generated/prisma/models";
 import env from "../../../configs/env";
 import { AppError } from "../../../helpers/AppError";
@@ -10,6 +11,9 @@ import { TRegisterInput } from "./user.types";
 import bcrypt from "bcrypt";
 import { UserStatus } from "../../../../prisma/generated/prisma/enums";
 import imageUpload from "../../../utils/imageUpload";
+import { TQuery } from "../../../interfaces";
+import { queryBuilder } from "../../../utils/queryBuilder";
+import { IMeta } from "../../../utils/sendResponse";
 
 const registerUserIntoDb = async (
   payload: TRegisterInput,
@@ -38,12 +42,44 @@ const registerUserIntoDb = async (
   return user;
 };
 
-const getAllUserFromDb = async (): Promise<Omit<UserModel, "password">[]> => {
+const getAllUserFromDb = async (
+  query: TQuery,
+): Promise<{ users: Omit<UserModel, "password">[]; meta: IMeta }> => {
+  const pagination = queryBuilder.pagination(query);
+  const sorting = queryBuilder.sorting(query);
+  const searchOrConditions = queryBuilder.searching<UserModel>(query.q, [
+    "fullname",
+    "email",
+  ]);
+
+  const andConditions: UserWhereInput[] = [{ OR: searchOrConditions }];
+
+  const whereInput: UserWhereInput = { AND: andConditions };
+  const totalUsers = await prisma.user.count({ where: whereInput });
+  const totalPages = queryBuilder.countPages(totalUsers, pagination.limit);
+
+  if (pagination.page >= totalPages) {
+    pagination.nextPage = null;
+  }
+
   const users = await prisma.user.findMany({
+    take: pagination.limit,
+    skip: pagination.skip,
+    orderBy: sorting,
     omit: { password: true },
   });
 
-  return users;
+  return {
+    users,
+    meta: {
+      totalPages,
+      totalUsers,
+      limit: pagination.limit,
+      page: pagination.page,
+      nextPage: pagination.nextPage,
+      prevPage: pagination.prevPage,
+    },
+  };
 };
 
 const getUserById = async (

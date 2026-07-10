@@ -4,6 +4,7 @@ import { sendResponse } from "../../../utils/sendResponse";
 import status from "http-status";
 import { UserService } from "./user.service";
 import { UserModel } from "../../../../prisma/generated/prisma/models";
+import { TQuery } from "../../../interfaces";
 
 const register = asyncHandler(
   async (req: Request, res: Response): Promise<void> => {
@@ -36,7 +37,8 @@ const profileMe = asyncHandler(
 
 const getAllUsers = asyncHandler(
   async (req: Request, res: Response): Promise<void> => {
-    const data = await UserService.getAllUserFromDb();
+    const query = req.query as TQuery;
+    const { users: data, meta } = await UserService.getAllUserFromDb(query);
 
     const message =
       data.length === 0
@@ -48,6 +50,7 @@ const getAllUsers = asyncHandler(
       success: true,
       message,
       data,
+      meta,
     });
   },
 );
