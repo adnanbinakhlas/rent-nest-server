@@ -60,10 +60,15 @@ const getAllRentalRequests = asyncHandler(
     const { rentals: data, meta } =
       await RentalService.getAllRentalsFromDb(query);
 
+    const message =
+      data.length === 0
+        ? "No rentals found."
+        : "Rentals retrieved successfully.";
+
     sendResponse(res, {
       statusCode: status.OK,
       success: true,
-      message: "All rentals retrieved successfully.",
+      message,
       data,
       meta,
     });

@@ -41,10 +41,15 @@ const getAllPayments = asyncHandler(
     const { payments: data, meta } =
       await PaymentService.getAllPaymentsFromDb(query);
 
+    const message =
+      data.length === 0
+        ? "No payments found."
+        : "All payments retrieved successfully.";
+
     sendResponse(res, {
       statusCode: status.OK,
       success: true,
-      message: "All payments retrieved successfully.",
+      message,
       data,
       meta,
     });
@@ -58,10 +63,15 @@ const getAllPaymentsMe = asyncHandler(
     const { payments: data, meta } =
       await PaymentService.getAllPaymentsMeFromDb(userId, query);
 
+    const message =
+      data.length === 0
+        ? "No payments found."
+        : "My payments retrieved successfully.";
+
     sendResponse(res, {
       statusCode: status.OK,
       success: true,
-      message: "All payments retrieved successfully.",
+      message,
       data,
       meta,
     });

@@ -38,10 +38,15 @@ const getAllUsers = asyncHandler(
   async (req: Request, res: Response): Promise<void> => {
     const data = await UserService.getAllUserFromDb();
 
+    const message =
+      data.length === 0
+        ? "No users found."
+        : "All Users retrieved successfully.";
+
     sendResponse(res, {
       statusCode: status.OK,
       success: true,
-      message: "All users retrieved successfully.",
+      message,
       data,
     });
   },

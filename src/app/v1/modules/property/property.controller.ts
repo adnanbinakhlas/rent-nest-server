@@ -52,10 +52,15 @@ const getAllProperties = asyncHandler(
     const { properties: data, meta } =
       await PropertyService.getAllPropertiesFromDb(query, cacheKey);
 
+    const message =
+      data.length === 0
+        ? "No properties found."
+        : "All properties retrieved successfully.";
+
     sendResponse(res, {
       statusCode: status.OK,
       success: true,
-      message: "All properties retrieved successfully.",
+      message,
       data,
       meta,
     });
@@ -70,10 +75,15 @@ const getPropertiesMe = asyncHandler(
     const { properties: data, meta } =
       await PropertyService.getPropertiesMeFromDb(userId, query, cacheKey);
 
+    const message =
+      data.length === 0
+        ? "No properties found."
+        : "My properties retrieved successfully.";
+
     sendResponse(res, {
       statusCode: status.OK,
       success: true,
-      message: "Your properties were retrieved successfully.",
+      message,
       data,
       meta,
     });
