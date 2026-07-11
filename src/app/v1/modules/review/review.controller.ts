@@ -28,10 +28,15 @@ const getAllReviews = asyncHandler(
     const { reviews: data, meta } =
       await ReviewService.getAllReviewsFromDb(query);
 
+    const message =
+      data.length === 0
+        ? "No reviews found."
+        : "Reviews retrieved successfully.";
+
     sendResponse(res, {
       statusCode: status.OK,
       success: true,
-      message: "All reviews retrieved successfully.",
+      message,
       data,
       meta,
     });

@@ -112,11 +112,11 @@ const getUserById = async (
 const updateUserStatus = async (
   userId: string,
   payload: UserStatus,
-): Promise<Omit<UserModel, "password">> => {
+): Promise<Pick<UserModel, "email" | "status">> => {
   const user = await prisma.user.update({
     where: { id: userId },
     data: payload,
-    omit: { password: true },
+    select: { email: true, status: true },
   });
 
   return user;

@@ -4,6 +4,7 @@ import { ZodError } from "zod";
 import { AppError } from "../helpers/AppError";
 import { Prisma } from "../../prisma/generated/prisma/client";
 import { handlePrismaClientKnownRequestError } from "../helpers/handlePrismaClientKnownRequestError";
+import env from "../configs/env";
 
 const globalErrorHandler = async (
   err: unknown,
@@ -56,7 +57,7 @@ const globalErrorHandler = async (
     stack = err.stack;
   }
 
-  if (process.env.NODE_ENV === "development") {
+  if (env.NODE_ENV === "development") {
     stack =
       err instanceof Error
         ? err.stack?.split("\n").map((line) => line.trim())
@@ -67,7 +68,7 @@ const globalErrorHandler = async (
     success,
     message,
     error,
-    ...(stack && { stack }),
+    ...(stack && env.NODE_ENV === "development" && { stack }),
   });
 };
 
