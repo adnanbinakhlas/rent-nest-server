@@ -1,4 +1,6 @@
+import bcrypt from "bcrypt";
 import status from "http-status";
+import { UserStatus } from "../../../../prisma/generated/prisma/enums";
 import {
   UserCreateInput,
   UserModel,
@@ -6,15 +8,12 @@ import {
 } from "../../../../prisma/generated/prisma/models";
 import env from "../../../configs/env";
 import { AppError } from "../../../helpers/AppError";
-import prisma from "../../../libs/prisma";
-import { TRegisterInput } from "./user.types";
-import bcrypt from "bcrypt";
-import { UserStatus } from "../../../../prisma/generated/prisma/enums";
-import imageUpload from "../../../utils/imageUpload";
 import { TQuery } from "../../../interfaces";
+import prisma from "../../../libs/prisma";
+import imageUpload from "../../../utils/imageUpload";
 import { queryBuilder } from "../../../utils/queryBuilder";
-import { IMeta } from "../../../utils/sendResponse";
 import { redisUtils } from "../../../utils/redis";
+import { TRegisterInput, TUsersReturnType } from "./user.types";
 
 const registerUserIntoDb = async (
   payload: TRegisterInput,
@@ -46,7 +45,7 @@ const registerUserIntoDb = async (
 const getAllUserFromDb = async (
   query: TQuery,
   cacheKey: string,
-): Promise<{ users: Omit<UserModel, "password">[]; meta: IMeta }> => {
+): Promise<TUsersReturnType> => {
   const pagination = queryBuilder.pagination(query);
   const sorting = queryBuilder.sorting(query);
   const searchOrConditions = queryBuilder.searching<UserModel>(query.q, [
@@ -64,33 +63,33 @@ const getAllUserFromDb = async (
     pagination.nextPage = null;
   }
 
-  const cacheData = await redisUtils.redisGet<UserModel[]>(cacheKey);
-  let users: Omit<UserModel, "password">[];
+  const meta = {
+    totalPages,
+    totalUsers,
+    limit: pagination.limit,
+    page: pagination.page,
+    nextPage: pagination.nextPage,
+    prevPage: pagination.prevPage,
+  };
+
+  const cacheData = await redisUtils.redisGet<TUsersReturnType>(cacheKey);
+  let data: TUsersReturnType;
 
   if (cacheData) {
-    users = cacheData;
-  } else {
-    users = await prisma.user.findMany({
-      take: pagination.limit,
-      skip: pagination.skip,
-      orderBy: sorting,
-      omit: { password: true },
-    });
-
-    await redisUtils.redisSet(cacheKey, users, 60 * 5);
+    data = cacheData;
+    return data;
   }
+  const users = await prisma.user.findMany({
+    take: pagination.limit,
+    skip: pagination.skip,
+    orderBy: sorting,
+    omit: { password: true },
+  });
 
-  return {
-    users,
-    meta: {
-      totalPages,
-      totalUsers,
-      limit: pagination.limit,
-      page: pagination.page,
-      nextPage: pagination.nextPage,
-      prevPage: pagination.prevPage,
-    },
-  };
+  data = { users, meta };
+  await redisUtils.redisSet(cacheKey, data, 60 * 5);
+
+  return data;
 };
 
 const getUserById = async (

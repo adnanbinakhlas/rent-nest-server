@@ -4,15 +4,15 @@ import {
   RentalRequestUpdateInput,
 } from "../../../../prisma/generated/prisma/models";
 import { AppError } from "../../../helpers/AppError";
+import { TQuery } from "../../../interfaces";
 import prisma from "../../../libs/prisma";
+import { queryBuilder } from "../../../utils/queryBuilder";
 import {
   TCreateRentalRequestInput,
+  TRentalReturnType,
   TUpdateRentalRequestInput,
   TUpdateRentalStatusInput,
 } from "./rental.types";
-import { TQuery } from "../../../interfaces";
-import { queryBuilder } from "../../../utils/queryBuilder";
-import { IMeta } from "../../../utils/sendResponse";
 
 const insertRentalIntoDb = async (
   payload: TCreateRentalRequestInput,
@@ -100,7 +100,7 @@ const updateRentalStatusFromDb = async (
 
 const getAllRentalsFromDb = async (
   query: TQuery,
-): Promise<{ rentals: RentalRequestModel[]; meta: IMeta }> => {
+): Promise<TRentalReturnType> => {
   const pagination = queryBuilder.pagination(query);
   const sorting = queryBuilder.sorting(query);
   const totalRentals = await prisma.rentalRequest.count();
@@ -111,6 +111,15 @@ const getAllRentalsFromDb = async (
     pagination.nextPage = null;
   }
 
+  const meta = {
+    totalPages,
+    totalRentals,
+    limit: pagination.limit,
+    page: pagination.page,
+    nextPage: pagination.nextPage,
+    prevPage: pagination.prevPage,
+  };
+
   const rentals = await prisma.rentalRequest.findMany({
     select: fields,
     take: pagination.limit,
@@ -120,14 +129,7 @@ const getAllRentalsFromDb = async (
 
   return {
     rentals,
-    meta: {
-      totalPages,
-      totalRentals,
-      limit: pagination.limit,
-      page: pagination.page,
-      nextPage: pagination.nextPage,
-      prevPage: pagination.prevPage,
-    },
+    meta,
   };
 };
 

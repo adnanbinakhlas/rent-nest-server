@@ -128,7 +128,7 @@ const getAllPropertiesFromDb = async (
   ]);
 
   const defaultSelects: PropertyDefaultArgs = {
-    include: { landlord: true, category: true },
+    include: { landlord: true, category: true, reviews: true },
   };
 
   const andConditions: PropertyWhereInput[] = [{ OR: searchOrConditions }];
@@ -189,7 +189,7 @@ const getPropertiesMeFromDb = async (
   ]);
 
   const defaultSelects: PropertyDefaultArgs = {
-    include: { landlord: true, category: true },
+    include: { landlord: true, category: true, reviews: true },
   };
 
   const andConditions: PropertyWhereInput[] = [{ OR: searchOrConditions }];
