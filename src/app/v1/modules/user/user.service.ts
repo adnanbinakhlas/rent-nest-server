@@ -39,6 +39,9 @@ const registerUserIntoDb = async (
     select: { id: true },
   });
 
+  const keys = await redisUtils.redisGetKeys("users*");
+  await redisUtils.redisDelete(keys);
+
   return user;
 };
 
