@@ -6,7 +6,7 @@ import env from "./app/configs/env";
 import prisma from "./app/libs/prisma";
 import { awake } from "./app/utils/awake";
 
-const PORT = Number(env.PORT) || 5000;
+const PORT = env.PORT;
 
 const server = http.createServer(app);
 
