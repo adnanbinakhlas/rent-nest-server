@@ -27,7 +27,8 @@ const redisGetKeys = async (value: string): Promise<string[]> => {
 };
 
 const redisDelete = async (values: string[]): Promise<void> => {
-  await client.del(values);
+  if (!values.length) return;
+  await client.del([...values]);
 };
 
 export const redisUtils = {

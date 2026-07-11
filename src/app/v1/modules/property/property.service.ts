@@ -28,6 +28,13 @@ const insertPropertyIntoDb = async (
   const thumbnailFile = files.thumbnail?.[0];
   const imageFiles = files.images || [];
 
+  if (!thumbnailFile) {
+    throw new AppError(
+      "Thumbnail image is required to create property",
+      status.BAD_REQUEST,
+    );
+  }
+
   const imageCreates: {
     imageUrl: string;
     isPrimary: boolean;

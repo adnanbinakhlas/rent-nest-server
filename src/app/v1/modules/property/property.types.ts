@@ -45,6 +45,6 @@ export type TUpdatePropertyInput = {
 };
 
 export type TImageFiles = {
-  thumbnail?: Express.Multer.File[];
+  thumbnail: Express.Multer.File[];
   images?: Express.Multer.File[];
 };
