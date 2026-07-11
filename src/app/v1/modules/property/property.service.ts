@@ -198,34 +198,39 @@ const getPropertiesMeFromDb = async (
     pagination.nextPage = null;
   }
 
-  const cacheData = await redisUtils.redisGet<PropertyModel[]>(cacheKey);
-  let properties: PropertyModel[];
+  const meta = {
+    totalPages,
+    totalProperties,
+    limit: pagination.limit,
+    page: pagination.page,
+    nextPage: pagination.nextPage,
+    prevPage: pagination.prevPage,
+  };
+
+  const cacheData = await redisUtils.redisGet<TPropertyReturnType>(cacheKey);
+  let data: TPropertyReturnType;
 
   if (cacheData) {
-    properties = cacheData;
-  } else {
-    properties = await prisma.property.findMany({
-      where: whereInput,
-      select: fields,
-      take: pagination.limit,
-      skip: pagination.skip,
-      orderBy: sorting,
-    });
-
-    await redisUtils.redisSet(cacheKey, properties, 60 * 10);
+    data = cacheData;
+    return data;
   }
 
-  return {
+  const properties = await prisma.property.findMany({
+    where: { landlordId: userId },
+    select: fields,
+    take: pagination.limit,
+    skip: pagination.skip,
+    orderBy: sorting,
+  });
+
+  data = {
     properties,
-    meta: {
-      totalPages,
-      totalProperties,
-      limit: pagination.limit,
-      page: pagination.page,
-      nextPage: pagination.nextPage,
-      prevPage: pagination.prevPage,
-    },
+    meta,
   };
+
+  await redisUtils.redisSet(cacheKey, data, 60 * 10);
+
+  return data;
 };
 
 const getPropertyById = async (
