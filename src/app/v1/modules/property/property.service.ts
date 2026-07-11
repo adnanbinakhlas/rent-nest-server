@@ -154,22 +154,23 @@ const getAllPropertiesFromDb = async (
 
   if (cacheData) {
     data = cacheData;
-  } else {
-    const properties = await prisma.property.findMany({
-      where: whereInput,
-      ...(fields ? { select: fields } : defaultSelects),
-      take: pagination.limit,
-      skip: pagination.skip,
-      orderBy: sorting,
-    });
-
-    data = {
-      properties,
-      meta,
-    };
-
-    await redisUtils.redisSet(cacheKey, { properties, meta }, 60 * 10);
+    return data;
   }
+
+  const properties = await prisma.property.findMany({
+    where: whereInput,
+    ...(fields ? { select: fields } : defaultSelects),
+    take: pagination.limit,
+    skip: pagination.skip,
+    orderBy: sorting,
+  });
+
+  data = {
+    properties,
+    meta,
+  };
+
+  await redisUtils.redisSet(cacheKey, data, 60 * 10);
 
   return data;
 };
