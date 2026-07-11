@@ -1,6 +1,7 @@
 import { UploadApiResponse } from "cloudinary";
 import status from "http-status";
 import {
+  PropertyDefaultArgs,
   PropertyModel,
   PropertyUpdateInput,
   PropertyWhereInput,
@@ -15,6 +16,7 @@ import { IMeta } from "../../../utils/sendResponse";
 import {
   TCreatePropertyInput,
   TImageFiles,
+  TPropertyReturnType,
   TUpdatePropertyInput,
 } from "./property.types";
 
@@ -116,7 +118,7 @@ const updatePropertyFromDb = async (
 const getAllPropertiesFromDb = async (
   query: TQuery,
   cacheKey: string,
-): Promise<{ properties: PropertyModel[]; meta: IMeta }> => {
+): Promise<TPropertyReturnType> => {
   const pagination = queryBuilder.pagination(query);
   const sorting = queryBuilder.sorting(query);
   const fields = queryBuilder.parseFields(query.fields);
@@ -124,6 +126,10 @@ const getAllPropertiesFromDb = async (
     "title",
     "description",
   ]);
+
+  const defaultSelects: PropertyDefaultArgs = {
+    include: { landlord: true, category: true },
+  };
 
   const andConditions: PropertyWhereInput[] = [{ OR: searchOrConditions }];
 
@@ -134,34 +140,38 @@ const getAllPropertiesFromDb = async (
     pagination.nextPage = null;
   }
 
-  const cacheData = await redisUtils.redisGet<PropertyModel[]>(cacheKey);
-  let properties: PropertyModel[];
+  const meta = {
+    totalPages,
+    totalProperties,
+    limit: pagination.limit,
+    page: pagination.page,
+    nextPage: pagination.nextPage,
+    prevPage: pagination.prevPage,
+  };
+
+  const cacheData = await redisUtils.redisGet<TPropertyReturnType>(cacheKey);
+  let data: TPropertyReturnType;
 
   if (cacheData) {
-    properties = cacheData;
+    data = cacheData;
   } else {
-    properties = await prisma.property.findMany({
+    const properties = await prisma.property.findMany({
       where: whereInput,
-      select: fields,
+      ...(fields ? { select: fields } : defaultSelects),
       take: pagination.limit,
       skip: pagination.skip,
       orderBy: sorting,
     });
 
-    await redisUtils.redisSet(cacheKey, properties, 60 * 10);
+    data = {
+      properties,
+      meta,
+    };
+
+    await redisUtils.redisSet(cacheKey, { properties, meta }, 60 * 10);
   }
 
-  return {
-    properties,
-    meta: {
-      totalPages,
-      totalProperties,
-      limit: pagination.limit,
-      page: pagination.page,
-      nextPage: pagination.nextPage,
-      prevPage: pagination.prevPage,
-    },
-  };
+  return data;
 };
 
 const getPropertiesMeFromDb = async (

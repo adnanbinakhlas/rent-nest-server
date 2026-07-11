@@ -1,4 +1,6 @@
 import { Unit } from "../../../../prisma/generated/prisma/client";
+import { PropertyModel } from "../../../../prisma/generated/prisma/models";
+import { IMeta } from "../../../utils/sendResponse";
 
 export type TCreatePropertyInput = {
   categoryId: string;
@@ -43,6 +45,8 @@ export type TUpdatePropertyInput = {
   available?: boolean;
   amenities?: string[];
 };
+
+export type TPropertyReturnType = { properties: PropertyModel[]; meta: IMeta };
 
 export type TImageFiles = {
   thumbnail: Express.Multer.File[];
