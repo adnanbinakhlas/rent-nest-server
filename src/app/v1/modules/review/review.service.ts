@@ -30,7 +30,7 @@ const insertReviewIntoDb = async (
   if (rental.status !== "COMPLETED") {
     throw new AppError(
       "Reviews can only be submitted for completed rentals.",
-      status.FORBIDDEN,
+      status.BAD_REQUEST,
     );
   }
 

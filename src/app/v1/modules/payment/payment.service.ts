@@ -210,13 +210,10 @@ const getPaymentById = async (
     throw new AppError("Requested payment record not found.", status.NOT_FOUND);
   }
 
-  if (
-    !isAdmin &&
-    userId !== payment.landlordId &&
-    userId !== payment.tenantId
-  ) {
+  if (isAdmin && userId !== payment.landlordId && userId !== payment.tenantId) {
     throw new AppError(
       "Access forbidden. You are not authorized to view others payment",
+      status.FORBIDDEN,
     );
   }
 

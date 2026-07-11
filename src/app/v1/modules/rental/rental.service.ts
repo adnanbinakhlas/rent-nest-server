@@ -87,7 +87,7 @@ const updateRentalStatusFromDb = async (
     data.rejectionReason = payload.rejectionReason || null;
   } else {
     data.approvedAt = new Date().toISOString();
-    data.status = "APPROVED";
+    data.status = payload.status;
   }
 
   const rental = await prisma.rentalRequest.update({

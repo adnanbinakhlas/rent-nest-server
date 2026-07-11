@@ -11,7 +11,7 @@ const createRentalRequestValidationSchema = z.object({
       message: "Move-in date must be in the future.",
     }),
 
-  rentalDuration: z
+  rentalDuration: z.coerce
     .number({
       error: "Rental duration is required.",
     })
@@ -35,7 +35,7 @@ const updateRentalRequestValidationSchema = z
       })
       .optional(),
 
-    rentalDuration: z.number().int().min(1).max(60).optional(),
+    rentalDuration: z.coerce.number().int().min(1).max(60).optional(),
 
     message: z.string().trim().max(500).optional(),
   })
@@ -45,7 +45,7 @@ const updateRentalRequestValidationSchema = z
 
 const updateRentalStatusValidationSchema = z
   .object({
-    status: z.enum(["APPROVED", "REJECTED"], {
+    status: z.enum(["APPROVED", "REJECTED", "COMPLETED"], {
       error: "Status is required.",
     }),
 
