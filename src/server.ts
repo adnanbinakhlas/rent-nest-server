@@ -22,9 +22,6 @@ const gracefulShutdown = async (signal: string) => {
     await prisma.$disconnect();
     console.log("✅ Prisma disconnected.");
 
-    await connectRedis();
-    console.log("✅ Redis disconnected.");
-
     process.exit(0);
   } catch (error) {
     console.error("❌ Error during shutdown:", error);
@@ -36,6 +33,9 @@ async function bootstrap() {
   try {
     await prisma.$connect();
     console.log("✅ Connected to PostgreSQL via Prisma.");
+
+    await connectRedis();
+    console.log("✅ Redis connected.");
 
     server.listen(PORT, () => {
       console.log(`🚀 RentNest Server running on http://localhost:${PORT}`);
