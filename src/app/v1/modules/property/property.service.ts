@@ -188,6 +188,10 @@ const getPropertiesMeFromDb = async (
     "description",
   ]);
 
+  const defaultSelects: PropertyDefaultArgs = {
+    include: { landlord: true, category: true },
+  };
+
   const andConditions: PropertyWhereInput[] = [{ OR: searchOrConditions }];
 
   andConditions.push({ landlordId: userId });
@@ -217,8 +221,8 @@ const getPropertiesMeFromDb = async (
   }
 
   const properties = await prisma.property.findMany({
-    where: { landlordId: userId },
-    select: fields,
+    where: whereInput,
+    ...(fields ? { select: fields } : defaultSelects),
     take: pagination.limit,
     skip: pagination.skip,
     orderBy: sorting,
