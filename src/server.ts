@@ -5,6 +5,7 @@ import app from "./app";
 import env from "./app/configs/env";
 import prisma from "./app/libs/prisma";
 import { awake } from "./app/utils/awake";
+import { connectRedis } from "./app/libs/redis";
 
 const PORT = env.PORT;
 
@@ -20,6 +21,9 @@ const gracefulShutdown = async (signal: string) => {
 
     await prisma.$disconnect();
     console.log("✅ Prisma disconnected.");
+
+    await connectRedis();
+    console.log("✅ Redis disconnected.");
 
     process.exit(0);
   } catch (error) {
