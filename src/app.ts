@@ -27,6 +27,18 @@ app.get("/", (_req: Request, res: Response) => {
   res.status(200).json({
     success: true,
     message: "RentNest API is running.",
+    data: {
+      app: {
+        name: "RentNest API",
+        version: process.env.npm_package_version,
+        environment: process.env.NODE_ENV,
+      },
+      health: {
+        status: "healthy",
+        uptime: process.uptime(),
+        timestamp: new Date().toISOString(),
+      },
+    },
   });
 });
 

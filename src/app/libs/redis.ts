@@ -6,8 +6,6 @@ const client = createClient({
   url: env.REDIS_URL,
 });
 
-console.log(env.REDIS_URL);
-
 client.on("error", (err) => {
   console.error("Redis Client Error:", err);
 });
