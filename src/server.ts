@@ -38,7 +38,7 @@ async function bootstrap() {
     console.log("✅ Redis connected.");
 
     server.listen(PORT, () => {
-      console.log(`🚀 RentNest Server running on http://localhost:${PORT}`);
+      console.log(`🚀 RentNest Server listening to port: ${PORT}`);
     });
     awake();
   } catch (error) {
