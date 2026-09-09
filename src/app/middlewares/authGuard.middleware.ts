@@ -13,10 +13,7 @@ import client from "../libs/redis";
 const authGuard = (...roles: UserRole[]) =>
   asyncHandler(
     async (req: Request, _res: Response, next: NextFunction): Promise<void> => {
-      const token = (
-        req.cookies[tokenConstant.accessToken] ||
-        req.headers[tokenConstant.accessToken]
-      )?.split(" ")[1];
+      const token = req.headers[tokenConstant.accessToken]?.split(" ")[1];
 
       if (!token) {
         throw new AppError(
