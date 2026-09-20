@@ -247,7 +247,18 @@ const getPropertyById = async (
   let property: PropertyModel | null;
   const fillFiter = { select: fields };
   const normal = {
-    include: { landlord: true, category: true },
+    include: {
+      landlord: {
+        omit: {
+          status: true,
+          isDeleted: true,
+          createdAt: true,
+          updatedAt: true,
+        },
+      },
+      category: { omit: { createdAt: true, updatedAt: true } },
+      images: { omit: { createdAt: true, updatedAt: true, propertyId: true } },
+    },
     omit: { categoryId: true, landlordId: true },
   };
 
