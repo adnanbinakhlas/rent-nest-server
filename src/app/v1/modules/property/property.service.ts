@@ -245,6 +245,11 @@ const getPropertyById = async (
 ): Promise<PropertyModel> => {
   const fields = queryBuilder.parseFields(query.fields);
   let property: PropertyModel | null;
+  const fillFiter = { select: fields };
+  const normal = {
+    include: { landlord: true, category: true },
+    omit: { categoryId: true, landlordId: true },
+  };
 
   const cacheData = await redisUtils.redisGet<PropertyModel>(cacheKey);
 
@@ -253,7 +258,8 @@ const getPropertyById = async (
   } else {
     property = await prisma.property.findUnique({
       where: { id },
-      ...(fields ? { select: fields } : {}),
+      ...(fields ? fillFiter : {}),
+      ...(!fields ? normal : {}),
     });
 
     if (!property) {
